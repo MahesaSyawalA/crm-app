@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => view('home'));
+Route::get('/', fn () => view('home'))->name('home');
 Route::prefix('admin')->group(function () {
         Route::get('gedung', fn () => view('admins.places.buildings.index'))->name('buildings');
         Route::get('lantai', fn () => view('admins.places.floors.index'))->name('floors');
@@ -43,6 +43,17 @@ Route::prefix('teknik')->group(function () {
     Route::get('daya', fn () => view('technicians.powers.index'))->name('powers');
     Route::get('standmeter', fn () => view('technicians.standmeters.index'))->name('standmeters');
 });
+
+Route::prefix('keuangan')->group(function () {
+    Route::get('rekening', fn () => view('finances.accounts.index'))->name('accounts');
+    Route::get('invoice', fn () => view('finances.invoices.index'))->name('invoices-fn');
+});
+
+Route::prefix('tenant')->group(function () {
+    Route::get('invoice', fn () => view('tenants.invoices.index'))->name('invoices-tn');
+    Route::get('kwitansi', fn () => view('tenants.receipts.index'))->name('receipts');
+});
+
 
 
 Route::get('/login', fn () => view('auth.login'));

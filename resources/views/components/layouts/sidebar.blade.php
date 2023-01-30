@@ -17,7 +17,7 @@
                                 <li><a href="{{ route('buildings') }}" key="t-buildings">Gedung</a></li>
                                 <li><a href="{{ route('floors') }}" key="t-floors">Lantai</a></li>
                                 <li><a href="{{ route('rooms') }}" key="t-rooms">Ruang</a></li>
-                                <li><a href="{{ route('rpositions') }}" key="t-tpositions">Posisi Ruang</a></li>
+                                <li><a href="{{ route('rpositions') }}" key="t-rpositions">Posisi Ruang</a></li>
                             </ul>
                         </li>
 
@@ -119,32 +119,32 @@
                         <li class="menu-title" key="t-menu">Keuangan</li>
 
                         <li>
-                            <a href="" class="waves-effect">
+                            <a href="{{ route('accounts') }}" class="waves-effect">
                                 <i class='bx bx-credit-card-alt'></i>
-                                <span key="t-account">Kelola Rekening</span>
+                                <span key="t-accounts">Kelola Rekening</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="" class="waves-effect">
+                            <a href="{{ route('invoices-fn') }}" class="waves-effect">
                                 <i class="bx bx-receipt"></i>
-                                <span key="t-invoice-fn">Data Invoice</span>
+                                <span key="t-invoices-fn">Data Invoice</span>
                             </a>
                         </li>
 
                         <li class="menu-title" key="t-menu">Tenant</li>
 
                         <li>
-                            <a href="" class="waves-effect">
+                            <a href="{{ route('invoices-tn') }}" class="waves-effect">
                                 <i class='bx bx-receipt'></i>
-                                <span key="t-invoice-tn">Data Invoice</span>
+                                <span key="t-invoices-tn">Data Invoice</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="" class="waves-effect">
+                            <a href="{{ route('receipts') }}" class="waves-effect">
                                 <i class="bx bx-receipt"></i>
-                                <span key="t-kwitansi">Kwitansi</span>
+                                <span key="t-receipts">Kwitansi</span>
                             </a>
                         </li>
 

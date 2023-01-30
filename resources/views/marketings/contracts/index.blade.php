@@ -150,10 +150,9 @@
                     <div class="row mb-2">
                         <div class="col-sm-8">
                             <div class="d-flex align-items-center flex-wrap">
-                                <div class="search-box me-2 d-inline-block mb-2">
+                                <div class="me-2 d-inline-block mb-2">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search...">
-                                        <i class="bx bx-search-alt search-icon"></i>
                                     </div>
                                 </div>
                                 <div class="dropdown me-2 mb-2">
@@ -191,8 +190,8 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table-nowrap table-check table align-middle">
-                            <thead class="table-light">
+                        <table class="table-nowrap table-bordered table align-middle">
+                            <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
                                     <th class="align-middle">Ruangan Sewa</th>
@@ -214,11 +213,14 @@
                                         <span class="badge font-size-12 badge-soft-success">Disetujui</span>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-center gap-3">
-                                            <a href="" class="text-info">
-                                                <i class="mdi mdi-eye font-size-18"></i>
-                                            </a>
-                                        </div>
+                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="View Detail">
+                                                <a href="#" class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                             </tbody>

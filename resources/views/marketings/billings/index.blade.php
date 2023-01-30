@@ -88,10 +88,9 @@
                     <div class="row mb-2">
                         <div class="col-sm-12">
                             <div class="d-flex align-items-center flex-wrap">
-                                <div class="search-box me-2 d-inline-block mb-2">
+                                <div class="me-2 d-inline-block mb-2">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search...">
-                                        <i class="bx bx-search-alt search-icon"></i>
                                     </div>
                                 </div>
                                 <div class="dropdown me-2 mb-2">
@@ -117,8 +116,8 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table-check table align-middle">
-                            <thead class="table-light">
+                        <table class="table-bordered table align-middle">
+                            <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
                                     <th class="align-middle">Status Tagihan</th>
@@ -144,17 +143,26 @@
                                     <td>15 Juni 2024</td>
                                     <td>15 Juli 2024</td>
                                     <td>
-                                        <div class="d-flex justify-content-center gap-3">
-                                            <a href="" class="text-info">
-                                                <i class="fa fa-eye font-size-18"></i>
-                                            </a>
-                                            <a href="" class="text-danger">
-                                                <i class="fa fa-file-pdf font-size-18"></i>
-                                            </a>
-                                            <a href="" class="text-primary">
-                                                <i class="fa fa-file-export font-size-18"></i>
-                                            </a>
-                                        </div>
+                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="View Detail">
+                                                <a href="#" class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </li>
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Download PDF">
+                                                <a href="#" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-file-pdf"></i>
+                                                </a>
+                                            </li>
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Kirim Invoice">
+                                                <a href="#" class="btn btn-sm btn-info">
+                                                    <i class="fa fa-file-export"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                             </tbody>

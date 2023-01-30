@@ -23,10 +23,9 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-12">
-                            <div class="search-box me-2 d-inline-block mb-2">
+                            <div class="me-2 d-inline-block mb-2">
                                 <div class="position-relative">
                                     <input type="text" class="form-control" placeholder="Search...">
-                                    <i class="bx bx-search-alt search-icon"></i>
                                 </div>
                             </div>
                         </div>
@@ -34,8 +33,8 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table-nowrap table-check table align-middle">
-                            <thead class="table-light">
+                        <table class="table-nowrap table-bordered table align-middle">
+                            <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
                                     <th class="align-middle">Email</th>
@@ -53,11 +52,14 @@
                                     <td>08956182311</td>
                                     <td>Guntur Setiawan</td>
                                     <td>
-                                        <div class="d-flex justify-content-center gap-3">
-                                            <a href="" class="text-info">
-                                                <i class="mdi mdi-eye font-size-18"></i>
-                                            </a>
-                                        </div>
+                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="View Detail">
+                                                <a href="#" class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                             </tbody>

@@ -3,11 +3,11 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Kontrak Sewa</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Invoice</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item active">Approval Sewa</li>
+                        <li class="breadcrumb-item active">Data Invoice</li>
                     </ol>
                 </div>
 
@@ -23,8 +23,28 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1 me-3">
+                            <h5 class="mb-4">Menunggu Pembayaran</h5>
+                            <h1 class="card-text">1239</h1>
+                        </div>
+                        <div class="align-self-center flex-shrink-0">
+                            <div class="avatar-md rounded-circle bg-light" style="--bs-bg-opacity: .5">
+                                <span class="avatar-title">
+                                    <i class="bx bx-money-withdraw font-size-24"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1 me-3">
                             <h5 class="mb-4">Menunggu Approval</h5>
-                            <h1 class="card-text">11</h1>
+                            <h1 class="card-text">5</h1>
                         </div>
                         <div class="align-self-center flex-shrink-0">
                             <div class="avatar-md rounded-circle bg-light" style="--bs-bg-opacity: .5">
@@ -43,95 +63,13 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1 me-3">
-                            <h5 class="mb-4">Disetujui</h5>
-                            <h1 class="card-text">345</h1>
+                            <h5 class="mb-4">Lunas</h5>
+                            <h1 class="card-text">800</h1>
                         </div>
                         <div class="align-self-center flex-shrink-0">
                             <div class="avatar-md rounded-circle bg-light" style="--bs-bg-opacity: .5">
                                 <span class="avatar-title">
                                     <i class="bx bx-check-double font-size-24"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card bg-danger text-white">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 me-3">
-                            <h5 class="mb-4">Ditolak</h5>
-                            <h1 class="card-text">5</h1>
-                        </div>
-                        <div class="align-self-center flex-shrink-0">
-                            <div class="avatar-md rounded-circle bg-light" style="--bs-bg-opacity: .5">
-                                <span class="avatar-title">
-                                    <i class="bx bx-x font-size-24"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="card bg-warning text-white">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 me-3">
-                            <h5 class="mb-4">Dibatalkan</h5>
-                            <h1 class="card-text">0</h1>
-                        </div>
-                        <div class="align-self-center flex-shrink-0">
-                            <div class="avatar-md rounded-circle bg-light" style="--bs-bg-opacity: .5">
-                                <span class="avatar-title">
-                                    <i class="bx bx-block font-size-24"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card bg-info text-white">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 me-3">
-                            <h5 class="mb-4">Unit Tersedia</h5>
-                            <h1 class="card-text">168</h1>
-                        </div>
-                        <div class="align-self-center flex-shrink-0">
-                            <div class="avatar-md rounded-circle bg-light" style="--bs-bg-opacity: .5">
-                                <span class="avatar-title">
-                                    <i class="bx bx-pin font-size-24"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card bg-secondary text-light">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 me-3">
-                            <h5 class="mb-4">Sewa Aktif</h5>
-                            <h1 class="card-text">36</h1>
-                        </div>
-                        <div class="align-self-center flex-shrink-0">
-                            <div class="avatar-md rounded-circle bg-light" style="--bs-bg-opacity: .5">
-                                <span class="avatar-title">
-                                    <i class="bx bx-file font-size-24"></i>
                                 </span>
                             </div>
                         </div>
@@ -148,7 +86,7 @@
                 <div class="card-body">
 
                     <div class="row mb-2">
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                             <div class="d-flex align-items-center flex-wrap">
                                 <div class="me-2 d-inline-block mb-2">
                                     <div class="position-relative">
@@ -162,71 +100,66 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#">Proses Checking</a>
-                                        <a class="dropdown-item" href="#">Disetujui</a>
-                                        <a class="dropdown-item" href="#">Ditolak</a>
+                                        <a class="dropdown-item" href="#">Lunas</a>
+                                        <a class="dropdown-item" href="#">Belum Lunas</a>
+                                        <a class="dropdown-item" href="#">Expired</a>
+                                        <a class="dropdown-item" href="#">Surat Peringatan</a>
                                         <a class="dropdown-item" href="#">Dibatalkan</a>
-                                        <a class="dropdown-item" href="#">Request Pembatalan</a>
                                     </div>
                                 </div>
-                                <div class="tgl-awal me-2 mb-2">
-                                    <input class="form-control bg-light border-0" type="date">
-                                </div>
-                                <span>~</span>
-                                <div class="tgl-akhir ms-2 mb-2">
+                                <div class="tgl-tagihan mb-2">
                                     <input class="form-control bg-light border-0" type="date">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="text-sm-end">
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2">
-                                    <i class="mdi mdi-export-variant me-1"></i> Export Excel
-                                </button>
-                            </div>
-                        </div><!-- end col-->
+                        <!-- end col-->
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table-nowrap table-bordered table align-middle">
+                        <table class="table-bordered table align-middle">
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
-                                    <th class="align-middle">Ruangan Sewa</th>
-                                    <th class="align-middle">Tanggal Mulai Sewa</th>
-                                    <th class="align-middle">Tanggal Berakhir Sewa</th>
+                                    <th class="align-middle">Status Tagihan</th>
                                     <th class="align-middle">Tenant</th>
-                                    <th class="align-middle">Status</th>
+                                    <th class="align-middle">Kode Tagihan</th>
+                                    <th class="align-middle">Deskripsi Tagihan</th>
+                                    <th class="align-middle">Jumlah Tagihan</th>
+                                    <th class="align-middle">Tanggal Tagihan</th>
+                                    <th class="align-middle">Jatuh Tempo</th>
                                     <th class="text-center align-middle">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Gedung A Lantai 01 Ruang 1A</td>
-                                    <td>15 Juni 2023</td>
-                                    <td>15 Desember 2023</td>
-                                    <td>PT. Sinar Mas Jaya - Guntur Setiawan</td>
                                     <td>
-                                        <span class="badge font-size-12 badge-soft-success">Disetujui</span>
+                                        <span class="badge font-size-12 badge-soft-success">Lunas</span>
                                     </td>
+                                    <td>PT Sinar Mas Jaya - Guntur Setiawan</td>
+                                    <td>INV/003/POP/IX/21</td>
+                                    <td>Pembayaran Ke-2 Sewa 1 Tahun - Gedung A Lantai 01 Ruang 1A.</td>
+                                    <td>Rp 34,670,000</td>
+                                    <td>15 Juni 2024</td>
+                                    <td>15 Juli 2024</td>
                                     <td>
                                         <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="Setujui">
-                                                <a href="#" class="btn btn-sm btn-success">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="Tolak">
-                                                <a href="#" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-x"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="Lihat Detail">
+                                                data-bs-title="View Detail">
                                                 <a href="#" class="btn btn-sm btn-primary">
                                                     <i class="fa fa-eye"></i>
+                                                </a>
+                                            </li>
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Download PDF">
+                                                <a href="#" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-file-pdf"></i>
+                                                </a>
+                                            </li>
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Kirim Kwitansi">
+                                                <a href="#" class="btn btn-sm btn-info">
+                                                    <i class="fa fa-file-export"></i>
                                                 </a>
                                             </li>
                                         </ul>

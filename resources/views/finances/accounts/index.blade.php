@@ -3,12 +3,11 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Posisi Ruang</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Rekening</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="#">Kelola Tempat</a></li>
-                        <li class="breadcrumb-item active">Posisi Ruang</li>
+                        <li class="breadcrumb-item active">Kelola Rekening</li>
                     </ol>
                 </div>
 
@@ -32,7 +31,7 @@
                         <div class="col-sm-4">
                             <div class="text-sm-end">
                                 <button type="button" class="btn btn-success waves-effect waves-light mb-2"><i
-                                        class="mdi mdi-plus me-1"></i> Tambah Posisi</button>
+                                        class="mdi mdi-plus me-1"></i> Tambah Rekening</button>
                             </div>
                         </div><!-- end col-->
                     </div>
@@ -42,34 +41,20 @@
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
-                                    <th class="align-middle">Gedung</th>
-                                    <th class="align-middle">Lantai</th>
-                                    <th class="align-middle">Ruang</th>
-                                    <th class="align-middle">Depan</th>
-                                    <th class="align-middle">Belakang</th>
-                                    <th class="align-middle">Kiri</th>
-                                    <th class="align-middle">Kanan</th>
-                                    <th class="text-center align-middle">Aksi</th>
+                                    <th class="align-middle">Nomor Rekening</th>
+                                    <th class="align-middle">Atas Nama</th>
+                                    <th class="align-middle">Nama Bank</th>
+                                    <th class="text-center align-middle" style="width: 9rem">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Gedung A</td>
-                                    <td>Lantai 01</td>
-                                    <td>Ruang 1A</td>
-                                    <td>Ruang Depan</td>
-                                    <td>Ruang Belakang</td>
-                                    <td>Ruang Kiri</td>
-                                    <td>Ruang Kanan</td>
+                                    <td>1200003029472</td>
+                                    <td>PT Pulo Mas Jaya</td>
+                                    <td>BCA</td>
                                     <td>
                                         <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="View Detail">
-                                                <a href="#" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </li>
                                             <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
                                                 <a href="#" class="btn btn-sm btn-info">
                                                     <i class="fa fa-edit"></i>

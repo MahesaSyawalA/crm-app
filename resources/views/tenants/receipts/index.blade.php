@@ -3,12 +3,11 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Posisi Ruang</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Kwitansi</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="#">Kelola Tempat</a></li>
-                        <li class="breadcrumb-item active">Posisi Ruang</li>
+                        <li class="breadcrumb-item active">Data Kwitansi</li>
                     </ol>
                 </div>
 
@@ -17,51 +16,61 @@
     </div>
     <!-- end page title -->
 
+    <!-- start row -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+
                     <div class="row mb-2">
-                        <div class="col-sm-8">
-                            <div class="me-2 d-inline-block mb-2">
-                                <div class="position-relative">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                        <div class="col-sm-12">
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="me-2 d-inline-block mb-2">
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                    </div>
+                                </div>
+                                <div class="dropdown me-2 mb-2">
+                                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Pilih Status <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Proses Checking</a>
+                                        <a class="dropdown-item" href="#">Lunas</a>
+                                        <a class="dropdown-item" href="#">Belum Lunas</a>
+                                        <a class="dropdown-item" href="#">Expired</a>
+                                        <a class="dropdown-item" href="#">Surat Peringatan</a>
+                                        <a class="dropdown-item" href="#">Dibatalkan</a>
+                                    </div>
+                                </div>
+                                <div class="tgl-tagihan mb-2">
+                                    <input class="form-control bg-light border-0" type="date">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="text-sm-end">
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"><i
-                                        class="mdi mdi-plus me-1"></i> Tambah Posisi</button>
-                            </div>
-                        </div><!-- end col-->
+                        <!-- end col-->
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table-nowrap table-bordered table align-middle">
+                        <table class="table-bordered table align-middle">
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
-                                    <th class="align-middle">Gedung</th>
-                                    <th class="align-middle">Lantai</th>
-                                    <th class="align-middle">Ruang</th>
-                                    <th class="align-middle">Depan</th>
-                                    <th class="align-middle">Belakang</th>
-                                    <th class="align-middle">Kiri</th>
-                                    <th class="align-middle">Kanan</th>
+                                    <th class="align-middle">Tenant</th>
+                                    <th class="align-middle">Kode Kwitansi</th>
+                                    <th class="align-middle">Nominal Kwitansi</th>
+                                    <th class="align-middle">Tanggal Kwitansi</th>
                                     <th class="text-center align-middle">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Gedung A</td>
-                                    <td>Lantai 01</td>
-                                    <td>Ruang 1A</td>
-                                    <td>Ruang Depan</td>
-                                    <td>Ruang Belakang</td>
-                                    <td>Ruang Kiri</td>
-                                    <td>Ruang Kanan</td>
+                                    <td>PT Sinar Mas Jaya - Guntur Setiawan</td>
+                                    <td>KWI/002/POP/IV/22</td>
+                                    <td>Rp 1,542,719</td>
+                                    <td>15 Juli 2024</td>
                                     <td>
                                         <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
@@ -70,14 +79,10 @@
                                                     <i class="fa fa-eye"></i>
                                                 </a>
                                             </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                <a href="#" class="btn btn-sm btn-info">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="Download PDF">
                                                 <a href="#" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-trash"></i>
+                                                    <i class="fa fa-file-pdf"></i>
                                                 </a>
                                             </li>
                                         </ul>

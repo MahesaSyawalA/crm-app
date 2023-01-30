@@ -1,11 +1,9 @@
 <!doctype html>
 <html lang="en">
 
-
 <!-- Mirrored from themesbrand.com/skote/layouts/layouts-light-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Jan 2023 04:57:50 GMT -->
 
 <head>
-
     <meta charset="utf-8" />
     <title>CRM Pop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,11 +27,9 @@
 
     <!-- Boxicons -->
     <link rel="stylesheet" href="{{ asset('assets/libs/boxicons/css/boxicons.min.css') }}">
-
 </head>
 
 <body>
-
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
     <!-- Begin page -->
@@ -244,10 +240,7 @@
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 
-    <!-- apexcharts -->
-    <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
-    <!-- dashboard init -->
+    <!-- pages init -->
     <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>
 
     <!-- App js -->

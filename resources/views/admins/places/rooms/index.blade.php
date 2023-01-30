@@ -24,10 +24,9 @@
                     <div class="row mb-2">
                         <div class="col-sm-8">
                             <div class="d-flex align-items-center flex-wrap">
-                                <div class="search-box me-2 d-inline-block mb-2">
+                                <div class="me-2 d-inline-block mb-2">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search...">
-                                        <i class="bx bx-search-alt search-icon"></i>
                                     </div>
                                 </div>
                                 <div class="dropdown me-2 mb-2">
@@ -73,8 +72,8 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table-nowrap table-check table align-middle">
-                            <thead class="table-light">
+                        <table class="table-nowrap table-bordered table align-middle">
+                            <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
                                     <th class="align-middle">Kode Gedung</th>
@@ -83,7 +82,7 @@
                                     <th class="align-middle">Nama Ruang</th>
                                     <th class="align-middle">Luas (m2)</th>
                                     <th class="align-middle">Status Ruang</th>
-                                    <th class="align-middle">Aksi</th>
+                                    <th class="text-center align-middle">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,17 +97,24 @@
                                         <span class="badge font-size-12 badge-soft-success">Aktif</span>
                                     </td>
                                     <td>
-                                        <div class="d-flex gap-3">
-                                            <a href="" class="text-success">
-                                                <i class="mdi mdi-pencil font-size-18"></i>
-                                            </a>
-                                            <a href="" class="text-danger">
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
-                                            <a href="" class="text-info">
-                                                <i class="mdi mdi-eye font-size-18"></i>
-                                            </a>
-                                        </div>
+                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                data-bs-title="View Detail">
+                                                <a href="#" class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </li>
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
+                                                <a href="#" class="btn btn-sm btn-info">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </li>
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
+                                                <a href="#" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                             </tbody>

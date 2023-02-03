@@ -30,8 +30,9 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="text-sm-end">
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"><i
-                                        class="mdi mdi-plus me-1"></i> Tambah Lead Management</button>
+                                <a href="{{ route('createLeadManagements') }}" type="button"
+                                    class="btn btn-success waves-effect waves-light mb-2"><i
+                                        class="mdi mdi-plus me-1"></i> Tambah Lead Management</a>
                             </div>
                         </div><!-- end col-->
                     </div>

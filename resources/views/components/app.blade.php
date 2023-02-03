@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="{{ asset('assets/libs/fontawesome/css/solid.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/fontawesome/css/regular.min.css') }}">
 
+    <!-- Plugins css -->
+    {{-- <link rel="stylesheet" href="{{ asset('assets/libs/dropzone/min/dropzone.min.css') }}"> --}}
+
     <!-- Boxicons -->
     <link rel="stylesheet" href="{{ asset('assets/libs/boxicons/css/boxicons.min.css') }}">
 </head>
@@ -239,6 +242,11 @@
     <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+
+    <!-- Plugins js -->
+    <script src="{{ asset('assets/libs/jquery.repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/form-repeater.init.js') }}"></script>
+    {{-- <script src="{{ asset('assets/libs/dropzone/min/dropzone.min.js') }}"></script> --}}
 
     <!-- pages init -->
     <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script>

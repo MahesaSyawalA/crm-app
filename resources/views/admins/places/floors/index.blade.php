@@ -44,8 +44,9 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="text-sm-end">
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"><i
-                                        class="mdi mdi-plus me-1"></i> Tambah Lantai</button>
+                                <a href="{{ route('createFloors') }}"
+                                    class="btn btn-success waves-effect waves-light mb-2"><i
+                                        class="mdi mdi-plus me-1"></i> Tambah Lantai</a>
                             </div>
                         </div><!-- end col-->
                     </div>

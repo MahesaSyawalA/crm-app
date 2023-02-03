@@ -54,10 +54,11 @@
                                     <td>
                                         <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="View Detail">
-                                                <a href="#" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
+                                                data-bs-title="Tambah Daya">
+                                                <button type="button" class="btn btn-sm btn-info"
+                                                    data-bs-toggle="modal" data-bs-target="#addDayaTenantModal">
+                                                    <i class="fa fa-edit"></i> Kelola Daya
+                                                </button>
                                             </li>
                                         </ul>
                                     </td>
@@ -84,4 +85,67 @@
         </div>
     </div>
     <!-- end row -->
+
+    <!-- Modal Tambah Gedung -->
+    <div class="modal fade" id="addDayaTenantModal" tabindex="-1" aria-labelledby="addDayaTenantModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="gedungModalLabel">Tambah Daya Tenant</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="repeater">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="formrow-email-input" class="form-label">Nama Perusahaan /
+                                Intansi</label>
+                            <input type="text" class="form-control" id="formrow-email-input"
+                                value="PT. Sinar Mas Jaya" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="formrow-password-input" class="form-label">Nama PenanggungJawab</label>
+                            <input type="text" class="form-control" id="formrow-password-input"
+                                value="Guntur Setiawan" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="formrow-password-input" class="form-label">Alamat PenanggungJawab</label>
+                            <input type="text" class="form-control" id="formrow-password-input"
+                                value="Jalan Tagog Cimekar Nomor 225" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="formrow-password-input" class="form-label">Daya Terpasang</label>
+                            <div data-repeater-list>
+                                <div class="input-group mb-2" data-repeater-item>
+                                    <select class="form-select">
+                                        <option value="" disabled selected>Pilih Daya</option>
+                                        <option value="">AC - 3300 VA</option>
+                                        <option value="">Penerangan - 5500 VA</option>
+                                    </select>
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="text" class="form-control" id="formrow-inputCity"
+                                        placeholder="Masukkan Tarif Dasar">
+                                    <button type="button" class="btn btn-danger" data-repeater-delete>
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success btn-sm" data-repeater-create>
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
 </x-app-layout>

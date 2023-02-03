@@ -3,11 +3,12 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Data Tarif Listrik</h4>
+                <h4 class="mb-sm-0 font-size-18">Data Posisi Ruang</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item active">Kelola Tarif Listrik</li>
+                        <li class="breadcrumb-item"><a href="#">Kelola Tempat</a></li>
+                        <li class="breadcrumb-item active">Posisi Ruang</li>
                     </ol>
                 </div>
 
@@ -31,8 +32,8 @@
                         <div class="col-sm-4">
                             <div class="text-sm-end">
                                 <button type="button" class="btn btn-success waves-effect waves-light mb-2"
-                                    data-bs-toggle="modal" data-bs-target="#addTarifListrikModal"><i
-                                        class="mdi mdi-plus me-1"></i> Tambah Tarif</button>
+                                    data-bs-toggle="modal" data-bs-target="#addPosisiRuangModal"><i
+                                        class="mdi mdi-plus me-1"></i> Tambah Posisi</button>
                             </div>
                         </div><!-- end col-->
                     </div>
@@ -42,24 +43,26 @@
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
-                                    <th class="align-middle">Jenis Tarif</th>
-                                    <th class="align-middle">Daya</th>
-                                    <th class="align-middle">Tarif</th>
-                                    <th class="align-middle">Tarif Dasar/LWBP</th>
-                                    <th class="align-middle">BPJU/Pajak Penerangan</th>
-                                    <th class="align-middle">KWH Minimum/Bulan</th>
+                                    <th class="align-middle">Gedung</th>
+                                    <th class="align-middle">Lantai</th>
+                                    <th class="align-middle">Ruang</th>
+                                    <th class="align-middle">Depan</th>
+                                    <th class="align-middle">Belakang</th>
+                                    <th class="align-middle">Kiri</th>
+                                    <th class="align-middle">Kanan</th>
                                     <th class="text-center align-middle">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>AC</td>
-                                    <td>3300 VA</td>
-                                    <td>B.2</td>
-                                    <td>Rp 1,524</td>
-                                    <td>3%</td>
-                                    <td>1056 KWH</td>
+                                    <td>Gedung A</td>
+                                    <td>Lantai 01</td>
+                                    <td>Ruang 1A</td>
+                                    <td>Ruang Depan</td>
+                                    <td>Ruang Belakang</td>
+                                    <td>Ruang Kiri</td>
+                                    <td>Ruang Kanan</td>
                                     <td>
                                         <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                             <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
@@ -98,35 +101,49 @@
     </div>
     <!-- end row -->
 
-    <!-- Modal Tambah Gedung -->
-    <div class="modal fade" id="addTarifListrikModal" tabindex="-1" aria-labelledby="addTarifListrikModal"
+    <!-- Modal Tambah Posisi Ruang -->
+    <div class="modal fade" id="addPosisiRuangModal" tabindex="-1" aria-labelledby="addPosisiRuangModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="gedungModalLabel">Tambah Tarif Listrik</h1>
+                    <h1 class="modal-title fs-5" id="gedungModalLabel">Tambah Posisi Ruang</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form>
                     <div class="modal-body">
 
+                        <div class="mb-3">
+                            <label for="formrow-firstname-input" class="form-label">Pilih Gedung</label>
+                            <select class="form-select">
+                                <option value="" disabled selected>Pilih Gedung</option>
+                                <option value="">Gedung A</option>
+                                <option value="">Gedung B</option>
+                                <option value="">Gedung C</option>
+                            </select>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-email-input" class="form-label">Jenis Tarif Listrik</label>
-                                    <input type="text" class="form-control" id="formrow-email-input"
-                                        placeholder="Masukkan Jenis">
+                                    <label for="formrow-firstname-input" class="form-label">Pilih Lantai</label>
+                                    <select class="form-select">
+                                        <option value="" disabled selected>Pilih Lantai</option>
+                                        <option value="">Lantai 1</option>
+                                        <option value="">Lantai 2</option>
+                                        <option value="">Lantai 3</option>
+                                    </select>
                                 </div>
                             </div>
-
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity" class="form-label">Daya</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Masukkan Daya">
-                                        <span class="input-group-text">VA</span>
-                                    </div>
+                                    <label for="formrow-firstname-input" class="form-label">Pilih Ruang</label>
+                                    <select class="form-select">
+                                        <option value="" disabled selected>Pilih Ruang</option>
+                                        <option value="">Ruang 1</option>
+                                        <option value="">Ruang 2</option>
+                                        <option value="">Ruang 3</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -134,20 +151,24 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-email-input" class="form-label">Tarif</label>
-                                    <input type="text" class="form-control" id="formrow-email-input"
-                                        placeholder="Masukkan Tarif">
+                                    <label for="formrow-firstname-input" class="form-label">Depan</label>
+                                    <select class="form-select">
+                                        <option value="" disabled selected>Pilih Ruang</option>
+                                        <option value="">Ruang 1</option>
+                                        <option value="">Ruang 2</option>
+                                        <option value="">Ruang 3</option>
+                                    </select>
                                 </div>
                             </div>
-
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity" class="form-label">Tarif Dasar / LWPB</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">Rp</span>
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Masukkan Tarif Dasar">
-                                    </div>
+                                    <label for="formrow-firstname-input" class="form-label">Belakang</label>
+                                    <select class="form-select">
+                                        <option value="" disabled selected>Pilih Ruang</option>
+                                        <option value="">Ruang 1</option>
+                                        <option value="">Ruang 2</option>
+                                        <option value="">Ruang 3</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -155,24 +176,24 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-email-input" class="form-label">BPJU / Pajak
-                                        Penerangan</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Masukkan BPJU">
-                                        <span class="input-group-text">%</span>
-                                    </div>
+                                    <label for="formrow-firstname-input" class="form-label">Kiri</label>
+                                    <select class="form-select">
+                                        <option value="" disabled selected>Pilih Ruang</option>
+                                        <option value="">Ruang 1</option>
+                                        <option value="">Ruang 2</option>
+                                        <option value="">Ruang 3</option>
+                                    </select>
                                 </div>
                             </div>
-
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity" class="form-label">Kwh Minimum</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Masukkan Kwh">
-                                        <span class="input-group-text">Kwh / Bulan</span>
-                                    </div>
+                                    <label for="formrow-firstname-input" class="form-label">Kanan</label>
+                                    <select class="form-select">
+                                        <option value="" disabled selected>Pilih Ruang</option>
+                                        <option value="">Ruang 1</option>
+                                        <option value="">Ruang 2</option>
+                                        <option value="">Ruang 3</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

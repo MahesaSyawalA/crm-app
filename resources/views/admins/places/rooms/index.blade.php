@@ -65,8 +65,9 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="text-sm-end">
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"><i
-                                        class="mdi mdi-plus me-1"></i> Tambah Ruang</button>
+                                <a href="{{ route('createRooms') }}" type="button"
+                                    class="btn btn-success waves-effect waves-light mb-2"><i
+                                        class="mdi mdi-plus me-1"></i> Tambah Ruang</a>
                             </div>
                         </div><!-- end col-->
                     </div>

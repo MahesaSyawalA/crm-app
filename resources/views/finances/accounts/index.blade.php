@@ -30,7 +30,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="text-sm-end">
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"><i
+                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"
+                                    data-bs-toggle="modal" data-bs-target="#addRekeningModal"><i
                                         class="mdi mdi-plus me-1"></i> Tambah Rekening</button>
                             </div>
                         </div><!-- end col-->
@@ -90,4 +91,37 @@
         </div>
     </div>
     <!-- end row -->
+
+    <!-- Modal Tambah Gedung -->
+    <div class="modal fade" id="addRekeningModal" tabindex="-1" aria-labelledby="addRekeningModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="gedungModalLabel">Tambah Data Rekening</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="formrow-password-input" class="form-label">Nomor Rekening</label>
+                            <input type="text" class="form-control" id="formrow-password-input"
+                                placeholder="Masukkan Nomor Rekening">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="formrow-password-input" class="form-label">Atas Nama</label>
+                            <input type="text" class="form-control" id="formrow-password-input"
+                                placeholder="Masukkan Nama">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
 </x-app-layout>

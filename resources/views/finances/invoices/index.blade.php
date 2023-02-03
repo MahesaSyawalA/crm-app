@@ -99,7 +99,7 @@
                                         Pilih Status <i class="mdi mdi-chevron-down"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Proses Checking</a>
+                                        <a class="dropdown-item" href="#">Proses Pengecekan</a>
                                         <a class="dropdown-item" href="#">Lunas</a>
                                         <a class="dropdown-item" href="#">Belum Lunas</a>
                                         <a class="dropdown-item" href="#">Expired</a>
@@ -120,34 +120,30 @@
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
-                                    <th class="align-middle">Status Tagihan</th>
                                     <th class="align-middle">Tenant</th>
                                     <th class="align-middle">Kode Tagihan</th>
-                                    <th class="align-middle">Deskripsi Tagihan</th>
-                                    <th class="align-middle">Jumlah Tagihan</th>
-                                    <th class="align-middle">Tanggal Tagihan</th>
+                                    <th class="align-middle">Tagihan</th>
                                     <th class="align-middle">Jatuh Tempo</th>
+                                    <th class="align-middle">Status Tagihan</th>
                                     <th class="text-center align-middle">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>
-                                        <span class="badge font-size-12 badge-soft-success">Lunas</span>
-                                    </td>
                                     <td>PT Sinar Mas Jaya - Guntur Setiawan</td>
                                     <td>INV/003/POP/IX/21</td>
-                                    <td>Pembayaran Ke-2 Sewa 1 Tahun - Gedung A Lantai 01 Ruang 1A.</td>
                                     <td>Rp 34,670,000</td>
-                                    <td>15 Juni 2024</td>
                                     <td>15 Juli 2024</td>
+                                    <td>
+                                        <span class="badge font-size-12 badge-soft-warning">Proses Pengecekan</span>
+                                    </td>
                                     <td>
                                         <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="View Detail">
+                                                data-bs-title="Approve Pembayaran">
                                                 <a href="#" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
+                                                    <i class="fa fa-check"></i>
                                                 </a>
                                             </li>
                                             <li data-bs-toggle="tooltip" data-bs-placement="top"

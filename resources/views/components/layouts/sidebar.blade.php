@@ -17,7 +17,7 @@
                                 <li><a href="{{ route('buildings') }}" key="t-buildings">Gedung</a></li>
                                 <li><a href="{{ route('floors') }}" key="t-floors">Lantai</a></li>
                                 <li><a href="{{ route('rooms') }}" key="t-rooms">Ruang</a></li>
-                                <li><a href="{{ route('rpositions') }}" key="t-rpositions">Posisi Ruang</a></li>
+                                <li><a href="{{ route('roomPositions') }}" key="t-room-positions">Posisi Ruang</a></li>
                             </ul>
                         </li>
 
@@ -50,7 +50,7 @@
                         <li class="menu-title" key="t-menu">Marketing</li>
 
                         <li>
-                            <a href="{{ route('leadmanagements') }}" class="waves-effect">
+                            <a href="{{ route('leadManagements') }}" class="waves-effect">
                                 <i class="bx bx-user"></i>
                                 <span key="t-lead-managements">Lead Management</span>
                             </a>

@@ -31,8 +31,10 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="text-sm-end">
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"><i
-                                        class="mdi mdi-plus me-1"></i> Tambah Gedung</button>
+                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"
+                                    data-bs-toggle="modal" data-bs-target="#addGedungModal">
+                                    <i class="mdi mdi-plus me-1"></i> Tambah Gedung
+                                </button>
                             </div>
                         </div><!-- end col-->
                     </div>
@@ -91,4 +93,50 @@
         </div>
     </div>
     <!-- end row -->
+
+    <!-- Modal Tambah Gedung -->
+    <div class="modal fade" id="addGedungModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="gedungModalLabel">Tambah Gedung</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="formrow-email-input" class="form-label">Kode Gedung</label>
+                            <input type="text" class="form-control" id="formrow-email-input"
+                                placeholder="Masukkan Kode">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="formrow-password-input" class="form-label">Nama Gedung</label>
+                            <input type="text" class="form-control" id="formrow-password-input"
+                                placeholder="Masukkan Nama">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="formrow-firstname-input" class="form-label">Alamat Gedung</label>
+                            <textarea class="form-control" id="formrow-firstname-input" placeholder="Masukkan Alamat" rows="5"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="formrow-inputCity" class="form-label">Foto Gedung</label>
+                            <input type="file" multiple accept=".jpg,.jpeg,.png,.gif,.svg" class="form-control"
+                                id="formrow-inputCity">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+
 </x-app-layout>

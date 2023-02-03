@@ -128,7 +128,6 @@
                                     <th class="align-middle">Jumlah Tagihan</th>
                                     <th class="align-middle">Tanggal Tagihan</th>
                                     <th class="align-middle">Jatuh Tempo</th>
-                                    <th class="align-middle">Konfirmasi Pembayaran</th>
                                     <th class="text-center align-middle">Aksi</th>
                                 </tr>
                             </thead>
@@ -136,7 +135,7 @@
                                 <tr>
                                     <td>1</td>
                                     <td>
-                                        <span class="badge font-size-12 badge-soft-success">Lunas</span>
+                                        <span class="badge font-size-12 badge-soft-warning">Belum Lunas</span>
                                     </td>
                                     <td>PT Sinar Mas Jaya - Guntur Setiawan</td>
                                     <td>INV/003/POP/IX/21</td>
@@ -145,17 +144,13 @@
                                     <td>15 Juni 2024</td>
                                     <td>15 Juli 2024</td>
                                     <td>
-                                        <button type="button" class="btn btn-rounded btn-sm btn-primary">
-                                            <i class="fa fa-upload me-1"></i> Upload
-                                        </button>
-                                    </td>
-                                    <td>
                                         <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                 data-bs-title="Konfirmasi Pembayaran">
-                                                <a href="#" class="btn btn-sm btn-info">
+                                                <button type="button" class="btn btn-sm btn-info"
+                                                    data-bs-toggle="modal" data-bs-target="#addBuktiBayarModal">
                                                     <i class="fa fa-upload"></i>
-                                                </a>
+                                                </button>
                                             </li>
                                             <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                 data-bs-title="View Detail">
@@ -194,4 +189,32 @@
         </div>
     </div>
     <!-- end row -->
+
+    <!-- Modal Tambah Gedung -->
+    <div class="modal fade" id="addBuktiBayarModal" tabindex="-1" aria-labelledby="addBuktiBayarModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="gedungModalLabel">Upload Bukti Pembayaran</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="formrow-inputCity" class="form-label">Bukti Pembayaran</label>
+                            <input type="file" multiple accept=".jpg,.jpeg,.png,.gif,.svg" class="form-control"
+                                id="formrow-inputCity">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
 </x-app-layout>

@@ -182,9 +182,10 @@
                                 <button type="button" class="btn btn-success waves-effect waves-light mb-2">
                                     <i class="mdi mdi-export-variant me-1"></i> Export Excel
                                 </button>
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2">
+                                <a href="{{ route('createContracts') }}" type="button"
+                                    class="btn btn-success waves-effect waves-light mb-2">
                                     <i class="mdi mdi-plus me-1"></i> Buat Kontrak
-                                </button>
+                                </a>
                             </div>
                         </div><!-- end col-->
                     </div>

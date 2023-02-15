@@ -39,7 +39,7 @@
                                 <button type="button" class="btn btn-success waves-effect waves-light mb-2">
                                     <i class="mdi mdi-export-variant me-1"></i> Export Excel
                                 </button>
-                                <a href="{{ route('createStandmeters') }}" type="button"
+                                <a href="{{ route('standmeters.create') }}" type="button"
                                     class="btn btn-success waves-effect waves-light mb-2">
                                     <i class="mdi mdi-plus me-1"></i> Tambah Standmeter
                                 </a>

@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admins\RoomController;
+use App\Http\Controllers\Hods\ApprovalController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Ajax Routes
+| Admin Routes
 |--------------------------------------------------------------------------
  */
 
-Route::get('admin/rooms/create/ajax/{id}', [RoomController::class, 'getFloors']);
+Route::prefix('hod')->group(function () {
+    Route::resource('approvals', ApprovalController::class);
+});

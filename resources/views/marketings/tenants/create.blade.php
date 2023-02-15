@@ -93,7 +93,8 @@
                         </div>
 
                         <div class="mt-5">
-                            <a href="{{ route('tenants') }}" type="button" class="btn btn-danger w-md me-2">Cancel</a>
+                            <a href="{{ route('tenants.index') }}" type="button"
+                                class="btn btn-danger w-md me-2">Cancel</a>
                             <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </div>
                     </form>

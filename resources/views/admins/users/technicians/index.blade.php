@@ -111,6 +111,12 @@
                 <form>
                     <div class="modal-body">
 
+                        <div class="mb-3">
+                            <label for="formrow-password-input" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="formrow-password-input"
+                                placeholder="Masukkan Nama">
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -127,12 +133,6 @@
                                         placeholder="Masukkan Password">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="formrow-password-input" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="formrow-password-input"
-                                placeholder="Masukkan Nama">
                         </div>
 
                         <div class="row">

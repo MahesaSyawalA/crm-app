@@ -27,23 +27,23 @@
                                 <i class="bx bx-group"></i>
                                 <span key="t-users">Kelola User</span>
                             </a>
-                            {{-- <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('marketings') }}" key="t-marketings">Marketing</a></li>
-                                <li><a href="{{ route('technicians') }}" key="t-technicians">Teknik</a></li>
-                                <li><a href="{{ route('finances') }}" key="t-finances">Keuangan</a></li>
-                            </ul> --}}
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="{{ route('marketings.index') }}" key="t-marketings">Marketing</a></li>
+                                <li><a href="{{ route('technicians.index') }}" key="t-technicians">Teknik</a></li>
+                                <li><a href="{{ route('finances.index') }}" key="t-finances">Keuangan</a></li>
+                            </ul>
                         </li>
 
 
-                        {{-- <li>
-                            <a href="{{ route('grades') }}" class="waves-effect">
+                        <li>
+                            <a href="{{ route('grades.index') }}" class="waves-effect">
                                 <i class="bx bx-bar-chart-square"></i>
                                 <span key="t-chat">Kelola Grade</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('services') }}" class="waves-effect">
+                            <a href="{{ route('services.index') }}" class="waves-effect">
                                 <i class="bx bx-wrench"></i>
                                 <span key="t-file-manager">Additional Service</span>
                             </a>
@@ -52,28 +52,28 @@
                         <li class="menu-title" key="t-menu">Marketing</li>
 
                         <li>
-                            <a href="{{ route('leadManagements') }}" class="waves-effect">
+                            <a href="{{ route('leadmanagements.index') }}" class="waves-effect">
                                 <i class="bx bx-user"></i>
                                 <span key="t-lead-managements">Lead Management</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('tenants') }}" class="waves-effect">
+                            <a href="{{ route('tenants.index') }}" class="waves-effect">
                                 <i class="bx bx-user-check"></i>
                                 <span key="t-tenants">Data Tenant</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('contracts') }}" class="waves-effect">
+                            <a href="{{ route('contracts.index') }}" class="waves-effect">
                                 <i class="bx bx-file"></i>
                                 <span key="t-contracts">Data Kontrak Sewa</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('billings') }}" class="waves-effect">
+                            <a href="{{ route('billings.index') }}" class="waves-effect">
                                 <i class="bx bx-spreadsheet"></i>
                                 <span key="t-billings">Data Billing</span>
                             </a>
@@ -82,7 +82,7 @@
                         <li class="menu-title" key="t-menu">Kepala Divisi</li>
 
                         <li>
-                            <a href="{{ route('approvals') }}" class="waves-effect">
+                            <a href="{{ route('approvals.index') }}" class="waves-effect">
                                 <i class="bx bx-list-check"></i>
                                 <span key="t-approvals">Approval Sewa</span>
                             </a>
@@ -91,28 +91,28 @@
                         <li class="menu-title" key="t-menu">Teknik</li>
 
                         <li>
-                            <a href="{{ route('caters') }}" class="waves-effect">
+                            <a href="{{ route('caters.index') }}" class="waves-effect">
                                 <i class='bx bx-hard-hat'></i>
                                 <span key="t-caters">Kelola User Cater</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('electricities') }}" class="waves-effect">
+                            <a href="{{ route('electricities.index') }}" class="waves-effect">
                                 <i class="bx bx-bolt-circle"></i>
                                 <span key="t-electricities">Kelola Tarif Listrik</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('powers') }}" class="waves-effect">
+                            <a href="{{ route('powers.index') }}" class="waves-effect">
                                 <i class="bx bx-bulb"></i>
                                 <span key="t-powers">Kelola Daya Tenant</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('standmeters') }}" class="waves-effect">
+                            <a href="{{ route('standmeters.index') }}" class="waves-effect">
                                 <i class='bx bx-tachometer'></i>
                                 <span key="t-standmeters">Kelola Standmeter</span>
                             </a>
@@ -121,14 +121,14 @@
                         <li class="menu-title" key="t-menu">Keuangan</li>
 
                         <li>
-                            <a href="{{ route('accounts') }}" class="waves-effect">
+                            <a href="{{ route('accounts.index') }}" class="waves-effect">
                                 <i class='bx bx-credit-card-alt'></i>
                                 <span key="t-accounts">Kelola Rekening</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('invoices-fn') }}" class="waves-effect">
+                            <a href="{{ route('invoicesfinance.index') }}" class="waves-effect">
                                 <i class="bx bx-receipt"></i>
                                 <span key="t-invoices-fn">Data Invoice</span>
                             </a>
@@ -137,18 +137,18 @@
                         <li class="menu-title" key="t-menu">Tenant</li>
 
                         <li>
-                            <a href="{{ route('invoices-tn') }}" class="waves-effect">
+                            <a href="{{ route('invoicestenant.index') }}" class="waves-effect">
                                 <i class='bx bx-receipt'></i>
                                 <span key="t-invoices-tn">Data Invoice</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="{{ route('receipts') }}" class="waves-effect">
+                            <a href="{{ route('receipts.index') }}" class="waves-effect">
                                 <i class="bx bx-receipt"></i>
                                 <span key="t-receipts">Kwitansi</span>
                             </a>
-                        </li> --}}
+                        </li>
 
                     </ul>
                 </div>

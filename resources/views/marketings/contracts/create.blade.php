@@ -178,7 +178,7 @@
                         </div>
 
                         <div class="mt-5">
-                            <a href="{{ route('tenants') }}" type="button"
+                            <a href="{{ route('contracts.index') }}" type="button"
                                 class="btn btn-danger w-md me-2">Cancel</a>
                             <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </div>

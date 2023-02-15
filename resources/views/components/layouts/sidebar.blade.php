@@ -14,10 +14,11 @@
                                 <span key="t-places">Kelola Tempat</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{ route('buildings') }}" key="t-buildings">Gedung</a></li>
-                                <li><a href="{{ route('floors') }}" key="t-floors">Lantai</a></li>
-                                <li><a href="{{ route('rooms') }}" key="t-rooms">Ruang</a></li>
-                                <li><a href="{{ route('roomPositions') }}" key="t-room-positions">Posisi Ruang</a></li>
+                                <li><a href="{{ route('buildings.index') }}" key="t-buildings">Gedung</a></li>
+                                <li><a href="{{ route('floors.index') }}" key="t-floors">Lantai</a></li>
+                                <li><a href="{{ route('rooms.index') }}" key="t-rooms">Ruang</a></li>
+                                <li><a href="{{ route('roompositions.index') }}" key="t-room-positions">Posisi Ruang</a>
+                                </li>
                             </ul>
                         </li>
 
@@ -26,14 +27,15 @@
                                 <i class="bx bx-group"></i>
                                 <span key="t-users">Kelola User</span>
                             </a>
-                            <ul class="sub-menu" aria-expanded="false">
+                            {{-- <ul class="sub-menu" aria-expanded="false">
                                 <li><a href="{{ route('marketings') }}" key="t-marketings">Marketing</a></li>
                                 <li><a href="{{ route('technicians') }}" key="t-technicians">Teknik</a></li>
                                 <li><a href="{{ route('finances') }}" key="t-finances">Keuangan</a></li>
-                            </ul>
+                            </ul> --}}
                         </li>
 
-                        <li>
+
+                        {{-- <li>
                             <a href="{{ route('grades') }}" class="waves-effect">
                                 <i class="bx bx-bar-chart-square"></i>
                                 <span key="t-chat">Kelola Grade</span>
@@ -146,7 +148,7 @@
                                 <i class="bx bx-receipt"></i>
                                 <span key="t-receipts">Kwitansi</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </div>

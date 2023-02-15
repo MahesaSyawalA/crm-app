@@ -17,17 +17,46 @@
     </div>
     <!-- end page title -->
 
+    <!-- flash message -->
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong>
+            {{ session()->get('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> Ada beberapa masalah dengan masukkan Anda.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <!-- end flash message -->
+
+    <!-- card content -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-8">
-                            <div class="me-2 d-inline-block mb-2">
-                                <div class="position-relative">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                            <form action="{{ route('buildings.index') }}">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <div class="me-2 d-inline-block mb-2">
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control" name="search" id="search"
+                                                placeholder="Search...">
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <button class="btn btn-info" type="submit">
+                                            <i class="fa fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-sm-4">
                             <div class="text-sm-end">
@@ -51,92 +80,104 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="text-body fw-bold">#A001</td>
-                                    <td>Gedung A</td>
-                                    <td>Jalan Jendral Ahmad Yani</td>
-                                    <td>
-                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                <a href="#" class="btn btn-sm btn-info">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                <a href="#" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                @foreach ($buildings as $key => $building)
+                                    <tr>
+                                        <th scope="row">{{ $buildings->firstItem() + $key }}</th>
+                                        <td class="text-body fw-bold">{{ $building->code_building }}</td>
+                                        <td>{{ $building->name_building }}</td>
+                                        <td>{{ $building->address_building }}</td>
+                                        <td>
+                                            <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="Edit">
+                                                    {{-- <button type="button" value="{{ $building->id_building }}"
+                                                        class="btn editgedungbtn btn-sm btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#editGedungModal">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button> --}}
+                                                    <a href="{{ route('buildings.edit', $building->id_building) }}"
+                                                        type="button" class="btn btn-sm btn-info"><i
+                                                            class="fa fa-edit"></i></a>
+                                                </li>
+                                                @if ($building->floors_count == 0)
+                                                    <form
+                                                        action="{{ route('buildings.destroy', $building->id_building) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            data-bs-title="Delete">
+                                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                                onclick="return confirm('Yakin ingin menghapus data gedung ini?')">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </li>
+                                                    </form>
+                                                @endif
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <ul class="pagination justify-content-end mb-2">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="mdi mdi-chevron-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <i class="mdi mdi-chevron-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+
+                    <div class="row">
+                        <div class="col text-muted">
+                            Showing
+                            {{ $buildings->firstItem() }}
+                            to
+                            {{ $buildings->lastItem() }}
+                            of
+                            {{ $buildings->total() }}
+                            entries
+                        </div>
+                        <div class="col">
+                            <div class="pagination justify-content-end">
+                                {{ $buildings->withQueryString()->links() }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end row -->
+    <!-- end card -->
 
-    <!-- Modal Tambah Gedung -->
-    <div class="modal fade" id="addGedungModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="gedungModalLabel">Tambah Gedung</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form>
-                    <div class="modal-body">
+    <!-- Modal -->
+    <!-- Tambah Gedung -->
+    <x-modals.add-building></x-modals.add-building>
 
-                        <div class="mb-3">
-                            <label for="formrow-email-input" class="form-label">Kode Gedung</label>
-                            <input type="text" class="form-control" id="formrow-email-input"
-                                placeholder="Masukkan Kode">
-                        </div>
-
-
-                        <div class="mb-3">
-                            <label for="formrow-password-input" class="form-label">Nama Gedung</label>
-                            <input type="text" class="form-control" id="formrow-password-input"
-                                placeholder="Masukkan Nama">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="formrow-firstname-input" class="form-label">Alamat Gedung</label>
-                            <textarea class="form-control" id="formrow-firstname-input" placeholder="Masukkan Alamat" rows="5"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="formrow-inputCity" class="form-label">Foto Gedung</label>
-                            <input type="file" multiple accept=".jpg,.jpeg,.png,.gif,.svg" class="form-control"
-                                id="formrow-inputCity">
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- Edit Gedung -->
+    {{-- <x-modals.edit-building></x-modals.edit-building> --}}
     <!-- End Modal -->
 
+    <script>
+        //Ambil dan tampilkan data gedung untuk edit
+        // $(document).ready(function() {
+        //     $(document).on('click', '.editgedungbtn', function() {
+        //         var id_building = $(this).val();
+        //         // alert(id_building);
+
+        //         $.ajax({
+        //             type: "GET",
+        //             url: "/admin/buildings/" + id_building + "/edit",
+        //             success: function(response) {
+        //                 console.log(response);
+        //                 $('#id_building').val(response.building.id_building);
+        //                 $('#code_building').val(response.building.code_building);
+        //                 $('#name_building').val(response.building.name_building);
+        //                 $('#address_building').val(response.building.address_building);
+        //                 $('#picture_building').val(response.building.picture_building);
+        //             }
+        //         });
+        //     });
+        // });
+
+        //Script Preview Image Building
+        function previewImgBuildingAdd() {
+            imgBuildingAdd.src = URL.createObjectURL(event.target.files[0]);
+            imgBuildingAdd.style.display = 'block';
+        }
+    </script>
 </x-app-layout>

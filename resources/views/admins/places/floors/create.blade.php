@@ -19,37 +19,68 @@
     </div>
     <!-- end page title -->
 
+    <!-- flash message -->
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> Ada beberapa masalah dengan masukkan Anda.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <!-- end flash message -->
+
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-5">Form Tambah Lantai</h4>
 
-                    <form>
+                    <form action="{{ route('floors.store') }}" method="POST">
+                        @csrf
                         <div class="mb-3">
-                            <label for="formrow-firstname-input" class="form-label">Pilih Gedung</label>
-                            <select class="form-select">
+                            <label for="id_building" class="form-label">Pilih Gedung</label>
+                            <select class="form-select select2 @error('id_building') is-invalid @enderror"
+                                name="id_building" id="id_building">
                                 <option value="" disabled selected>Pilih Gedung</option>
-                                <option value="">Gedung A</option>
-                                <option value="">Gedung B</option>
-                                <option value="">Gedung C</option>
+                                @foreach ($buildings as $building)
+                                    <option value="{{ $building->id_building }}"
+                                        {{ old('id_building') == $building->id_building ? 'selected' : null }}>
+                                        {{ $building->name_building }}</option>
+                                @endforeach
                             </select>
+
+                            @error('id_building')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="row">
-
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-email-input" class="form-label">Kode Lantai</label>
-                                    <input type="text" class="form-control" id="formrow-email-input"
-                                        placeholder="Masukkan kode lantai">
+                                    <label for="code_floor" class="form-label">Kode Lantai</label>
+                                    <input type="text" class="form-control @error('code_floor') is-invalid @enderror"
+                                        name="code_floor" placeholder="Masukkan kode" id="code_floor">
+
+                                    @error('code_floor')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-password-input" class="form-label">Nama Lantai</label>
-                                    <input type="text" class="form-control" id="formrow-password-input"
-                                        placeholder="Masukkan nama lantai">
+                                    <label for="name_floor" class="form-label">Nama Lantai</label>
+                                    <input type="text" class="form-control @error('name_floor') is-invalid @enderror"
+                                        name="name_floor" placeholder="Masukkan nama" id="name_floor">
+
+                                    @error('name_floor')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -57,23 +88,38 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity" class="form-label">Harga per m2/Bulan</label>
+                                    <label for="monthly_price" class="form-label">Harga per m2/Bulan</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Enter Your Living City">
+                                        <input type="number" min="0"
+                                            class="form-control @error('monthly_price') is-invalid @enderror"
+                                            name="monthly_price" placeholder="Masukkan harga" id="monthly_price">
                                         <label class="input-group-text">m2/Bulan</label>
+
+                                        @error('monthly_price')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity" class="form-label">Harga per m2/Hari</label>
+                                    <label for="daily_price" class="form-label">Harga per m2/Hari</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Enter Your Living City">
+                                        <input type="number" min="0"
+                                            class="form-control @error('daily_price') is-invalid @enderror"
+                                            style="background-color: #eff2f7;" name="daily_price" placeholder="0"
+                                            id="daily_price" readonly>
                                         <label class="input-group-text">m2/Hari</label>
+
+                                        @error('daily_price')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -81,23 +127,40 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity" class="form-label">Service Charge</label>
+                                <div class="mb-4">
+                                    <label for="service_charge_floor" class="form-label">Service Charge</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Enter Your Living City">
+                                        <input type="number" min="0"
+                                            class="form-control @error('service_charge_floor') is-invalid @enderror"
+                                            name="service_charge_floor" placeholder="Masukkan harga"
+                                            id="service_charge_floor">
+
+                                        @error('service_charge_floor')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity" class="form-label">Service Charge Listrik
+                                <div class="mb-4">
+                                    <label for="service_charge_own_electricity" class="form-label">Service Charge
+                                        Listrik
                                         Sendiri</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Enter Your Living City">
+                                        <input type="number" min="0"
+                                            class="form-control @error('service_charge_own_electricity') is-invalid @enderror"
+                                            name="service_charge_own_electricity" placeholder="Masukkan harga"
+                                            id="service_charge_own_electricity">
+
+                                        @error('service_charge_own_electricity')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -106,31 +169,46 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-5">
-                                    <label for="formrow-inputCity" class="form-label">Tarif Dasar Overtime (Diatas 4
+                                    <label for="overtime_up_4" class="form-label">Tarif Dasar Overtime (Diatas 4
                                         Jam)</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Enter Your Living City">
+                                        <input type="number" min="0"
+                                            class="form-control @error('overtime_up_4') is-invalid @enderror"
+                                            name="overtime_up_4" placeholder="Masukkan harga" id="overtime_up_4">
+
+                                        @error('overtime_up_4')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-5">
-                                    <label for="formrow-inputCity" class="form-label">Tarif Dasar Overtime (Dibawah
+                                    <label for="overtime_down_4" class="form-label">Tarif Dasar Overtime (Dibawah
                                         4
                                         Jam)</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
-                                        <input type="text" class="form-control" id="formrow-inputCity"
-                                            placeholder="Enter Your Living City">
+                                        <input type="number" min="0"
+                                            class="form-control @error('overtime_down_4') is-invalid @enderror"
+                                            id="overtime_down_4" name="overtime_down_4" placeholder="Masukkan harga"
+                                            id="overtime_down_4">
+
+                                        @error('overtime_down_4')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <a href="{{ route('floors') }}" type="button"
+                            <a href="{{ route('floors.index') }}" type="button"
                                 class="btn btn-danger w-md me-2">Cancel</a>
                             <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </div>
@@ -142,4 +220,14 @@
         </div>
         <!-- end col -->
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#monthly_price').on('change', function() {
+                var monthlyPrice = $(this).val();
+                var dailyPrice = parseInt(monthlyPrice) / 30;
+                $('#daily_price').val(dailyPrice);
+            });
+        });
+    </script>
 </x-app-layout>

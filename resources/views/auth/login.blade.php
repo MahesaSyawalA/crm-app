@@ -7,12 +7,12 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | Skote - Admin & Dashboard Template</title>
+    <title>Login | CRM Pop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon/favicon.ico') }}">
 
     <!-- Bootstrap Css -->
     <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -34,7 +34,7 @@
                                 <div class="col-7">
                                     <div class="text-primary p-4">
                                         <h5 class="text-primary">Welcome Back !</h5>
-                                        <p>Sign in to continue to Skote.</p>
+                                        <p>Sign in to continue to CRM Pop.</p>
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
@@ -47,8 +47,7 @@
                                 <a href="index.html" class="auth-logo-light">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            <img src="assets/images/logo-light.svg" alt=""
-                                                class="rounded-circle" height="34">
+                                            <img src="assets/images/logo-pmj.png" alt="" height="28">
                                         </span>
                                     </div>
                                 </a>
@@ -56,29 +55,41 @@
                                 <a href="index.html" class="auth-logo-dark">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            <img src="assets/images/logo.svg" alt="" class="rounded-circle"
-                                                height="34">
+                                            <img src="assets/images/logo-pmj.png" alt="" height="28">
                                         </span>
                                     </div>
                                 </a>
                             </div>
                             <div class="p-2">
-                                <form class="form-horizontal" action="https://themesbrand.com/skote/layouts/index.html">
-
+                                <form class="form-horizontal" action="{{ route('login') }}" method="post">
+                                    @csrf
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="username"
-                                            placeholder="Enter username">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control"
+                                            placeholder="Enter email">
+                                        @error('email')
+                                            <div class="text-danger fst-italic mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label">Password</label>
+                                        <label class="form-label" for="password">Password</label>
                                         <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" class="form-control" placeholder="Enter password"
-                                                aria-label="Password" aria-describedby="password-addon">
-                                            <button class="btn btn-light" type="button" id="password-addon"><i
-                                                    class="mdi mdi-eye-outline"></i></button>
+                                            <input type="password" name="password" id="password" class="form-control"
+                                                placeholder="Enter password" aria-label="Password"
+                                                aria-describedby="password-addon">
+                                            <button class="btn btn-light" type="button" id="password-addon"
+                                                data-bs-toggle="tooltip" data-bs-title="Show Password"><i
+                                                    class="mdi mdi-eye-outline"></i>
+                                            </button>
                                         </div>
+                                        @error('password')
+                                            <div class="text-danger fst-italic mt-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-check">
@@ -89,33 +100,8 @@
                                     </div>
 
                                     <div class="d-grid mt-3">
-                                        <button class="btn btn-primary waves-effect waves-light" type="submit">Log
+                                        <button class="btn waves-effect btn-primary waves-light" type="submit">Log
                                             In</button>
-                                    </div>
-
-                                    <div class="mt-4 text-center">
-                                        <h5 class="font-size-14 mb-3">Sign in with</h5>
-
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="javascript::void()"
-                                                    class="social-list-item bg-primary border-primary text-white">
-                                                    <i class="mdi mdi-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript::void()"
-                                                    class="social-list-item bg-info border-info text-white">
-                                                    <i class="mdi mdi-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript::void()"
-                                                    class="social-list-item bg-danger border-danger text-white">
-                                                    <i class="mdi mdi-google"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
 
                                     <div class="mt-4 text-center">
@@ -127,16 +113,16 @@
 
                         </div>
                     </div>
-                    <div class="mt-5 text-center">
+                    <div class="mt-3 text-center">
 
                         <div>
-                            <p>Don't have an account ? <a href="auth-register.html" class="fw-medium text-primary">
-                                    Signup now </a> </p>
                             <p>©
                                 <script>
                                     document.write(new Date().getFullYear())
-                                </script> Skote. Crafted with <i class="mdi mdi-heart text-danger"></i>
-                                by Themesbrand
+                                </script> PMJ Smart.
+                                {{-- Crafted with <i
+                                    class="mdi mdi-heart text-danger"></i>
+                                by Basicteknologi --}}
                             </p>
                         </div>
                     </div>

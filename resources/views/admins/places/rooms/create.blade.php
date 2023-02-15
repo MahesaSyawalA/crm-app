@@ -25,28 +25,28 @@
                 <div class="card-body">
                     <h4 class="card-title mb-5">Form Tambah Ruang</h4>
 
-                    <form>
+                    <form method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Gedung</label>
-                                    <select class="form-select">
+                                    <select class="form-select select2" id="building" name="building">
                                         <option value="" disabled selected>Pilih Gedung</option>
-                                        <option value="">Gedung A</option>
-                                        <option value="">Gedung B</option>
-                                        <option value="">Gedung C</option>
+                                        @foreach ($buildings as $building)
+                                            @if ($building->floors_count != 0)
+                                                <option value="{{ $building->id_building }}"
+                                                    {{ old('id_building') == $building->id_building ? 'selected' : null }}>
+                                                    {{ $building->name_building }}</option>
+                                            @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Lantai</label>
-                                    <select class="form-select">
-                                        <option value="" disabled selected>Pilih Lantai</option>
-                                        <option value="">Lantai 1</option>
-                                        <option value="">Lantai 2</option>
-                                        <option value="">Lantai 3</option>
-                                    </select>
+                                    <select class="form-select select2" id="floor" name="floor"></select>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,8 @@
                         </div>
 
                         <div class="mt-5">
-                            <a href="{{ route('rooms') }}" type="button" class="btn btn-danger w-md me-2">Cancel</a>
+                            <a href="{{ route('rooms.index') }}" type="button"
+                                class="btn btn-danger w-md me-2">Cancel</a>
                             <button type="submit" class="btn btn-primary w-md">Submit</button>
                         </div>
                     </form>
@@ -167,4 +168,38 @@
         </div>
         <!-- end col -->
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#building').on('change', function() {
+                var id_building = $(this).val();
+                // console.log(id_building);
+                if (id_building) {
+                    $.ajax({
+                        type: "get",
+                        url: "create/ajax/" + id_building,
+                        data: {
+                            '_token': '{{ csrf_token() }}'
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            // console.log(data);
+                            if (data) {
+                                $('#floor').empty();
+                                $('#floor').append(
+                                    '<option value="" selected disabled>Pilih Lantai</option>'
+                                );
+                                $.each(data, function(key, floor) {
+                                    $('select[name="floor"]').append(
+                                        '<option value="' + floor.id_floor +
+                                        '">' + floor.name_floor + '</option>'
+                                    )
+                                });
+                            }
+                        }
+                    });
+                }
+            })
+        });
+    </script>
 </x-app-layout>

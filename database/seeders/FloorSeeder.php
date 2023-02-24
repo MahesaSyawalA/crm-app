@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Floor;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class FloorSeeder extends Seeder
 {
@@ -15,6 +14,6 @@ class FloorSeeder extends Seeder
      */
     public function run()
     {
-        Floor::factory()->count(20)->create();
+        Floor::factory()->count(234)->create();
     }
 }

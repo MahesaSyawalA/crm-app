@@ -17,53 +17,56 @@
     </div>
     <!-- end page title -->
 
+    <!-- flash message -->
+    <x-alert></x-alert>
+    <!-- end flash message -->
+
+    <!-- Content -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                        <div class="col-sm-8">
+                        <div class="col-sm-9">
                             <div class="d-flex align-items-center flex-wrap">
                                 <div class="me-2 d-inline-block mb-2">
                                     <div class="position-relative">
                                         <input type="text" class="form-control" placeholder="Search...">
                                     </div>
                                 </div>
-                                <div class="dropdown me-2 mb-2">
-                                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Pilih Gedung <i class="mdi mdi-chevron-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Gedung A</a>
-                                        <a class="dropdown-item" href="#">Gedung B</a>
-                                        <a class="dropdown-item" href="#">Gedung C</a>
-                                    </div>
+                                <div class="me-2 mb-2">
+                                    <select class="form-control select2" name="qbuilding" id="id_building"
+                                        style="width: 192px;">
+                                        <option value="" disabled selected>Pilih Gedung</option>
+                                        @foreach ($buildings as $building)
+                                            @if ($building->floors_count != 0)
+                                                <option value="{{ $building->id_building }}"
+                                                    {{ old('id_building') == $building->id_building ? 'selected' : null }}>
+                                                    {{ $building->name_building }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <div class="dropdown me-2 mb-2">
-                                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Pilih Lantai <i class="mdi mdi-chevron-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Lantai 01</a>
-                                        <a class="dropdown-item" href="#">Lantai 02</a>
-                                        <a class="dropdown-item" href="#">Lantai 03</a>
-                                    </div>
+                                <div class="me-2 mb-2">
+                                    <select class="form-control select2" name="qfloor" id="id_floor"
+                                        style="width: 192px;">
+                                        <option value="" disabled>Pilih Gedung Terlebih Dahulu</option>
+                                    </select>
                                 </div>
-                                <div class="dropdown mb-2">
-                                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Pilih Status <i class="mdi mdi-chevron-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Aktif</a>
-                                        <a class="dropdown-item" href="#">Tidak Aktif</a>
-                                    </div>
+                                <div class="mb-2">
+                                    <select type="text" class="form-control select2" name="qstatus"
+                                        style="width: 192px;">
+                                        <option value="" disabled selected>Pilih Status</option>
+                                        <option value="active">Aktif</option>
+                                        <option value="inactive">Tidak Aktif</option>
+                                        <option value="rented">Disewa</option>
+                                        <option value="booked">Dibooking</option>
+                                        <option value="sealed">Disegel</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="text-sm-end">
                                 <a href="{{ route('rooms.create') }}" type="button"
                                     class="btn btn-success waves-effect waves-light mb-2"><i
@@ -87,57 +90,119 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="text-body fw-bold">G0001</td>
-                                    <td class="text-body fw-bold">L001</td>
-                                    <td class="text-body fw-bold">A01</td>
-                                    <td>Ruang A1</td>
-                                    <td>24 m2</td>
-                                    <td>
-                                        <span class="badge font-size-12 badge-soft-success">Aktif</span>
-                                    </td>
-                                    <td>
-                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="View Detail">
-                                                <a href="#" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                <a href="#" class="btn btn-sm btn-info">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                <a href="#" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                @foreach ($rooms as $key => $room)
+                                    <tr>
+                                        <td scope="row">{{ $rooms->firstItem() + $key }}</td>
+                                        <td class="text-body fw-bold">{{ $room->building->name_building }}</td>
+                                        <td class="text-body fw-bold">{{ $room->floor->name_floor }}</td>
+                                        <td class="text-body fw-bold">{{ $room->code_room }}</td>
+                                        <td>{{ $room->name_room }}</td>
+                                        <td>{{ $room->wide_room }} m<sup>2</sup></td>
+                                        <td>
+                                            @if ($room->status_room->value === 'inactive')
+                                                <span class="badge font-size-12 badge-soft-warning">Aktif</span>
+                                            @elseif ($room->status_room->value === 'rented')
+                                                <span class="badge font-size-12 badge-soft-primary">Disewa</span>
+                                            @elseif ($room->status_room->value === 'booked')
+                                                <span class="badge font-size-12 badge-soft-info">Dibooking</span>
+                                            @elseif ($room->status_room->value === 'sealed')
+                                                <span class="badge font-size-12 badge-soft-danger">Disegel</span>
+                                            @else
+                                                <span class="badge font-size-12 badge-soft-success">Aktif</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="View Detail">
+                                                    <a href="{{ route('rooms.show', $room->id_room) }}"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="Edit">
+                                                    <a href="{{ route('rooms.edit', $room->id_room) }}"
+                                                        class="btn btn-sm btn-info">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </li>
+                                                <form action="{{ route('rooms.destroy', $room->id_room) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-title="Delete">
+                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                            onclick="return confirm('Yakin ingin menghapus data ruang ini?')">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </li>
+                                                </form>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <ul class="pagination justify-content-end mb-2">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="mdi mdi-chevron-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <i class="mdi mdi-chevron-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+
+                    <div class="row">
+                        <div class="col text-muted">
+                            Showing
+                            {{ $rooms->firstItem() }}
+                            to
+                            {{ $rooms->lastItem() }}
+                            of
+                            {{ $rooms->total() }}
+                            entries
+                        </div>
+                        <div class="col">
+                            <div class="pagination justify-content-end">
+                                {{-- {{ $rooms->links() }} --}}
+                                {{ $rooms->withQueryString()->links() }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- end row -->
+
+    <script>
+        $(document).ready(function() {
+            $('#id_building').on('change', function() {
+                var id_building = $(this).val();
+                console.log(id_building);
+                if (id_building) {
+                    $.ajax({
+                        type: "get",
+                        url: "/ajax/buildings/" + id_building + "/floors",
+                        data: {
+                            '_token': '{{ csrf_token() }}'
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data);
+                            if (data) {
+                                $('#id_floor').empty();
+                                $('#id_floor').append(
+                                    '<option value="" selected disabled>Pilih Lantai</option>'
+                                );
+                                $.each(data, function(key, floor) {
+                                    $('select[name="qfloor"]').append(
+                                        '<option value="' + floor.id_floor +
+                                        '">' + floor.name_floor + '</option>'
+                                    )
+                                });
+                            }
+                            // $('#id_floor').empty();
+                        }
+                    });
+                }
+                // $('#id_floor').empty();
+            })
+        });
+    </script>
 </x-app-layout>

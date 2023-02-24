@@ -10,12 +10,11 @@
                 <div class="modal-body">
 
                     <div class="mb-3">
-                        <label for="code_building" class="form-label">Kode Gedung</label>
-                        <input type="text" class="form-control @error('code_building') is-invalid @enderror"
-                            name="code_building" placeholder="Masukkan Kode" value="{{ old('code_building') }}"
-                            autofocus>
+                        <label for="code" class="form-label">Kode Gedung</label>
+                        <input type="text" class="form-control @error('code') is-invalid @enderror" name="code"
+                            placeholder="Masukkan Kode" value="{{ old('code') }}" autofocus>
 
-                        @error('code_building')
+                        @error('code')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -23,11 +22,11 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="name_building" class="form-label">Nama Gedung</label>
-                        <input type="text" class="form-control @error('name_building') is-invalid @enderror"
-                            name="name_building" placeholder="Masukkan Nama" value="{{ old('name_building') }}">
+                        <label for="name" class="form-label">Nama Gedung</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            placeholder="Masukkan Nama" value="{{ old('name') }}">
 
-                        @error('name_building')
+                        @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -35,11 +34,11 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="address_building" class="form-label">Alamat Gedung</label>
-                        <textarea class="form-control @error('address_building') is-invalid @enderror" name="address_building"
-                            placeholder="Masukkan Alamat" rows="5">{{ old('address_building') }}</textarea>
+                        <label for="address" class="form-label">Alamat Gedung</label>
+                        <textarea class="form-control @error('address') is-invalid @enderror" name="address" placeholder="Masukkan Alamat"
+                            rows="5">{{ old('address') }}</textarea>
 
-                        @error('address_building')
+                        @error('address')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -47,14 +46,14 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="image_building" class="form-label">Foto Gedung</label>
+                        <label for="image" class="form-label">Foto Gedung</label>
                         <img src="" class="img-thumbnail img-fluid mb-3 p-0" id="imgBuildingAdd"
                             style="max-height: 192px">
                         <input type="file" multiple accept=".jpg,.jpeg,.png,.gif,.svg"
-                            class="form-control @error('image_building') is-invalid @enderror" name="image_building"
+                            class="form-control @error('image') is-invalid @enderror" name="image"
                             onchange="previewImgBuildingAdd()">
 
-                        @error('image_building')
+                        @error('image')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

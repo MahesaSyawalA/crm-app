@@ -54,30 +54,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gedung A</td>
-                                    <td>Lantai 01</td>
-                                    <td>Ruang 1A</td>
-                                    <td>Ruang Depan</td>
-                                    <td>Ruang Belakang</td>
-                                    <td>Ruang Kiri</td>
-                                    <td>Ruang Kanan</td>
-                                    <td>
-                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit">
-                                                <a href="#" class="btn btn-sm btn-info">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete">
-                                                <a href="#" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                @foreach ($room_positions as $key => $room_position)
+                                    <tr>
+                                        <td scope="row">{{ $room_positions->firstItem() + $key }}</td>
+                                        <td>{{ $room_position->building->name_building }}</td>
+                                        <td>{{ $room_position->floor->name_floor }}</td>
+                                        <td>{{ $room_position->parentRoom->name_room }}</td>
+                                        <td>{{ $room_position->frontRoom->name_room }}</td>
+                                        <td>{{ $room_position->backRoom->name_room }}</td>
+                                        <td>{{ $room_position->leftRoom->name_room }}</td>
+                                        <td>{{ $room_position->rightRoom->name_room }}</td>
+                                        <td>
+                                            <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="Edit">
+                                                    <a href="{{ route('roompositions.edit', $room_position->id_room_position) }}"
+                                                        class="btn btn-sm btn-info">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="Delete">
+                                                    <a href="#" class="btn btn-sm btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

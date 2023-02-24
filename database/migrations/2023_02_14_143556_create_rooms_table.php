@@ -14,14 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->id('id_room');
-            $table->string('code_room');
-            $table->string('name_room');
-            $table->integer('wide_room');
+            $table->id();
+            $table->string('code');
+            $table->string('name');
+            $table->string('status')->default('active');
+            $table->integer('wide');
             $table->integer('overtime_up_4_total');
             $table->integer('overtime_down_4_total');
-            $table->string('image_room');
-            $table->string('desc_room');
+            $table->integer('service_charge_total');
+            $table->integer('own_electricity_total');
+            $table->string('image')->nullable();
+            $table->string('desc');
+            $table->foreignId('floor_id')->constrained();
             $table->timestamps();
         });
     }

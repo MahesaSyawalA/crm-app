@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\Alert;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class error extends Component
+class Alert extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class error extends Component
      */
     public function render()
     {
-        return view('components.alerts.error');
+        return view('components.alert');
     }
 }

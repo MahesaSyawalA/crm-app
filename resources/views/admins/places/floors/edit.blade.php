@@ -20,13 +20,7 @@
     <!-- end page title -->
 
     <!-- flash message -->
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error!</strong> Ada beberapa masalah dengan masukkan Anda.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
+    <x-alert></x-alert>
     <!-- end flash message -->
 
     <div class="row justify-content-center">
@@ -35,24 +29,23 @@
                 <div class="card-body">
                     <h4 class="card-title mb-5">Form Edit Lantai</h4>
 
-                    <form action="{{ route('floors.update', 'id') }}" method="POST">
+                    <form action="{{ route('floors.update', $floor->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" name="id_floor" value="{{ $floor->id_floor }}" id="id_floor">
 
                         <div class="mb-3">
-                            <label for="id_building" class="form-label">Pilih Gedung</label>
-                            <select class="form-select select2 @error('id_building') is-invalid @enderror"
-                                name="id_building" id="id_building">
+                            <label for="building_id" class="form-label">Pilih Gedung</label>
+                            <select class="form-select select2 @error('building_id') is-invalid @enderror"
+                                name="building_id" id="building_id">
                                 <option value="" disabled selected>Pilih Gedung</option>
                                 @foreach ($buildings as $building)
-                                    <option value="{{ $building->id_building }}"
-                                        {{ old('id_building', $floor->id_building) == $building->id_building ? 'selected' : null }}>
-                                        {{ $building->name_building }}</option>
+                                    <option value="{{ $building->id }}"
+                                        {{ old('building_id', $floor->building_id) == $building->id ? 'selected' : null }}>
+                                        {{ $building->name }}</option>
                                 @endforeach
                             </select>
 
-                            @error('id_building')
+                            @error('building_id')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -62,12 +55,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code_floor" class="form-label">Kode Lantai</label>
-                                    <input type="text" class="form-control @error('code_floor') is-invalid @enderror"
-                                        name="code_floor" placeholder="Masukkan kode" id="code_floor"
-                                        value="{{ old('code_floor', $floor->code_floor) }}">
+                                    <label for="code" class="form-label">Kode Lantai</label>
+                                    <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                        name="code" placeholder="Masukkan kode" id="code"
+                                        value="{{ old('code', $floor->code) }}">
 
-                                    @error('code_floor')
+                                    @error('code')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -76,12 +69,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="name_floor" class="form-label">Nama Lantai</label>
-                                    <input type="text" class="form-control @error('name_floor') is-invalid @enderror"
-                                        name="name_floor" placeholder="Masukkan nama" id="name_floor"
-                                        value="{{ old('name_floor', $floor->name_floor) }}">
+                                    <label for="name" class="form-label">Nama Lantai</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        name="name" placeholder="Masukkan nama" id="name"
+                                        value="{{ old('name', $floor->name) }}">
 
-                                    @error('name_floor')
+                                    @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -136,16 +129,15 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-4">
-                                    <label for="service_charge_floor" class="form-label">Service Charge</label>
+                                    <label for="service_charge" class="form-label">Service Charge</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
                                         <input type="number" min="0"
-                                            class="form-control @error('service_charge_floor') is-invalid @enderror"
-                                            name="service_charge_floor" placeholder="Masukkan harga"
-                                            id="service_charge_floor"
-                                            value="{{ old('service_charge_floor', $floor->service_charge_floor) }}">
+                                            class="form-control @error('service_charge') is-invalid @enderror"
+                                            name="service_charge" placeholder="Masukkan harga" id="service_charge"
+                                            value="{{ old('service_charge', $floor->service_charge) }}">
 
-                                        @error('service_charge_floor')
+                                        @error('service_charge')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -155,18 +147,17 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-4">
-                                    <label for="service_charge_own_electricity" class="form-label">Service Charge
+                                    <label for="own_electricity" class="form-label">Service Charge
                                         Listrik
                                         Sendiri</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
                                         <input type="number" min="0"
-                                            class="form-control @error('service_charge_own_electricity') is-invalid @enderror"
-                                            name="service_charge_own_electricity" placeholder="Masukkan harga"
-                                            id="service_charge_own_electricity"
-                                            value="{{ old('service_charge_own_electricity', $floor->service_charge_own_electricity) }}">
+                                            class="form-control @error('own_electricity') is-invalid @enderror"
+                                            name="own_electricity" placeholder="Masukkan harga" id="own_electricity"
+                                            value="{{ old('own_electricity', $floor->own_electricity) }}">
 
-                                        @error('service_charge_own_electricity')
+                                        @error('own_electricity')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -234,7 +225,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#monthly_price').on('change', function() {
+            $('#monthly_price').on('input', function() {
                 var monthlyPrice = $(this).val();
                 var dailyPrice = parseInt(monthlyPrice) / 30;
                 $('#daily_price').val(dailyPrice);

@@ -18,21 +18,7 @@
     <!-- end page title -->
 
     <!-- flash message -->
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Success!</strong>
-            {{ session()->get('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error!</strong> Ada beberapa masalah dengan masukkan Anda.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
+    <x-alert></x-alert>
     <!-- end flash message -->
 
     <!-- card content -->
@@ -83,25 +69,24 @@
                                 @foreach ($buildings as $key => $building)
                                     <tr>
                                         <th scope="row">{{ $buildings->firstItem() + $key }}</th>
-                                        <td class="text-body fw-bold">{{ $building->code_building }}</td>
-                                        <td>{{ $building->name_building }}</td>
-                                        <td>{{ $building->address_building }}</td>
+                                        <td class="text-body fw-bold">{{ $building->code }}</td>
+                                        <td>{{ $building->name }}</td>
+                                        <td>{{ $building->address }}</td>
                                         <td>
                                             <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="Edit">
-                                                    {{-- <button type="button" value="{{ $building->id_building }}"
+                                                    {{-- <button type="button" value="{{ $building->id }}"
                                                         class="btn editgedungbtn btn-sm btn-info" data-bs-toggle="modal"
                                                         data-bs-target="#editGedungModal">
                                                         <i class="fa fa-edit"></i>
                                                     </button> --}}
-                                                    <a href="{{ route('buildings.edit', $building->id_building) }}"
+                                                    <a href="{{ route('buildings.edit', $building->id) }}"
                                                         type="button" class="btn btn-sm btn-info"><i
                                                             class="fa fa-edit"></i></a>
                                                 </li>
                                                 @if ($building->floors_count == 0)
-                                                    <form
-                                                        action="{{ route('buildings.destroy', $building->id_building) }}"
+                                                    <form action="{{ route('buildings.destroy', $building->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

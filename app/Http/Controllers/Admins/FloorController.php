@@ -16,11 +16,11 @@ class FloorController extends Controller
         $keyword = $request->search;
 
         $buildings = Building::all();
-        $floors = Floor::where('id_building', 'LIKE', '%' . $keyword . '%')
-            ->orWhere('code_floor', 'LIKE', '%' . $keyword . '%')
-            ->orWhere('name_floor', 'LIKE', '%' . $keyword . '%')
+        $floors = Floor::with('building')->withCount('rooms')->where('building_id', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('code', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('name', 'LIKE', '%' . $keyword . '%')
             ->latest()
-            ->paginate(20);
+            ->paginate(10);
 
         // $buildings = Building::all();
 
@@ -52,16 +52,19 @@ class FloorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_building' => ['required'],
-            'code_floor' => ['required', 'unique:floors'],
-            'name_floor' => ['required'],
+            'code' => ['required', 'unique:floors'],
+            'name' => ['required'],
             'monthly_price' => ['required'],
             'daily_price' => ['required'],
-            'service_charge_floor' => ['required'],
-            'service_charge_own_electricity' => ['required'],
+            'service_charge' => ['required'],
+            'own_electricity' => ['required'],
             'overtime_up_4' => ['required'],
             'overtime_down_4' => ['required'],
-        ]);
+            'building_id' => ['required'],
+        ],
+            [
+                'building_id.required' => 'The building field is required.',
+            ]);
 
         Floor::create($request->all());
 
@@ -72,36 +75,29 @@ class FloorController extends Controller
     {
         $buildings = Building::all();
         $floor = Floor::find($id);
+
         return view('admins.places.floors.edit', compact('floor', 'buildings'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'id_building' => ['required'],
-            'code_floor' => ['required'],
-            'name_floor' => ['required'],
+            'code' => ['required'],
+            'name' => ['required'],
             'monthly_price' => ['required'],
             'daily_price' => ['required'],
-            'service_charge_floor' => ['required'],
-            'service_charge_own_electricity' => ['required'],
+            'service_charge' => ['required'],
+            'own_electricity' => ['required'],
             'overtime_up_4' => ['required'],
             'overtime_down_4' => ['required'],
+            'building_id' => ['required'],
+        ],
+        [
+            'building_id.required' => 'The building field is required.',
         ]);
 
-        $id_floor = $request->input('id_floor', false);
-        $floor = Floor::find($id_floor);
-        $floor->id_building = $request->id_building;
-        $floor->code_floor = $request->code_floor;
-        $floor->name_floor = $request->name_floor;
-        $floor->monthly_price = $request->monthly_price;
-        $floor->daily_price = $request->daily_price;
-        $floor->service_charge_floor = $request->service_charge_floor;
-        $floor->service_charge_own_electricity = $request->service_charge_own_electricity;
-        $floor->overtime_up_4 = $request->overtime_up_4;
-        $floor->overtime_down_4 = $request->overtime_down_4;
-
-        $floor->update();
+        $floor = Floor::find($id);
+        $floor->update($request->all());
 
         return redirect()->route('floors.index')->with('success', ' Data lantai berhasil diubah.');
     }

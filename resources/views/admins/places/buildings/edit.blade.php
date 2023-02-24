@@ -18,12 +18,9 @@
     </div>
     <!-- end page title -->
 
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error!</strong> Ada beberapa masalah dengan masukkan Anda.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+    <!-- flash message -->
+    <x-alert></x-alert>
+    <!-- end flash message -->
 
     <!-- card content -->
     <div class="row justify-content-center">
@@ -34,21 +31,19 @@
                 <div class="card-body">
                     <h4 class="card-title mb-5">Form Edit Gedung</h4>
 
-                    <form action="{{ route('buildings.update', 'id') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('buildings.update', $building->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="modal-body">
 
-                            <input type="hidden" name="id_building" id="id_building"
-                                value="{{ $building->id_building }}">
-
                             <div class="mb-3">
-                                <label for="code_building" class="form-label">Kode Gedung</label>
-                                <input type="text" class="form-control @error('code_building') is-invalid @enderror"
-                                    id="code_building" name="code_building" placeholder="Masukkan Kode"
-                                    value="{{ old('code_building', $building->code_building) }}" autofocus>
+                                <label for="code" class="form-label">Kode Gedung</label>
+                                <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                    id="code" name="code" placeholder="Masukkan Kode"
+                                    value="{{ old('code', $building->code) }}" autofocus>
 
-                                @error('code_building')
+                                @error('code')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -56,12 +51,12 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="name_building" class="form-label">Nama Gedung</label>
-                                <input type="text" class="form-control @error('name_building') is-invalid @enderror"
-                                    id="name_building" name="name_building" placeholder="Masukkan Nama"
-                                    value="{{ old('name_building', $building->name_building) }}">
+                                <label for="name" class="form-label">Nama Gedung</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    id="name" name="name" placeholder="Masukkan Nama"
+                                    value="{{ old('name', $building->name) }}">
 
-                                @error('name_building')
+                                @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -69,11 +64,11 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="address_building" class="form-label">Alamat Gedung</label>
-                                <textarea class="form-control @error('address_building') is-invalid @enderror" id="address_building"
-                                    name="address_building" placeholder="Masukkan Alamat" rows="5">{{ old('address_building', $building->address_building) }}</textarea>
+                                <label for="address" class="form-label">Alamat Gedung</label>
+                                <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address"
+                                    placeholder="Masukkan Alamat" rows="5">{{ old('address', $building->address) }}</textarea>
 
-                                @error('address_building')
+                                @error('address')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -81,9 +76,10 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="image_building" class="form-label">Foto Gedung</label>
-                                @if ($building->image_building)
-                                    <img src="{{ asset('storage/' . $building->image_building) }}"
+                                <label for="image" class="form-label">Foto Gedung</label>
+                                <input type="hidden" name="old_image" value="{{ $building->image }}">
+                                @if ($building->image)
+                                    <img src="{{ asset('storage/images/buildings/' . $building->image) }}"
                                         class="img-thumbnail img-fluid d-block mb-3 p-0" id="imgBuildingEdit"
                                         style="max-height: 192px; overflow:hidden;">
                                 @else
@@ -91,10 +87,10 @@
                                         style="max-height: 192px; overflow:hidden;">
                                 @endif
                                 <input type="file" multiple accept=".jpg,.jpeg,.png,.gif,.svg"
-                                    class="form-control @error('image_building') is-invalid @enderror"
-                                    id="image_building" name="image_building" onchange="previewImgBuildingEdit()">
+                                    class="form-control @error('image') is-invalid @enderror" id="image"
+                                    name="image" onchange="previewImgBuildingEdit()">
 
-                                @error('image_building')
+                                @error('image')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

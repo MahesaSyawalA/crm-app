@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admins\RoomController;
+use App\Http\Controllers\AjaxController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -9,4 +9,6 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
  */
 
-Route::get('admin/rooms/create/ajax/{id}', [RoomController::class, 'getFloors']);
+Route::get('/ajax/buildings/{id}/floors', [AjaxController::class, 'getFloors']);
+Route::get('/ajax/floors/{id}/rooms', [AjaxController::class, 'getRooms']);
+Route::get('/ajax/floors/{id}/getprices', [AjaxController::class, 'getPrices']);

@@ -4,13 +4,13 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Tambah Posisi Ruang</h4>
+                <h4 class="mb-sm-0 font-size-18">Edit Posisi Ruang</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="">Kelola Tempat</a></li>
                         <li class="breadcrumb-item"><a href="">Posisi Ruang</a></li>
-                        <li class="breadcrumb-item active">Tambah Posisi Ruang</li>
+                        <li class="breadcrumb-item active">Edit Posisi Ruang</li>
                     </ol>
                 </div>
 
@@ -33,7 +33,7 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-5">Form Tambah Posisi Ruang</h4>
+                    <h4 class="card-title mb-5">Form Edit Posisi Ruang</h4>
 
                     <form action="{{ route('roompositions.store') }}" method="POST">
                         @csrf
@@ -45,7 +45,7 @@
                                 @foreach ($buildings as $building)
                                     @if ($building->floors_count != 0)
                                         <option value="{{ $building->id_building }}"
-                                            {{ old('id_building') == $building->id_building ? 'selected' : null }}>
+                                            {{ old('id_building', $room_position->id_building) == $building->id_building ? 'selected' : null }}>
                                             {{ $building->name_building }} - {{ $building->code_building }}
                                         </option>
                                     @endif
@@ -58,7 +58,10 @@
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Lantai</label>
                                     <select class="form-select select2" name="id_floor" id="id_floor">
-                                        <option value="" disabled>Pilih Gedung Terlebih Dahulu</option>
+                                        <option value="" disabled>Pilih Ulang Gedung Untuk Munculkan Lantai
+                                            Lainnya</option>
+                                        <option value="{{ $room_position->id_floor }}">
+                                            {{ $room_position->floor->name_floor }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -66,7 +69,10 @@
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Ruang</label>
                                     <select class="form-select select2" name="id_room" id="id_room">
-                                        <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
+                                        <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
+                                            Lainnya</option>
+                                        <option value="{{ $room_position->id_room }}">
+                                            {{ $room_position->parentRoom->name_room }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -77,7 +83,10 @@
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Depan</label>
                                     <select class="form-select select2" name="front" id="front">
-                                        <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
+                                        <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
+                                            Lainnya</option>
+                                        <option value="{{ $room_position->id_floor }}">
+                                            {{ $room_position->frontRoom->name_room }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -85,7 +94,10 @@
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Belakang</label>
                                     <select class="form-select select2" name="back" id="back">
-                                        <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
+                                        <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
+                                            Lainnya</option>
+                                        <option value="{{ $room_position->id_floor }}">
+                                            {{ $room_position->backRoom->name_room }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -96,7 +108,10 @@
                                 <div class="mb-5">
                                     <label for="formrow-firstname-input" class="form-label">Kiri</label>
                                     <select class="form-select select2" name="left" id="left">
-                                        <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
+                                        <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
+                                            Lainnya</option>
+                                        <option value="{{ $room_position->id_floor }}">
+                                            {{ $room_position->leftRoom->name_room }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -104,7 +119,10 @@
                                 <div class="mb-5">
                                     <label for="formrow-firstname-input" class="form-label">Kanan</label>
                                     <select class="form-select select2" name="right" id="right">
-                                        <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
+                                        <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
+                                            Lainnya</option>
+                                        <option value="{{ $room_position->id_floor }}">
+                                            {{ $room_position->rightRoom->name_room }}</option>
                                     </select>
                                 </div>
                             </div>

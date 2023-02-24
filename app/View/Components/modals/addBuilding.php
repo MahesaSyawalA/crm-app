@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\modals;
+namespace App\View\Components\Modals;
 
 use Illuminate\View\Component;
 
-class addBuilding extends Component
+class AddBuilding extends Component
 {
     /**
      * Create a new component instance.

@@ -18,7 +18,7 @@
     <!-- end page title -->
 
     <!-- flash message -->
-    <x-alerts.success></x-alerts.success>
+    <x-alert></x-alert>
     <!-- end flash message -->
 
 
@@ -71,11 +71,11 @@
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
-                                    <th class="align-middle">Kode Gedung</th>
+                                    <th class="align-middle">Nama Gedung</th>
                                     <th class="align-middle">Kode Lantai</th>
                                     <th class="align-middle">Nama Lantai</th>
                                     <th class="align-middle">Harga Sewa</th>
-                                    <th class="align-middle">Service (Termasuk Listrik)</th>
+                                    <th class="align-middle">Service Charge (Termasuk Listrik)</th>
                                     <th class="align-middle">Service Charge Listrik Sendiri</th>
                                     <th class="text-center align-middle">Aksi</th>
                                 </tr>
@@ -85,24 +85,25 @@
                                     <tr>
                                         <td scope="row">{{ $floors->firstItem() + $key }}</td>
                                         {{-- <td scope="row">{{ $loop->iteration }}</td> --}}
-                                        <td class="text-body fw-bold">{{ $floor->building->name_building }}</td>
-                                        <td class="text-body fw-bold">{{ $floor->code_floor }}</td>
-                                        <td>{{ $floor->name_floor }}</td>
+                                        <td class="text-body fw-bold">{{ $floor->building->name }}</td>
+                                        <td class="text-body fw-bold">{{ $floor->code }}</td>
+                                        <td>{{ $floor->name }}</td>
                                         <td>Rp {{ number_format($floor->monthly_price, 0, ',') }} / m2/Bulan</td>
-                                        <td>Rp {{ number_format($floor->service_charge_floor, 0, ',') }} / m2/Bulan
+                                        <td>Rp {{ number_format($floor->service_charge, 0, ',') }} / m2/Bulan
                                         </td>
-                                        <td>Rp {{ number_format($floor->service_charge_own_electricity, 0, ',') }} /
+                                        <td>Rp {{ number_format($floor->own_electricity, 0, ',') }} /
                                             m2/Bulan</td>
                                         <td>
                                             <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="Edit">
-                                                    <a href="{{ route('floors.edit', $floor->id_floor) }}"
+                                                    <a href="{{ route('floors.edit', $floor->id) }}"
                                                         class="btn btn-sm btn-info">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                 </li>
-                                                <form action="{{ route('floors.destroy', $floor->id_floor) }}"
+                                                {{-- @if ($floor->rooms_count == 0) --}}
+                                                <form action="{{ route('floors.destroy', $floor->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -114,6 +115,7 @@
                                                         </button>
                                                     </li>
                                                 </form>
+                                                {{-- @endif --}}
                                             </ul>
                                         </td>
                                     </tr>

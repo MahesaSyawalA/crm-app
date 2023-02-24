@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admins;
 
+use App\Http\Controllers\Controller;
 use App\Models\Building;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\storeBuildingRequest;
-use App\Http\Requests\updateBuildingRequest;
 
 class BuildingController extends Controller
 {
@@ -16,24 +14,34 @@ class BuildingController extends Controller
         $keyword = $request->search;
 
         $buildings = Building::withCount('floors')
-            ->where('code_building', 'LIKE', '%'.$keyword.'%')
-            ->orWhere('name_building', 'LIKE', '%'.$keyword.'%')
-            ->orWhere('address_building', 'LIKE', '%'.$keyword.'%')
+            ->where('code', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('address', 'LIKE', '%' . $keyword . '%')
             ->latest()
             ->paginate(9);
 
         return view('admins.places.buildings.index', compact('buildings'));
     }
 
-    public function store(storeBuildingRequest $request)
+    public function store(Request $request)
     {
-        $building = new Building([
-            'code_building' => $request->code_building,
-            'name_building' => $request->name_building,
-            'address_building' => $request->address_building,
+        $request->validate([
+            'code' => ['required', 'unique:buildings'],
+            'name' => ['required'],
+            'address' => ['required'],
+            'image' => ['image', 'file', 'max:2048'],
         ]);
-        if($request->file('image_building')) {
-            $building->image_building = $request->file('image_building')->store('images');
+
+        $building = new Building([
+            'code' => $request->code,
+            'name' => $request->name,
+            'address' => $request->address,
+        ]);
+        if ($request->file('image')) {
+            $path = $request->file('image')->store('images/buildings');
+            $splits = explode('/', $path);
+
+            $building->image = end($splits);
         }
 
         $building->save();
@@ -57,24 +65,34 @@ class BuildingController extends Controller
         return view('admins.places.buildings.edit', compact('building'));
     }
 
-    public function update(updateBuildingRequest $request)
+    public function update(Request $request, $id)
     {
-        $id_building = $request->input('id_building', false);
-        $building = Building::find($id_building);
-        $building->id_building = $request->id_building;
-        $building->code_building = $request->code_building;
-        $building->name_building = $request->name_building;
-        $building->address_building = $request->address_building;
-        if($request->file('image_building')) {
-            if($building->image_building) {
-                Storage::delete($building->image_building);
+        $request->validate([
+            'code' => ['required'],
+            'name' => ['required'],
+            'address' => ['required'],
+            'image' => ['image', 'file', 'max:2048'],
+        ]);
+
+        $building = Building::find($id);
+        $building->code = $request->code;
+        $building->name = $request->name;
+        $building->address = $request->address;
+        if ($request->file('image')) {
+            if ($request->old_image) {
+                Storage::delete('images/buildings/'.$request->old_image);
             }
-            $building->image_building = $request->file('image_building')->store('attachments/image-building');
+            $path = $request->file('image')->store('images/buildings');
+            $splits = explode('/', $path);
+
+            $building->image = end($splits);
         }
 
         $building->update();
 
-        return redirect()->route('buildings.index')->with('success', ' Data gedung berhasil diubah.');
+        dd($request->old_image);
+
+        // return redirect()->route('buildings.index')->with('success', ' Data gedung berhasil diubah.');
     }
 
     public function destroy($id)

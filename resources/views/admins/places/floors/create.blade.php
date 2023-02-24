@@ -20,13 +20,7 @@
     <!-- end page title -->
 
     <!-- flash message -->
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error!</strong> Ada beberapa masalah dengan masukkan Anda.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
+    <x-alert></x-alert>
     <!-- end flash message -->
 
     <div class="row justify-content-center">
@@ -38,18 +32,18 @@
                     <form action="{{ route('floors.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="id_building" class="form-label">Pilih Gedung</label>
-                            <select class="form-select select2 @error('id_building') is-invalid @enderror"
-                                name="id_building" id="id_building">
+                            <label for="building_id" class="form-label">Pilih Gedung</label>
+                            <select class="form-select select2 @error('building_id') is-invalid @enderror"
+                                name="building_id" id="building_id">
                                 <option value="" disabled selected>Pilih Gedung</option>
                                 @foreach ($buildings as $building)
-                                    <option value="{{ $building->id_building }}"
-                                        {{ old('id_building') == $building->id_building ? 'selected' : null }}>
-                                        {{ $building->name_building }}</option>
+                                    <option value="{{ $building->id }}"
+                                        {{ old('building_id') == $building->id ? 'selected' : null }}>
+                                        {{ $building->name }}</option>
                                 @endforeach
                             </select>
 
-                            @error('id_building')
+                            @error('building_id')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -59,11 +53,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code_floor" class="form-label">Kode Lantai</label>
-                                    <input type="text" class="form-control @error('code_floor') is-invalid @enderror"
-                                        name="code_floor" placeholder="Masukkan kode" id="code_floor">
+                                    <label for="code" class="form-label">Kode Lantai</label>
+                                    <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                        name="code" placeholder="Masukkan kode" id="code"
+                                        value="{{ old('code') }}">
 
-                                    @error('code_floor')
+                                    @error('code')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -72,11 +67,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="name_floor" class="form-label">Nama Lantai</label>
-                                    <input type="text" class="form-control @error('name_floor') is-invalid @enderror"
-                                        name="name_floor" placeholder="Masukkan nama" id="name_floor">
+                                    <label for="name" class="form-label">Nama Lantai</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        name="name" placeholder="Masukkan nama" id="name"
+                                        value="{{ old('name') }}">
 
-                                    @error('name_floor')
+                                    @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -93,7 +89,8 @@
                                         <label class="input-group-text">Rp</label>
                                         <input type="number" min="0"
                                             class="form-control @error('monthly_price') is-invalid @enderror"
-                                            name="monthly_price" placeholder="Masukkan harga" id="monthly_price">
+                                            name="monthly_price" placeholder="Masukkan harga" id="monthly_price"
+                                            value="{{ old('monthly_price') }}">
                                         <label class="input-group-text">m2/Bulan</label>
 
                                         @error('monthly_price')
@@ -112,7 +109,7 @@
                                         <input type="number" min="0"
                                             class="form-control @error('daily_price') is-invalid @enderror"
                                             style="background-color: #eff2f7;" name="daily_price" placeholder="0"
-                                            id="daily_price" readonly>
+                                            id="daily_price" value="{{ old('daily_price') }}" readonly>
                                         <label class="input-group-text">m2/Hari</label>
 
                                         @error('daily_price')
@@ -128,15 +125,15 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="mb-4">
-                                    <label for="service_charge_floor" class="form-label">Service Charge</label>
+                                    <label for="service_charge" class="form-label">Service Charge</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
                                         <input type="number" min="0"
-                                            class="form-control @error('service_charge_floor') is-invalid @enderror"
-                                            name="service_charge_floor" placeholder="Masukkan harga"
-                                            id="service_charge_floor">
+                                            class="form-control @error('service_charge') is-invalid @enderror"
+                                            name="service_charge" placeholder="Masukkan harga" id="service_charge"
+                                            value="{{ old('service_charge') }}">
 
-                                        @error('service_charge_floor')
+                                        @error('service_charge')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -146,17 +143,17 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-4">
-                                    <label for="service_charge_own_electricity" class="form-label">Service Charge
+                                    <label for="own_electricity" class="form-label">Service Charge
                                         Listrik
                                         Sendiri</label>
                                     <div class="input-group">
                                         <label class="input-group-text">Rp</label>
                                         <input type="number" min="0"
-                                            class="form-control @error('service_charge_own_electricity') is-invalid @enderror"
-                                            name="service_charge_own_electricity" placeholder="Masukkan harga"
-                                            id="service_charge_own_electricity">
+                                            class="form-control @error('own_electricity') is-invalid @enderror"
+                                            name="own_electricity" placeholder="Masukkan harga" id="own_electricity"
+                                            value="{{ old('own_electricity') }}">
 
-                                        @error('service_charge_own_electricity')
+                                        @error('own_electricity')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -175,7 +172,8 @@
                                         <label class="input-group-text">Rp</label>
                                         <input type="number" min="0"
                                             class="form-control @error('overtime_up_4') is-invalid @enderror"
-                                            name="overtime_up_4" placeholder="Masukkan harga" id="overtime_up_4">
+                                            name="overtime_up_4" placeholder="Masukkan harga" id="overtime_up_4"
+                                            value="{{ old('overtime_up_4') }}">
 
                                         @error('overtime_up_4')
                                             <div class="invalid-feedback">
@@ -195,7 +193,7 @@
                                         <input type="number" min="0"
                                             class="form-control @error('overtime_down_4') is-invalid @enderror"
                                             id="overtime_down_4" name="overtime_down_4" placeholder="Masukkan harga"
-                                            id="overtime_down_4">
+                                            id="overtime_down_4" value="{{ old('overtime_down_4') }}">
 
                                         @error('overtime_down_4')
                                             <div class="invalid-feedback">
@@ -223,7 +221,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#monthly_price').on('change', function() {
+            $('#monthly_price').on('input', function() {
                 var monthlyPrice = $(this).val();
                 var dailyPrice = parseInt(monthlyPrice) / 30;
                 $('#daily_price').val(dailyPrice);

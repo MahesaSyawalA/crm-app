@@ -10,11 +10,10 @@ class Building extends Model
     use HasFactory;
 
     protected $table = 'buildings';
-    protected $primaryKey = 'id_building';
-    protected $fillable = ['code_building', 'name_building', 'address_building', 'image_building'];
+    protected $fillable = ['code', 'name', 'address', 'image'];
 
     public function floors()
     {
-        return $this->hasMany(Floor::class, 'id_building');
+        return $this->hasMany(Floor::class, 'building_id');
     }
 }

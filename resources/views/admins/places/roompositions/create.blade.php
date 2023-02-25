@@ -39,15 +39,13 @@
                         @csrf
                         <div class="mb-3">
                             <label for="formrow-firstname-input" class="form-label">Pilih Gedung</label>
-                            <select class="form-select select2 @error('id_building') is-invalid @enderror"
-                                name="id_building" id="id_building">
+                            <select class="form-select select2" name="building" id="building">
                                 <option value="" disabled selected>Pilih Gedung</option>
                                 @foreach ($buildings as $building)
                                     @if ($building->floors_count != 0)
-                                        <option value="{{ $building->id_building }}"
-                                            {{ old('id_building') == $building->id_building ? 'selected' : null }}>
-                                            {{ $building->name_building }} - {{ $building->code_building }}
-                                        </option>
+                                        <option value="{{ $building->id }}"
+                                            {{ old('id') == $building->id ? 'selected' : null }}>
+                                            {{ $building->name }} - {{ $building->code }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -57,7 +55,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Lantai</label>
-                                    <select class="form-select select2" name="id_floor" id="id_floor">
+                                    <select class="form-select select2" name="floor" id="floor">
                                         <option value="" disabled>Pilih Gedung Terlebih Dahulu</option>
                                     </select>
                                 </div>
@@ -65,7 +63,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Ruang</label>
-                                    <select class="form-select select2" name="id_room" id="id_room">
+                                    <select class="form-select select2" name="room_id" id="parent_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
                                 </div>
@@ -76,7 +74,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Depan</label>
-                                    <select class="form-select select2" name="front" id="front">
+                                    <select class="form-select select2" name="front" id="front_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
                                 </div>
@@ -84,7 +82,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Belakang</label>
-                                    <select class="form-select select2" name="back" id="back">
+                                    <select class="form-select select2" name="back" id="back_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
                                 </div>
@@ -95,7 +93,7 @@
                             <div class="col-md-6">
                                 <div class="mb-5">
                                     <label for="formrow-firstname-input" class="form-label">Kiri</label>
-                                    <select class="form-select select2" name="left" id="left">
+                                    <select class="form-select select2" name="left" id="left_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
                                 </div>
@@ -103,7 +101,7 @@
                             <div class="col-md-6">
                                 <div class="mb-5">
                                     <label for="formrow-firstname-input" class="form-label">Kanan</label>
-                                    <select class="form-select select2" name="right" id="right">
+                                    <select class="form-select select2" name="right" id="right_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
                                 </div>
@@ -126,13 +124,13 @@
 
     <script>
         $(document).ready(function() {
-            $('#id_building').on('change', function() {
-                var id_building = $(this).val();
-                // console.log(id_building);
-                if (id_building) {
+            $('#building').on('change', function() {
+                var building_id = $(this).val();
+                // console.log(building_id);
+                if (building_id) {
                     $.ajax({
                         type: "get",
-                        url: "/ajax/buildings/" + id_building + "/floors",
+                        url: "/ajax/buildings/" + building_id + "/floors",
                         data: {
                             '_token': '{{ csrf_token() }}'
                         },
@@ -140,16 +138,16 @@
                         success: function(data) {
                             // console.log(data);
                             if (data) {
-                                $('#id_floor').empty();
-                                $('#id_floor').append(
+                                $('#floor').empty();
+                                $('#floor').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
                                 $.each(data, function(key, floor) {
-                                    $('select[name="id_floor"]').append(
-                                        '<option value="' + floor.id_floor +
-                                        '">' + floor.name_floor + ' - Rp ' +
+                                    $('select[name="floor"]').append(
+                                        '<option value="' + floor.id +
+                                        '">' + floor.name + ' - Rp ' +
                                         floor
-                                        .monthly_price + ' / m2/Bulan </option>'
+                                        .code + ' / m2/Bulan </option>'
                                     )
                                 });
                             }
@@ -160,13 +158,13 @@
                 // $('#id_floor').empty();
             })
 
-            $('#id_floor').on('change', function() {
-                var id_floor = $(this).val();
-                console.log(id_floor);
-                if (id_floor) {
+            $('#floor').on('change', function() {
+                var floor_id = $(this).val();
+                console.log(floor_id);
+                if (floor_id) {
                     $.ajax({
                         type: "get",
-                        url: "/ajax/floors/" + id_floor + "/rooms",
+                        url: "/ajax/floors/" + floor_id + "/rooms",
                         data: {
                             '_token': '{{ csrf_token() }}'
                         },
@@ -174,46 +172,47 @@
                         success: function(data) {
                             console.log(data);
                             if (data) {
-                                $('#id_room').empty();
-                                $('#front').empty();
-                                $('#back').empty();
-                                $('#left').empty();
-                                $('#right').empty();
-                                $('#id_room').append(
+                                $('#parent_room').empty();
+                                $('#front_room').empty();
+                                $('#back_room').empty();
+                                $('#left_room').empty();
+                                $('#right_room').empty();
+                                $('#parent_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
-                                $('#front').append(
+                                $('#front_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
-                                $('#back').append(
+                                $('#back_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
-                                $('#left').append(
+                                $('#left_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
-                                $('#right').append(
+                                $('#right_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
                                 $.each(data, function(key, room) {
-                                    $('select[name="id_room"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                    $('select[name="room_id"]').append(
+                                        '<option value="' + room.id +
+                                        '">' + room.name + ' - ' +
+                                        room.code + '</option>'
                                     );
                                     $('select[name="front"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                        '<option value="' + room.id +
+                                        '">' + room.name + '</option>'
                                     );
                                     $('select[name="back"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                        '<option value="' + room.id +
+                                        '">' + room.name + '</option>'
                                     );
                                     $('select[name="left"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                        '<option value="' + room.id +
+                                        '">' + room.name + '</option>'
                                     );
                                     $('select[name="right"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                        '<option value="' + room.id +
+                                        '">' + room.name + '</option>'
                                     );
                                 });
                             }

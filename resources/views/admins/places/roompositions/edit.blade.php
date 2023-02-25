@@ -35,19 +35,19 @@
                 <div class="card-body">
                     <h4 class="card-title mb-5">Form Edit Posisi Ruang</h4>
 
-                    <form action="{{ route('roompositions.store') }}" method="POST">
+                    <form action="{{ route('roompositions.update', $room_position->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
+
                         <div class="mb-3">
                             <label for="formrow-firstname-input" class="form-label">Pilih Gedung</label>
-                            <select class="form-select select2 @error('id_building') is-invalid @enderror"
-                                name="id_building" id="id_building">
+                            <select class="form-select select2" name="building" id="building">
                                 <option value="" disabled selected>Pilih Gedung</option>
                                 @foreach ($buildings as $building)
                                     @if ($building->floors_count != 0)
-                                        <option value="{{ $building->id_building }}"
-                                            {{ old('id_building', $room_position->id_building) == $building->id_building ? 'selected' : null }}>
-                                            {{ $building->name_building }} - {{ $building->code_building }}
-                                        </option>
+                                        <option value="{{ $building->id }}"
+                                            {{ old('id_building', $room_position->parentRoom->floor->building_id) == $building->id ? 'selected' : null }}>
+                                            {{ $building->name }} - {{ $building->code }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -57,22 +57,24 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Lantai</label>
-                                    <select class="form-select select2" name="id_floor" id="id_floor">
+                                    <select class="form-select select2" name="floor" id="floor">
                                         <option value="" disabled>Pilih Ulang Gedung Untuk Munculkan Lantai
                                             Lainnya</option>
-                                        <option value="{{ $room_position->id_floor }}">
-                                            {{ $room_position->floor->name_floor }}</option>
+                                        <option value="{{ $room_position->parentRoom->floor->id }}">
+                                            {{ $room_position->parentRoom->floor->name }} -
+                                            {{ $room_position->parentRoom->floor->code }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Ruang</label>
-                                    <select class="form-select select2" name="id_room" id="id_room">
+                                    <select class="form-select select2" name="room_id" id="parent_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
-                                        <option value="{{ $room_position->id_room }}">
-                                            {{ $room_position->parentRoom->name_room }}</option>
+                                        <option value="{{ $room_position->room_id }}">
+                                            {{ $room_position->parentRoom->name }} -
+                                            {{ $room_position->parentRoom->code }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -82,22 +84,22 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Depan</label>
-                                    <select class="form-select select2" name="front" id="front">
+                                    <select class="form-select select2" name="front" id="front_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
-                                        <option value="{{ $room_position->id_floor }}">
-                                            {{ $room_position->frontRoom->name_room }}</option>
+                                        <option value="{{ $room_position->front }}">
+                                            {{ $room_position->frontRoom->name }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Belakang</label>
-                                    <select class="form-select select2" name="back" id="back">
+                                    <select class="form-select select2" name="back" id="back_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
-                                        <option value="{{ $room_position->id_floor }}">
-                                            {{ $room_position->backRoom->name_room }}</option>
+                                        <option value="{{ $room_position->back }}">
+                                            {{ $room_position->backRoom->name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -107,22 +109,22 @@
                             <div class="col-md-6">
                                 <div class="mb-5">
                                     <label for="formrow-firstname-input" class="form-label">Kiri</label>
-                                    <select class="form-select select2" name="left" id="left">
+                                    <select class="form-select select2" name="left" id="left_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
-                                        <option value="{{ $room_position->id_floor }}">
-                                            {{ $room_position->leftRoom->name_room }}</option>
+                                        <option value="{{ $room_position->left }}">
+                                            {{ $room_position->leftRoom->name }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-5">
                                     <label for="formrow-firstname-input" class="form-label">Kanan</label>
-                                    <select class="form-select select2" name="right" id="right">
+                                    <select class="form-select select2" name="right" id="right_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
-                                        <option value="{{ $room_position->id_floor }}">
-                                            {{ $room_position->rightRoom->name_room }}</option>
+                                        <option value="{{ $room_position->right }}">
+                                            {{ $room_position->rightRoom->name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -144,13 +146,13 @@
 
     <script>
         $(document).ready(function() {
-            $('#id_building').on('change', function() {
-                var id_building = $(this).val();
-                // console.log(id_building);
-                if (id_building) {
+            $('#building').on('change', function() {
+                var building_id = $(this).val();
+                // console.log(building_id);
+                if (building_id) {
                     $.ajax({
                         type: "get",
-                        url: "/ajax/buildings/" + id_building + "/floors",
+                        url: "/ajax/buildings/" + building_id + "/floors",
                         data: {
                             '_token': '{{ csrf_token() }}'
                         },
@@ -158,16 +160,16 @@
                         success: function(data) {
                             // console.log(data);
                             if (data) {
-                                $('#id_floor').empty();
-                                $('#id_floor').append(
+                                $('#floor').empty();
+                                $('#floor').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
                                 $.each(data, function(key, floor) {
-                                    $('select[name="id_floor"]').append(
-                                        '<option value="' + floor.id_floor +
-                                        '">' + floor.name_floor + ' - Rp ' +
+                                    $('select[name="floor"]').append(
+                                        '<option value="' + floor.id +
+                                        '">' + floor.name + ' - ' +
                                         floor
-                                        .monthly_price + ' / m2/Bulan </option>'
+                                        .code + '</option>'
                                     )
                                 });
                             }
@@ -178,13 +180,13 @@
                 // $('#id_floor').empty();
             })
 
-            $('#id_floor').on('change', function() {
-                var id_floor = $(this).val();
-                console.log(id_floor);
-                if (id_floor) {
+            $('#floor').on('change', function() {
+                var floor_id = $(this).val();
+                console.log(floor_id);
+                if (floor_id) {
                     $.ajax({
                         type: "get",
-                        url: "/ajax/floors/" + id_floor + "/rooms",
+                        url: "/ajax/floors/" + floor_id + "/rooms",
                         data: {
                             '_token': '{{ csrf_token() }}'
                         },
@@ -192,46 +194,47 @@
                         success: function(data) {
                             console.log(data);
                             if (data) {
-                                $('#id_room').empty();
-                                $('#front').empty();
-                                $('#back').empty();
-                                $('#left').empty();
-                                $('#right').empty();
-                                $('#id_room').append(
+                                $('#parent_room').empty();
+                                $('#front_room').empty();
+                                $('#back_room').empty();
+                                $('#left_room').empty();
+                                $('#right_room').empty();
+                                $('#parent_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
-                                $('#front').append(
+                                $('#front_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
-                                $('#back').append(
+                                $('#back_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
-                                $('#left').append(
+                                $('#left_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
-                                $('#right').append(
+                                $('#right_room').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
                                 $.each(data, function(key, room) {
-                                    $('select[name="id_room"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                    $('select[name="room_id"]').append(
+                                        '<option value="' + room.id +
+                                        '">' + room.name + ' - ' +
+                                        room.code + '</option>'
                                     );
                                     $('select[name="front"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                        '<option value="' + room.id +
+                                        '">' + room.name + '</option>'
                                     );
                                     $('select[name="back"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                        '<option value="' + room.id +
+                                        '">' + room.name + '</option>'
                                     );
                                     $('select[name="left"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                        '<option value="' + room.id +
+                                        '">' + room.name + '</option>'
                                     );
                                     $('select[name="right"]').append(
-                                        '<option value="' + room.id_room +
-                                        '">' + room.name_room + '</option>'
+                                        '<option value="' + room.id +
+                                        '">' + room.name + '</option>'
                                     );
                                 });
                             }

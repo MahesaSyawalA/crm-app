@@ -10,21 +10,21 @@ class AjaxController extends Controller
 {
     public function getFloors($id)
     {
-        $floors = Floor::where('id_building', $id)->get();
+        $floors = Floor::where('building_id', $id)->get();
 
         return response()->json($floors);
     }
 
     public function getRooms($id)
     {
-        $rooms = Room::where('id_floor', $id)->get();
+        $rooms = Room::where('floor_id', $id)->get();
 
         return response()->json($rooms);
     }
 
     public function getPrices($id)
     {
-        $prices = Floor::where('id_floor', $id)->first();
+        $prices = Floor::where('id', $id)->first();
 
         return response()->json($prices);
     }

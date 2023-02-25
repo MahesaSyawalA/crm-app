@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('room_positions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('room_id')->constrained();
             $table->foreignId('front')->constrained('rooms');
             $table->foreignId('back')->constrained('rooms');
             $table->foreignId('left')->constrained('rooms');
             $table->foreignId('right')->constrained('rooms');
-            $table->foreignId('building_id')->constrained();
-            $table->foreignId('floor_id')->constrained();
-            $table->foreignId('room_id')->constrained();
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class RoomPositionController extends Controller
 {
     public function index()
     {
-        $room_positions = RoomPosition::with('building', 'floor', 'parentRoom', 'frontRoom', 'backRoom', 'leftRoom', 'rightRoom')
+        $room_positions = RoomPosition::with('parentRoom.floor.building', 'frontRoom', 'backRoom', 'leftRoom', 'rightRoom')
             ->paginate(9);
 
         return view('admins.places.roompositions.index', compact('room_positions'));
@@ -30,18 +30,18 @@ class RoomPositionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'room_id' => ['required'],
             'front' => ['required'],
             'back' => ['required'],
             'left' => ['required'],
             'right' => ['required'],
-            'id_building' => ['required'],
-            'id_floor' => ['required'],
-            'id_room' => ['required'],
         ],
         [
-            'id_building.required' => 'The building field is required.',
-            'id_floor.required' => 'The floor field is required.',
-            'id_room.required' => 'The room field is required.',
+            'room_id.required' => 'The parent room field is required.',
+            'front.required' => 'The front room field is required.',
+            'back.required' => 'The back room field is required.',
+            'left.required' => 'The left room field is required.',
+            'right.required' => 'The right room field is required.',
         ]);
 
         RoomPosition::create($request->all());
@@ -54,9 +54,40 @@ class RoomPositionController extends Controller
         $buildings = Building::withCount('floors')->get();
         $floors = Floor::withCount('rooms')->get();
         $rooms = Room::get();
-        $room_position = RoomPosition::with('building', 'floor', 'parentRoom', 'frontRoom', 'backRoom', 'leftRoom', 'rightRoom')
+        $room_position = RoomPosition::with('parentRoom.floor.building', 'frontRoom', 'backRoom', 'leftRoom', 'rightRoom')
             ->find($id);
 
         return view('admins.places.roompositions.edit', compact('room_position', 'buildings', 'floors', 'rooms'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'room_id' => ['required'],
+            'front' => ['required'],
+            'back' => ['required'],
+            'left' => ['required'],
+            'right' => ['required'],
+        ],
+        [
+            'room_id.required' => 'The parent room field is required.',
+            'front.required' => 'The front room field is required.',
+            'back.required' => 'The back room field is required.',
+            'left.required' => 'The left room field is required.',
+            'right.required' => 'The right room field is required.',
+        ]);
+
+        $room_position = RoomPosition::find($id);
+        $room_position->update($request->all());
+
+        return redirect()->route('roompositions.index')->with('success', ' Data posisi ruang berhasil diubah.');
+    }
+
+    public function destroy($id)
+    {
+        $room_position = RoomPosition::find($id);
+        $room_position->delete();
+
+        return back()->with('success', ' Data ruang berhasil dihapus.');
     }
 }

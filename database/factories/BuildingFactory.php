@@ -17,10 +17,10 @@ class BuildingFactory extends Factory
     public function definition()
     {
         return [
-            'code_building' => fake()->unique()->numerify('G####'),
-            'name_building' => fake()->unique()->regexify('Gedung [A-Z]'),
-            'address_building' => fake()->address(),
-            'image_building' => fake()->image('public/storage/images/', 640, 360, 'buildings', false, true),
+            'code' => fake()->unique()->numerify('G####'),
+            'name' => fake()->unique()->regexify('Gedung [A-Z]'),
+            'address' => fake()->address(),
+            'image' => fake()->image('public/storage/images/', 640, 360, 'buildings', false, true),
         ];
     }
 }

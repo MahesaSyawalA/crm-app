@@ -14,6 +14,6 @@ class FloorSeeder extends Seeder
      */
     public function run()
     {
-        Floor::factory()->count(234)->create();
+        Floor::factory()->count(100)->create();
     }
 }

@@ -35,26 +35,26 @@
                                     </div>
                                 </div>
                                 <div class="me-2 mb-2">
-                                    <select class="form-control select2" name="qbuilding" id="id_building"
+                                    <select class="form-control select2" name="qbuilding" id="building"
                                         style="width: 192px;">
                                         <option value="" disabled selected>Pilih Gedung</option>
                                         @foreach ($buildings as $building)
                                             @if ($building->floors_count != 0)
-                                                <option value="{{ $building->id_building }}"
-                                                    {{ old('id_building') == $building->id_building ? 'selected' : null }}>
-                                                    {{ $building->name_building }}</option>
+                                                <option value="{{ $building->id }}"
+                                                    {{ old('id') == $building->id ? 'selected' : null }}>
+                                                    {{ $building->name }}</option>
                                             @endif
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="me-2 mb-2">
-                                    <select class="form-control select2" name="qfloor" id="id_floor"
+                                    <select class="form-control select2" name="qfloor" id="floor"
                                         style="width: 192px;">
                                         <option value="" disabled>Pilih Gedung Terlebih Dahulu</option>
                                     </select>
                                 </div>
                                 <div class="mb-2">
-                                    <select type="text" class="form-control select2" name="qstatus"
+                                    <select type="text" class="form-control select2 nosearch" name="qstatus"
                                         style="width: 192px;">
                                         <option value="" disabled selected>Pilih Status</option>
                                         <option value="active">Aktif</option>
@@ -80,8 +80,8 @@
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
-                                    <th class="align-middle">Kode Gedung</th>
-                                    <th class="align-middle">Kode Lantai</th>
+                                    <th class="align-middle">Nama Gedung</th>
+                                    <th class="align-middle">Nama Lantai</th>
                                     <th class="align-middle">Kode Ruang</th>
                                     <th class="align-middle">Nama Ruang</th>
                                     <th class="align-middle">Luas (m2)</th>
@@ -93,19 +93,19 @@
                                 @foreach ($rooms as $key => $room)
                                     <tr>
                                         <td scope="row">{{ $rooms->firstItem() + $key }}</td>
-                                        <td class="text-body fw-bold">{{ $room->building->name_building }}</td>
-                                        <td class="text-body fw-bold">{{ $room->floor->name_floor }}</td>
-                                        <td class="text-body fw-bold">{{ $room->code_room }}</td>
-                                        <td>{{ $room->name_room }}</td>
-                                        <td>{{ $room->wide_room }} m<sup>2</sup></td>
+                                        <td class="text-body fw-bold">{{ $room->floor->building->name }}</td>
+                                        <td class="text-body fw-bold">{{ $room->floor->name }}</td>
+                                        <td class="text-body fw-bold">{{ $room->code }}</td>
+                                        <td>{{ $room->name }}</td>
+                                        <td>{{ $room->wide }} m<sup>2</sup></td>
                                         <td>
-                                            @if ($room->status_room->value === 'inactive')
+                                            @if ($room->status->value === 'inactive')
                                                 <span class="badge font-size-12 badge-soft-warning">Aktif</span>
-                                            @elseif ($room->status_room->value === 'rented')
+                                            @elseif ($room->status->value === 'rented')
                                                 <span class="badge font-size-12 badge-soft-primary">Disewa</span>
-                                            @elseif ($room->status_room->value === 'booked')
+                                            @elseif ($room->status->value === 'booked')
                                                 <span class="badge font-size-12 badge-soft-info">Dibooking</span>
-                                            @elseif ($room->status_room->value === 'sealed')
+                                            @elseif ($room->status->value === 'sealed')
                                                 <span class="badge font-size-12 badge-soft-danger">Disegel</span>
                                             @else
                                                 <span class="badge font-size-12 badge-soft-success">Aktif</span>
@@ -115,20 +115,19 @@
                                             <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="View Detail">
-                                                    <a href="{{ route('rooms.show', $room->id_room) }}"
+                                                    <a href="{{ route('rooms.show', $room->id) }}"
                                                         class="btn btn-sm btn-primary">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
                                                 </li>
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="Edit">
-                                                    <a href="{{ route('rooms.edit', $room->id_room) }}"
+                                                    <a href="{{ route('rooms.edit', $room->id) }}"
                                                         class="btn btn-sm btn-info">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                 </li>
-                                                <form action="{{ route('rooms.destroy', $room->id_room) }}"
-                                                    method="POST">
+                                                <form action="{{ route('rooms.destroy', $room->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
@@ -172,13 +171,13 @@
 
     <script>
         $(document).ready(function() {
-            $('#id_building').on('change', function() {
-                var id_building = $(this).val();
-                console.log(id_building);
-                if (id_building) {
+            $('#building').on('change', function() {
+                var building_id = $(this).val();
+                console.log(building_id);
+                if (building_id) {
                     $.ajax({
                         type: "get",
-                        url: "/ajax/buildings/" + id_building + "/floors",
+                        url: "/ajax/buildings/" + building_id + "/floors",
                         data: {
                             '_token': '{{ csrf_token() }}'
                         },
@@ -186,14 +185,14 @@
                         success: function(data) {
                             console.log(data);
                             if (data) {
-                                $('#id_floor').empty();
-                                $('#id_floor').append(
+                                $('#floor').empty();
+                                $('#floor').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
                                 $.each(data, function(key, floor) {
                                     $('select[name="qfloor"]').append(
-                                        '<option value="' + floor.id_floor +
-                                        '">' + floor.name_floor + '</option>'
+                                        '<option value="' + floor.id +
+                                        '">' + floor.name + '</option>'
                                     )
                                 });
                             }

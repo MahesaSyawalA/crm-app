@@ -13,7 +13,7 @@ class Floor extends Model
 
     public function building()
     {
-        return $this->belongsTo(Building::class, 'building_id');
+        return $this->belongsTo(Building::class);
     }
 
     public function rooms()

@@ -57,28 +57,32 @@
                                 @foreach ($room_positions as $key => $room_position)
                                     <tr>
                                         <td scope="row">{{ $room_positions->firstItem() + $key }}</td>
-                                        <td>{{ $room_position->building->name_building }}</td>
-                                        <td>{{ $room_position->floor->name_floor }}</td>
-                                        <td>{{ $room_position->parentRoom->name_room }}</td>
-                                        <td>{{ $room_position->frontRoom->name_room }}</td>
-                                        <td>{{ $room_position->backRoom->name_room }}</td>
-                                        <td>{{ $room_position->leftRoom->name_room }}</td>
-                                        <td>{{ $room_position->rightRoom->name_room }}</td>
+                                        <td>{{ $room_position->parentRoom->floor->building->name }}</td>
+                                        <td>{{ $room_position->parentRoom->floor->name }}</td>
+                                        <td>{{ $room_position->parentRoom->name }}</td>
+                                        <td>{{ $room_position->frontRoom->name }}</td>
+                                        <td>{{ $room_position->backRoom->name }}</td>
+                                        <td>{{ $room_position->leftRoom->name }}</td>
+                                        <td>{{ $room_position->rightRoom->name }}</td>
                                         <td>
                                             <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="Edit">
-                                                    <a href="{{ route('roompositions.edit', $room_position->id_room_position) }}"
+                                                    <a href="{{ route('roompositions.edit', $room_position->id) }}"
                                                         class="btn btn-sm btn-info">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                 </li>
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-bs-title="Delete">
-                                                    <a href="#" class="btn btn-sm btn-danger">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>
-                                                </li>
+                                                <form action="{{ route('roompositions.destroy', $room_position->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-title="Delete">
+                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </li>
                                             </ul>
                                         </td>
                                     </tr>

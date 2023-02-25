@@ -33,15 +33,15 @@
                     <div class="row">
                         <div class="col-5 border-end border-secondary border-3">
                             <h5>Gedung</h5>
-                            <p class="mb-4">{{ $room->building->name_building }}</p>
+                            <p class="mb-4">{{ $room->floor->building->name }}</p>
                             <h5>Lantai</h5>
-                            <p class="mb-4">{{ $room->floor->name_floor }}</p>
+                            <p class="mb-4">{{ $room->floor->name }}</p>
                             <h5>Kode Ruang</h5>
-                            <p class="mb-4">{{ $room->code_room }}</p>
+                            <p class="mb-4">{{ $room->code }}</p>
                             <h5>Luas</h5>
-                            <p class="mb-4">{{ $room->wide_room }} m<sup>2</sup></p>
+                            <p class="mb-4">{{ $room->wide }} m<sup>2</sup></p>
                             <h5>Deskripsi</h5>
-                            <p class="mb-4">{{ $room->desc_room }}</p>
+                            <p class="mb-4">{{ $room->description }}</p>
                         </div>
                         <div class="col-7 ps-4">
                             <h5>Harga Sewa Bulanan</h5>
@@ -71,12 +71,12 @@
                     <div class="card-title">
                         <h4 class="mb-4">Foto</h4>
                     </div>
-                    @if ($room->image_room)
-                        <img src="{{ asset('storage/images/rooms/' . $room->image_room) }}"
+                    @if ($room->image)
+                        <img src="{{ asset('storage/images/rooms/' . $room->image) }}"
                             class="img-thumbnail img-fluid d-block mb-3 p-0" id="imgRoomShow"
                             style="max-height:640px; overflow:hidden;" alt="Foto Ruang">
                     @else
-                        <img src="https://via.placeholder.com/640x360?text=Foto+Ruang"
+                        <img src="https://via.placeholder.com/640x360?text=Tidak+Ada+Foto+Ruang"
                             class="img-thumbnail img-fluid mb-3 p-0" id="imgRoomShow" alt="Foto Ruang">
                     @endif
                 </div>

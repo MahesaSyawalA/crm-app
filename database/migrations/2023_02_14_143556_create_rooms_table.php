@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('service_charge_total');
             $table->integer('own_electricity_total');
             $table->string('image')->nullable();
-            $table->string('desc');
+            $table->string('description');
             $table->foreignId('floor_id')->constrained();
             $table->timestamps();
         });

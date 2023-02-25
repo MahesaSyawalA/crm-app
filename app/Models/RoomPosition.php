@@ -10,23 +10,12 @@ class RoomPosition extends Model
     use HasFactory;
 
     protected $table = 'room_positions';
-    protected $primaryKey = 'id_room_position';
-    protected $fillable = ['front', 'back', 'left', 'right', 'id_building', 'id_floor', 'id_room'];
-
-    public function building()
-    {
-        return $this->belongsTo(Building::class, 'id_building');
-    }
-
-    public function floor()
-    {
-        return $this->belongsTo(Floor::class, 'id_floor');
-    }
+    protected $fillable = ['room_id', 'front', 'back', 'left', 'right'];
 
     //didefinisikan masing"
     public function parentRoom()
     {
-        return $this->belongsTo(Room::class, 'id_room');
+        return $this->belongsTo(Room::class, 'room_id');
     }
 
     public function frontRoom()

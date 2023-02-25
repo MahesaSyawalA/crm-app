@@ -14,6 +14,6 @@ class BuildingSeeder extends Seeder
      */
     public function run()
     {
-        Building::factory()->count(26)->create();
+        Building::factory()->count(10)->create();
     }
 }

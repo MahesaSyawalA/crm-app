@@ -35,36 +35,28 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="id_building" class="form-label">Pilih Gedung</label>
-                                    <select class="form-select select2 @error('id_building') is-invalid @enderror"
-                                        id="id_building" name="id_building">
+                                    <label for="building" class="form-label">Pilih Gedung</label>
+                                    <select class="form-select select2" id="building" name="building">
                                         <option value="" disabled selected>Pilih Gedung</option>
                                         @foreach ($buildings as $building)
                                             @if ($building->floors_count != 0)
-                                                <option value="{{ $building->id_building }}"
-                                                    {{ old('id_building') == $building->id_building ? 'selected' : null }}>
-                                                    {{ $building->name_building }} - {{ $building->code_building }}
-                                                </option>
+                                                <option value="{{ $building->id }}"
+                                                    {{ old('id') == $building->id ? 'selected' : null }}>
+                                                    {{ $building->name }} - {{ $building->code }}</option>
                                             @endif
                                         @endforeach
                                     </select>
-
-                                    @error('id_building')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="id_floor" class="form-label">Pilih Lantai</label>
-                                    <select class="form-select select2 @error('id_floor') is-invalid @enderror"
-                                        id="id_floor" name="id_floor">
+                                    <label for="floor" class="form-label">Pilih Lantai</label>
+                                    <select class="form-select select2 @error('floor_id') is-invalid @enderror"
+                                        id="floor" name="floor_id">
                                         <option value="" disabled>Pilih Gedung Terlebih Dahulu</option>
                                     </select>
 
-                                    @error('id_floor')
+                                    @error('floor_id')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -77,12 +69,12 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="code_room" class="form-label">Kode Ruang</label>
-                                    <input type="text" class="form-control @error('code_room') is-invalid @enderror"
-                                        name="code_room" id="code_room" placeholder="Masukkan Kode"
-                                        value="{{ old('code_room') }}">
+                                    <label for="code" class="form-label">Kode Ruang</label>
+                                    <input type="text" class="form-control @error('code') is-invalid @enderror"
+                                        name="code" id="code" placeholder="Masukkan Kode"
+                                        value="{{ old('code') }}">
 
-                                    @error('code_room')
+                                    @error('code')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -91,12 +83,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="name_room" class="form-label">Nama Ruang</label>
-                                    <input type="text" class="form-control @error('name_room') is-invalid @enderror"
-                                        id="name_room" name="name_room" placeholder="Masukkan Nama"
-                                        value="{{ old('name_room') }}">
+                                    <label for="name" class="form-label">Nama Ruang</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                        id="name" name="name" placeholder="Masukkan Nama"
+                                        value="{{ old('name') }}">
 
-                                    @error('name_room')
+                                    @error('name')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -109,13 +101,14 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="status_room" class="form-label">Pilih Status</label>
-                                    <select class="form-select select2 @error('status_room') is-invalid @enderror"
-                                        name="status_room" id="status_room">
+                                    <select
+                                        class="form-select select2 status nosearch @error('status') is-invalid @enderror"
+                                        name="status" id="status_room">
                                         <option value="active" selected>Aktif</option>
                                         <option value="inactive">Tidak Aktif</option>
                                     </select>
 
-                                    @error('status_room')
+                                    @error('status')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -124,15 +117,14 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="wide_room" class="form-label">Luas</label>
+                                    <label for="wide" class="form-label">Luas</label>
                                     <div class="input-group">
-                                        <input type="text"
-                                            class="form-control @error('wide_room') is-invalid @enderror"
-                                            name="wide_room" id="wide_room" placeholder="Masukkan Luas"
-                                            value="{{ old('wide_room') }}">
+                                        <input type="text" class="form-control @error('wide') is-invalid @enderror"
+                                            name="wide" id="wide" placeholder="Masukkan Luas"
+                                            value="{{ old('wide') }}">
                                         <label class="input-group-text">m2</label>
 
-                                        @error('wide_room')
+                                        @error('wide')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -234,14 +226,14 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="image_room" class="form-label">Foto Ruang</label>
+                            <label for="image" class="form-label">Foto Ruang</label>
                             <img src="" class="img-thumbnail img-fluid mb-3 p-0" id="imgRoomAdd"
                                 style="max-height: 192px">
                             <input type="file" multiple accept=".jpg,.jpeg,.png,.gif,.svg"
-                                class="form-control @error('image_room') is-invalid @enderror" name="image_room"
+                                class="form-control @error('image') is-invalid @enderror" name="image"
                                 onchange="previewImgRoomAdd()">
 
-                            @error('image_room')
+                            @error('image')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -249,11 +241,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="desc_room" class="form-label">Deskripsi</label>
-                            <textarea class="form-control @error('desc_Room') is-invalid @enderror" id="desc_room" name="desc_room"
-                                placeholder="Masukkan Deskripsi" rows="5">{{ old('desc_room') }}</textarea>
+                            <label for="description" class="form-label">Deskripsi</label>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                                placeholder="Masukkan Deskripsi" rows="5">{{ old('description') }}</textarea>
 
-                            @error('desc_room')
+                            @error('description')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -276,28 +268,28 @@
 
     <script>
         $(document).ready(function() {
-            $('#id_building').on('change', function() {
-                var id_building = $(this).val();
-                // console.log(id_building);
-                if (id_building) {
+            $('#building').on('change', function() {
+                var building_id = $(this).val();
+                console.log(building_id);
+                if (building_id) {
                     $.ajax({
                         type: "get",
-                        url: "/ajax/buildings/" + id_building + "/floors",
+                        url: "/ajax/buildings/" + building_id + "/floors",
                         data: {
                             '_token': '{{ csrf_token() }}'
                         },
                         dataType: "json",
                         success: function(data) {
-                            // console.log(data);
+                            console.log(data);
                             if (data) {
-                                $('#id_floor').empty();
-                                $('#id_floor').append(
+                                $('#floor').empty();
+                                $('#floor').append(
                                     '<option value="" selected disabled>Pilih Lantai</option>'
                                 );
                                 $.each(data, function(key, floor) {
-                                    $('select[name="id_floor"]').append(
-                                        '<option value="' + floor.id_floor +
-                                        '">' + floor.name_floor + ' - Rp ' + floor
+                                    $('select[name="floor_id"]').append(
+                                        '<option value="' + floor.id +
+                                        '">' + floor.name + ' - Rp ' + floor
                                         .monthly_price + ' / m2/Bulan </option>'
                                     )
                                 });
@@ -309,37 +301,37 @@
                 // $('#id_floor').empty();
             })
 
-            $('#id_floor').on('change', function() {
-                var id_floor = $(this).val();
+            $('#floor').on('change', function() {
+                var floor_id = $(this).val();
 
-                // console.log(id_floor);
-                if (id_floor) {
+                console.log(floor_id);
+                if (floor_id) {
                     $.ajax({
                         type: "get",
-                        url: "/ajax/floors/" + id_floor + "/getprices",
+                        url: "/ajax/floors/" + floor_id + "/getprices",
                         data: {
                             '_token': '{{ csrf_token() }}'
                         },
                         dataType: "json",
                         success: function(data) {
-                            // console.log(data);
+                            console.log(data);
                             if (data) {
 
                                 $("#service_charge").text(data.service_charge);
                                 $('#own_electricity').text(data.own_electricity);
 
-                                $('#wide_room').on('input', function() {
-                                    var wideRoom = $(this).val();
+                                $('#wide').on('input', function() {
+                                    var wide = $(this).val();
                                     var overtimeUp4Total = data.overtime_up_4 *
-                                        parseInt(wideRoom);
+                                        parseInt(wide);
                                     var overtimeDown4Total = data
-                                        .overtime_down_4 * parseInt(wideRoom);
+                                        .overtime_down_4 * parseInt(wide);
                                     var serviceChargeTotal = data.service_charge *
                                         parseInt(
-                                            wideRoom);
+                                            wide);
                                     var ownElectricityTotal = data
                                         .own_electricity * parseInt(
-                                            wideRoom);
+                                            wide);
 
                                     $('#overtime_up_4_total').val(overtimeUp4Total);
                                     $('#overtime_down_4_total').val(overtimeDown4Total);

@@ -14,7 +14,7 @@ class RoomController extends Controller
     public function index()
     {
         $buildings = Building::withCount('floors')->get();
-        $rooms = Room::with('building', 'floor')->latest()->paginate(9);
+        $rooms = Room::with('floor.building')->latest()->paginate(9);
 
         // dd($rooms);
         return view('admins.places.rooms.index', compact('rooms', 'buildings'));
@@ -29,42 +29,39 @@ class RoomController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code_room' => ['required', 'unique:rooms'],
-            'name_room' => ['required'],
-            'status_room' => ['required'],
-            'wide_room' => ['required'],
+            'code' => ['required', 'unique:rooms'],
+            'name' => ['required'],
+            'status' => ['required'],
+            'wide' => ['required'],
             'overtime_up_4_total' => ['required'],
             'overtime_down_4_total' => ['required'],
             'service_charge_total' => ['required'],
             'own_electricity_total' => ['required'],
-            'image_room' => ['image', 'file', 'max:2048'],
-            'desc_room' => ['required'],
-            'id_building' => ['required'],
-            'id_floor' => ['required'],
+            'image' => ['image', 'file', 'max:2048'],
+            'description' => ['required'],
+            'floor_id' => ['required'],
         ],
         [
-            'id_building.required' => 'The building field is required.',
-            'id_floor.required' => 'The floor field is required.',
+            'floor_id.required' => 'The floor field is required.',
         ]);
 
         $room = new Room([
-            'code_room' => $request->code_room,
-            'name_room' => $request->name_room,
-            'status_room' => $request->status_room,
-            'wide_room' => $request->wide_room,
+            'code' => $request->code,
+            'name' => $request->name,
+            'status' => $request->status,
+            'wide' => $request->wide,
             'overtime_up_4_total' => $request->overtime_up_4_total,
             'overtime_down_4_total' => $request->overtime_down_4_total,
             'service_charge_total' => $request->service_charge_total,
             'own_electricity_total' => $request->own_electricity_total,
-            'desc_room' => $request->desc_room,
-            'id_building' => $request->id_building,
-            'id_floor' => $request->id_floor,
+            'description' => $request->description,
+            'floor_id' => $request->floor_id,
         ]);
-        if ($request->file('image_room')) {
-            $path = $request->file('image_room')->store('images/rooms');
+        if ($request->file('image')) {
+            $path = $request->file('image')->store('images/rooms');
             $splits = explode('/', $path);
 
-            $room->image_room = end($splits);
+            $room->image = end($splits);
         }
 
         $room->save();
@@ -75,55 +72,49 @@ class RoomController extends Controller
     public function edit($id)
     {
         $buildings = Building::withCount('floors')->get();
-        $room = Room::with('floor')->find($id);
+        $room = Room::with('floor.building')->find($id);
         return view('admins.places.rooms.edit', compact('room', 'buildings'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'code_room' => ['required'],
-            'name_room' => ['required'],
-            'status_room' => ['required'],
-            'wide_room' => ['required'],
+            'code' => ['required'],
+            'name' => ['required'],
+            'status' => ['required'],
+            'wide' => ['required'],
             'overtime_up_4_total' => ['required'],
             'overtime_down_4_total' => ['required'],
             'service_charge_total' => ['required'],
             'own_electricity_total' => ['required'],
-            'image_room' => ['image', 'file', 'max:2048'],
-            'desc_room' => ['required'],
-            'id_building' => ['required'],
-            'id_floor' => ['required'],
+            'image' => ['image', 'file', 'max:2048'],
+            'description' => ['required'],
+            'floor_id' => ['required'],
         ],
         [
-            'id_building.required' => 'The building field is required.',
-            'id_floor.required' => 'The floor field is required.',
+            'floor_id.required' => 'The floor field is required.',
         ]);
 
-        $id_room = $request->input('id_room', false);
-        $room = Room::find($id_room);
-        $room->id_room = $request->id_room;
-        $room->code_room = $request->code_room;
-        $room->name_room = $request->name_room;
-        $room->status_room = $request->status_room;
-        $room->wide_room = $request->wide_room;
+        $room = Room::find($id);
+        $room->code = $request->code;
+        $room->name = $request->name;
+        $room->status = $request->status;
+        $room->wide = $request->wide;
         $room->overtime_up_4_total = $request->overtime_up_4_total;
         $room->overtime_down_4_total = $request->overtime_down_4_total;
         $room->service_charge_total = $request->service_charge_total;
         $room->own_electricity_total = $request->own_electricity_total;
-        $room->desc_room = $request->desc_room;
-        $room->id_building = $request->id_building;
-        $room->id_floor = $request->id_floor;
-        if ($request->file('image_room')) {
-            if ($room->image_room) {
-                Storage::delete($room->image_room);
+        $room->description = $request->description;
+        $room->floor_id = $request->floor_id;
+        if ($request->file('image')) {
+            if ($request->old_image) {
+                Storage::delete('images/rooms/'.$request->old_image);
             }
-            $path = $request->file('image_room')->store('images/rooms');
+            $path = $request->file('image')->store('images/rooms');
             $splits = explode('/', $path);
 
-            $room->image_room = end($splits);
+            $room->image = end($splits);
         }
-
         $room->update();
 
         return redirect()->route('rooms.index')->with('success', ' Data ruang berhasil diubah.');
@@ -131,7 +122,7 @@ class RoomController extends Controller
 
     public function show($id)
     {
-        $room = Room::with('building', 'floor')->find($id);
+        $room = Room::with('floor.building')->find($id);
 
         return view('admins.places.rooms.show', compact('room'));
     }

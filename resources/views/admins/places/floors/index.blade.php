@@ -37,13 +37,13 @@
                                         </div>
                                     </div>
                                     <div class="me-2 mb-2">
-                                        <select type="text" class="form-control select2" name="searchBuilding"
+                                        <select type="text" class="form-control select2" name="qbuilding"
                                             style="width: 192px;">
                                             <option value="" disabled selected>Pilih Gedung</option>
                                             @foreach ($buildings as $building)
-                                                <option value="{{ $building->id_building }}"
-                                                    {{ old('id_building') == $building->id_building ? 'selected' : null }}>
-                                                    {{ $building->name_building }}</option>
+                                                <option value="{{ $building->id }}"
+                                                    {{ old('id_building') == $building->id ? 'selected' : null }}>
+                                                    {{ $building->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table-nowrap table-bordered table align-middle">
+                        <table class="table-bordered table align-middle" id="datatable">
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
@@ -80,52 +80,11 @@
                                     <th class="text-center align-middle">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($floors as $key => $floor)
-                                    <tr>
-                                        <td scope="row">{{ $floors->firstItem() + $key }}</td>
-                                        {{-- <td scope="row">{{ $loop->iteration }}</td> --}}
-                                        <td class="text-body fw-bold">{{ $floor->building->name }}</td>
-                                        <td class="text-body fw-bold">{{ $floor->code }}</td>
-                                        <td>{{ $floor->name }}</td>
-                                        <td>Rp {{ number_format($floor->monthly_price, 0, ',') }} / m2/Bulan</td>
-                                        <td>Rp {{ number_format($floor->service_charge, 0, ',') }} / m2/Bulan
-                                        </td>
-                                        <td>Rp {{ number_format($floor->own_electricity, 0, ',') }} /
-                                            m2/Bulan</td>
-                                        <td>
-                                            <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-bs-title="Edit">
-                                                    <a href="{{ route('floors.edit', $floor->id) }}"
-                                                        class="btn btn-sm btn-info">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                </li>
-                                                {{-- @if ($floor->rooms_count == 0) --}}
-                                                <form action="{{ route('floors.destroy', $floor->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-title="Delete">
-                                                        <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="return confirm('Yakin ingin menghapus data gedung ini?')">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </li>
-                                                </form>
-                                                {{-- @endif --}}
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
 
                     <div class="row">
-                        <div class="col text-muted">
+                        {{-- <div class="col text-muted">
                             Showing
                             {{ $floors->firstItem() }}
                             to
@@ -133,11 +92,11 @@
                             of
                             {{ $floors->total() }}
                             entries
-                        </div>
+                        </div> --}}
                         <div class="col">
                             <div class="pagination justify-content-end">
                                 {{-- {{ $floors->links() }} --}}
-                                {{ $floors->withQueryString()->links() }}
+                                {{-- {{ $floors->withQueryString()->links() }} --}}
                             </div>
                         </div>
                     </div>
@@ -146,4 +105,6 @@
         </div>
     </div>
     <!-- end row -->
+
+    <input type="hidden" id="floor-table-url" value="{{ route('floors.table') }}">
 </x-app-layout>

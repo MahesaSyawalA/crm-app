@@ -38,7 +38,7 @@
                     <form action="{{ route('roompositions.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="formrow-firstname-input" class="form-label">Pilih Gedung</label>
+                            <label for="building" class="form-label">Pilih Gedung</label>
                             <select class="form-select select2" name="building" id="building">
                                 <option value="" disabled selected>Pilih Gedung</option>
                                 @foreach ($buildings as $building)
@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-firstname-input" class="form-label">Pilih Lantai</label>
+                                    <label for="floor" class="form-label">Pilih Lantai</label>
                                     <select class="form-select select2" name="floor" id="floor">
                                         <option value="" disabled>Pilih Gedung Terlebih Dahulu</option>
                                     </select>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-firstname-input" class="form-label">Pilih Ruang</label>
+                                    <label for="parent_room" class="form-label">Pilih Ruang</label>
                                     <select class="form-select select2" name="room_id" id="parent_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
@@ -73,7 +73,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-firstname-input" class="form-label">Depan</label>
+                                    <label for="front_room" class="form-label">Depan</label>
                                     <select class="form-select select2" name="front" id="front_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="formrow-firstname-input" class="form-label">Belakang</label>
+                                    <label for="back_room" class="form-label">Belakang</label>
                                     <select class="form-select select2" name="back" id="back_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
@@ -92,7 +92,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-5">
-                                    <label for="formrow-firstname-input" class="form-label">Kiri</label>
+                                    <label for="left_room" class="form-label">Kiri</label>
                                     <select class="form-select select2" name="left" id="left_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>
@@ -100,7 +100,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-5">
-                                    <label for="formrow-firstname-input" class="form-label">Kanan</label>
+                                    <label for="right_room" class="form-label">Kanan</label>
                                     <select class="form-select select2" name="right" id="right_room">
                                         <option value="" disabled>Pilih Lantai Terlebih Dahulu</option>
                                     </select>

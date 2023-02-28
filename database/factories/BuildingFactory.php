@@ -20,7 +20,7 @@ class BuildingFactory extends Factory
             'code' => fake()->unique()->numerify('G####'),
             'name' => fake()->unique()->regexify('Gedung [A-Z]'),
             'address' => fake()->address(),
-            'image' => fake()->image('public/storage/images/', 640, 360, 'buildings', false, true),
+            'image' => fake()->image('public/storage/images/buildings/', 640, 360, 'buildings', false, true),
         ];
     }
 }

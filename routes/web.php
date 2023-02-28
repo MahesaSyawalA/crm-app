@@ -34,3 +34,6 @@ require_once __DIR__ . '/tenant.php';
 
 # Ajax routes
 require_once __DIR__ . '/ajax.php';
+
+# Table routes
+require_once __DIR__ . '/table.php';

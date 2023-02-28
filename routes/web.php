@@ -11,6 +11,9 @@
 |
  */
 
+# Table routes
+require_once __DIR__ . '/table.php';
+
 # Auth routes
 require_once __DIR__ . '/auth.php';
 
@@ -34,6 +37,3 @@ require_once __DIR__ . '/tenant.php';
 
 # Ajax routes
 require_once __DIR__ . '/ajax.php';
-
-# Table routes
-require_once __DIR__ . '/table.php';

@@ -8,7 +8,6 @@ use App\Models\Building;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
 
 
 class FloorController extends Controller
@@ -42,36 +41,6 @@ class FloorController extends Controller
         // }
 
         return view('admins.places.floors.index', compact('buildings'));
-    }
-
-    public function table()
-    {
-        $query = Floor::with('building')->withCount('rooms');
-
-        return DataTables::of($query)
-                        ->addIndexColumn()
-                        ->editColumn('building.name', function($data){
-                            return $data->building->name;
-                        })
-                        ->addColumn('Aksi', function ($data){
-                            return '<ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                data-bs-title="Edit">
-                                <a href=""
-                                    class="btn btn-sm btn-info">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                            </li>
-                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                data-bs-title="Delete">
-                                <button type="submit" class="btn btn-sm btn-danger"">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </li>
-                        </ul>';
-                        })
-                        ->rawColumn(['Aksi'])
-                        ->make(true);
     }
 
     public function create()

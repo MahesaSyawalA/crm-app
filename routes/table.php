@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admins\FloorController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -9,4 +9,5 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
  */
 
-Route::get('/admin/floors/table', [FloorController::class, 'table'])->name('floors.table');
+//BISA
+Route::get('/admin/floors/table', [TableController::class, 'tableFloors'])->name('floors.table');

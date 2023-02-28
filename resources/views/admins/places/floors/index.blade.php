@@ -66,15 +66,15 @@
                         </div><!-- end col-->
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table-bordered table align-middle" id="datatable">
+                    <div class="table-floors">
+                        <table class="table-bordered table align-middle" id="table_floors">
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
                                     <th class="align-middle">Nama Gedung</th>
                                     <th class="align-middle">Kode Lantai</th>
                                     <th class="align-middle">Nama Lantai</th>
-                                    <th class="align-middle">Harga Sewa</th>
+                                    <th class="align-middle">Harga Sewa Bulanan</th>
                                     <th class="align-middle">Service Charge (Termasuk Listrik)</th>
                                     <th class="align-middle">Service Charge Listrik Sendiri</th>
                                     <th class="text-center align-middle">Aksi</th>
@@ -83,28 +83,9 @@
                         </table>
                     </div>
 
-                    <div class="row">
-                        {{-- <div class="col text-muted">
-                            Showing
-                            {{ $floors->firstItem() }}
-                            to
-                            {{ $floors->lastItem() }}
-                            of
-                            {{ $floors->total() }}
-                            entries
-                        </div> --}}
-                        <div class="col">
-                            <div class="pagination justify-content-end">
-                                {{-- {{ $floors->links() }} --}}
-                                {{-- {{ $floors->withQueryString()->links() }} --}}
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- end row -->
-
-    <input type="hidden" id="floor-table-url" value="{{ route('floors.table') }}">
 </x-app-layout>

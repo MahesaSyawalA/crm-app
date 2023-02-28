@@ -6,15 +6,14 @@ $(".nosearch").select2({
 
 //datatables
 $(document).ready(function () {
-    $("#datatable").DataTable({
-        // lengthChange: false,
-        // searching: false,
-        // ordering: true,
+    $("#table_floors").DataTable({
+        lengthChange: false,
+        searching: false,
+        ordering: false,
         serverSide: true,
         processing: true,
         ajax: {
-            url: "{{ route('floors.table') }}",
-            type: "get",
+            url: "/admin/floors/table",
         },
         columns: [
             {
@@ -30,7 +29,12 @@ $(document).ready(function () {
             { data: "monthly_price", name: "monthly_price" },
             { data: "service_charge", name: "service_charge" },
             { data: "own_electricity", name: "own_electricity" },
-            { data: "aksi", name: "aksi", orderable: false, searchable: false },
+            {
+                data: "action",
+                name: "action",
+                orderable: false,
+                searchable: false,
+            },
         ],
         columnDefs: [],
     });

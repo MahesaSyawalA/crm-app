@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
  */
 
-Route::prefix('tenant')->group(function () {
+Route::middleware(['auth', 'role:tenant'])->prefix('tenant')
+    ->group(function () {
     Route::resource('invoicestenant', InvoiceTenantController::class);
     Route::resource('receipts', ReceiptController::class);
 });

@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
  */
 
-Route::prefix('finance')->group(function () {
+Route::middleware(['auth', 'role:finance'])->prefix('finance')
+    ->group(function () {
     Route::resource('accounts', AccountController::class);
     Route::resource('invoicesfinance', InvoiceFinanceController::class);
 });

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
  */
 
-Route::prefix('hod')->group(function () {
+Route::middleware(['auth', 'role:hod'])->prefix('hod')
+    ->group(function () {
     Route::resource('approvals', ApprovalController::class);
 });

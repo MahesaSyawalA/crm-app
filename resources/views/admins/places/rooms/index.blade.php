@@ -27,17 +27,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                        <div class="col-sm-9">
+                        <div class="col-sm-10">
                             <div class="d-flex align-items-center flex-wrap">
                                 <div class="me-2 d-inline-block mb-2">
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <input type="text" class="form-control" name="qglobal" id="qglobal"
+                                            placeholder="Search...">
                                     </div>
                                 </div>
                                 <div class="me-2 mb-2">
-                                    <select class="form-control select2" name="qbuilding" id="building"
+                                    <select class="form-control select2" name="qbuilding" id="qbuilding"
                                         style="width: 192px;">
-                                        <option value="" disabled selected>Pilih Gedung</option>
+                                        <option value="" selected>Pilih Gedung</option>
                                         @foreach ($buildings as $building)
                                             @if ($building->floors_count != 0)
                                                 <option value="{{ $building->id }}"
@@ -48,15 +49,15 @@
                                     </select>
                                 </div>
                                 <div class="me-2 mb-2">
-                                    <select class="form-control select2" name="qfloor" id="floor"
+                                    <select class="form-control select2" name="qfloor" id="qfloor"
                                         style="width: 192px;">
                                         <option value="" disabled>Pilih Gedung Terlebih Dahulu</option>
                                     </select>
                                 </div>
-                                <div class="mb-2">
+                                <div class="me-2 mb-2">
                                     <select type="text" class="form-control select2 nosearch" name="qstatus"
-                                        style="width: 192px;">
-                                        <option value="" disabled selected>Pilih Status</option>
+                                        id="qstatus" style="width: 192px;">
+                                        <option value="" selected>Pilih Status</option>
                                         <option value="active">Aktif</option>
                                         <option value="inactive">Tidak Aktif</option>
                                         <option value="rented">Disewa</option>
@@ -64,9 +65,14 @@
                                         <option value="sealed">Disegel</option>
                                     </select>
                                 </div>
+                                <div class="mb-2">
+                                    <button class="btn btn-info" type="submit" id="refresh" name="refresh">
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="text-sm-end">
                                 <a href="{{ route('rooms.create') }}" type="button"
                                     class="btn btn-success waves-effect waves-light mb-2"><i
@@ -75,8 +81,8 @@
                         </div><!-- end col-->
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table-nowrap table-bordered table align-middle">
+                    <div class="table_rooms">
+                        <table class="table-nowrap table-bordered table align-middle" id="table_rooms">
                             <thead>
                                 <tr>
                                     <th class="align-middle">No</th>
@@ -89,119 +95,143 @@
                                     <th class="text-center align-middle">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($rooms as $key => $room)
-                                    <tr>
-                                        <td scope="row">{{ $rooms->firstItem() + $key }}</td>
-                                        <td class="text-body fw-bold">{{ $room->floor->building->name }}</td>
-                                        <td class="text-body fw-bold">{{ $room->floor->name }}</td>
-                                        <td class="text-body fw-bold">{{ $room->code }}</td>
-                                        <td>{{ $room->name }}</td>
-                                        <td>{{ $room->wide }} m<sup>2</sup></td>
-                                        <td>
-                                            @if ($room->status->value === 'inactive')
-                                                <span class="badge font-size-12 badge-soft-warning">Aktif</span>
-                                            @elseif ($room->status->value === 'rented')
-                                                <span class="badge font-size-12 badge-soft-primary">Disewa</span>
-                                            @elseif ($room->status->value === 'booked')
-                                                <span class="badge font-size-12 badge-soft-info">Dibooking</span>
-                                            @elseif ($room->status->value === 'sealed')
-                                                <span class="badge font-size-12 badge-soft-danger">Disegel</span>
-                                            @else
-                                                <span class="badge font-size-12 badge-soft-success">Aktif</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-bs-title="View Detail">
-                                                    <a href="{{ route('rooms.show', $room->id) }}"
-                                                        class="btn btn-sm btn-primary">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
-                                                </li>
-                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    data-bs-title="Edit">
-                                                    <a href="{{ route('rooms.edit', $room->id) }}"
-                                                        class="btn btn-sm btn-info">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                </li>
-                                                <form action="{{ route('rooms.destroy', $room->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        data-bs-title="Delete">
-                                                        <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="return confirm('Yakin ingin menghapus data ruang ini?')">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </li>
-                                                </form>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
 
-                    <div class="row">
-                        <div class="col text-muted">
-                            Showing
-                            {{ $rooms->firstItem() }}
-                            to
-                            {{ $rooms->lastItem() }}
-                            of
-                            {{ $rooms->total() }}
-                            entries
-                        </div>
-                        <div class="col">
-                            <div class="pagination justify-content-end">
-                                {{-- {{ $rooms->links() }} --}}
-                                {{ $rooms->withQueryString()->links() }}
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- end row -->
 
-    <script>
-        $(document).ready(function() {
-            $('#building').on('change', function() {
-                var building_id = $(this).val();
-                console.log(building_id);
-                if (building_id) {
-                    $.ajax({
-                        type: "get",
-                        url: "/ajax/buildings/" + building_id + "/floors",
-                        data: {
-                            '_token': '{{ csrf_token() }}'
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            console.log(data);
-                            if (data) {
-                                $('#floor').empty();
-                                $('#floor').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $.each(data, function(key, floor) {
-                                    $('select[name="qfloor"]').append(
-                                        '<option value="' + floor.id +
-                                        '">' + floor.name + '</option>'
-                                    )
-                                });
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#qbuilding').on('change', function() {
+                    var building_id = $(this).val();
+                    console.log(building_id);
+                    if (building_id) {
+                        $.ajax({
+                            type: "get",
+                            url: "/ajax/buildings/" + building_id + "/floors",
+                            data: {
+                                '_token': '{{ csrf_token() }}'
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                console.log(data);
+                                if (data) {
+                                    $('#qfloor').empty();
+                                    $('#qfloor').append(
+                                        '<option value="" selected disabled>Pilih Lantai</option>'
+                                    );
+                                    $.each(data, function(key, floor) {
+                                        $('select[name="qfloor"]').append(
+                                            '<option value="' + floor.id +
+                                            '">' + floor.name + '</option>'
+                                        )
+                                    });
+                                }
+                                // $('#id_floor').empty();
                             }
-                            // $('#id_floor').empty();
+                        });
+                    }
+                    // $('#id_floor').empty();
+                })
+            });
+
+            $(document).ready(function() {
+                $("#table_rooms").DataTable({
+                    lengthChange: false,
+                    searching: false,
+                    ordering: false,
+                    serverSide: true,
+                    processing: true,
+                    language: {
+                        paginate: {
+                            previous: "<",
+                            next: ">",
                         }
-                    });
-                }
-                // $('#id_floor').empty();
-            })
-        });
-    </script>
+                    },
+                    oLanguage: {
+                        sProcessing: "Loading<br><i class='bx bx-sm bx-sync bx-spin'></i>"
+                    },
+                    ajax: {
+                        'url': "/admin/rooms/table",
+                        'data': function(d) {
+                            d.qglobal = $('#qglobal').val();
+                            d.qbuilding = $('#qbuilding').val();
+                            d.qfloor = $('#qfloor').val();
+                            d.qstatus = $('#qstatus').val();
+                        }
+                    },
+                    columns: [{
+                            data: "DT_RowIndex",
+                            name: "DT_RowIndex",
+                            width: "10px",
+                            orderable: false,
+                            searchable: false,
+                        },
+                        {
+                            data: "floor.building.name",
+                            name: "floor.building.name"
+                        },
+                        {
+                            data: "floor.name",
+                            name: "floor.name"
+                        },
+                        {
+                            data: "code",
+                            name: "code"
+                        },
+                        {
+                            data: "name",
+                            name: "name"
+                        },
+                        {
+                            data: "wide",
+                            name: "wide"
+                        },
+                        {
+                            data: "status",
+                            name: "status"
+                        },
+                        {
+                            data: "action",
+                            name: "action",
+                            orderable: false,
+                            searchable: false,
+                        },
+                    ],
+                    columnDefs: [],
+                });
+
+                $('#qglobal').on('input', function() {
+                    reloadTable('#table_rooms')
+                });
+
+                $('#qbuilding').change(function() {
+                    reloadTable('#table_rooms')
+                });
+
+                $('#qfloor').change(function() {
+                    reloadTable('#table_rooms')
+                });
+
+                $('#qstatus').change(function() {
+                    reloadTable('#table_rooms')
+                });
+
+                $('#refresh').click(function() {
+                    window.location.reload(true)
+                });
+            });
+
+            function reloadTable(id) {
+                var table = $(id).DataTable();
+                table.cleanData;
+                table.ajax.reload();
+            }
+        </script>
+    @endpush
 </x-app-layout>

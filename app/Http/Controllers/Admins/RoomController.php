@@ -11,13 +11,31 @@ use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $buildings = Building::withCount('floors')->get();
-        $rooms = Room::with('floor.building')->latest()->paginate(9);
+        // $rooms = Room::query()->with('floor.building')->withCount('room_positions')->latest();
 
-        // dd($rooms);
-        return view('admins.places.rooms.index', compact('rooms', 'buildings'));
+        // $rooms->when($request->qglobal, function ($query) use ($request) {
+        //     return $query->where('code', 'LIKE', '%'.$request->qglobal.'%')
+        //                 ->orWhere('name', 'LIKE', '%'.$request->qglobal.'%')
+        //                 ->orWhere('wide', 'LIKE', '%'.$request->qglobal.'%');
+        // });
+
+        // $rooms->whereHas('floor.building', function ($query) use ($request) {
+        //     return $query->where('building_id', 'LIKE', '%'.$request->qbuilding);
+        // });
+
+        // $rooms->when($request->qfloor, function ($query) use ($request) {
+        //     return $query->where('floor_id', 'LIKE', '%'.$request->qfloor);
+        // });
+
+        // $rooms->when($request->qstatus, function ($query) use ($request) {
+        //     return $query->where('status', 'LIKE', '%'.$request->qstatus);
+        // });
+
+        // return view('admins.places.rooms.index', ['rooms' => $rooms->paginate(10), 'buildings' => $buildings]);
+        return view('admins.places.rooms.index', compact('buildings'));
     }
     public function create()
     {

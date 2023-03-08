@@ -61,12 +61,17 @@
                                 </a>
                             </div>
                             <div class="p-2">
-                                <form class="form-horizontal" action="{{ route('login') }}" method="post">
+                                <!-- flash message -->
+                                <x-alert></x-alert>
+                                <!-- end flash message -->
+
+                                <form class="form-horizontal" action="{{ route('login.store') }}" method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" name="email" id="email" class="form-control"
-                                            placeholder="Enter email">
+                                        <input type="email" name="email" id="email"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            placeholder="Enter email" autofocus required>
                                         @error('email')
                                             <div class="text-danger fst-italic mt-2">
                                                 {{ $message }}
@@ -77,9 +82,10 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="password">Password</label>
                                         <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" name="password" id="password" class="form-control"
+                                            <input type="password" name="password" id="password"
+                                                class="form-control @error('password') is-invalid @enderror"
                                                 placeholder="Enter password" aria-label="Password"
-                                                aria-describedby="password-addon">
+                                                aria-describedby="password-addon" required>
                                             <button class="btn btn-light" type="button" id="password-addon"
                                                 data-bs-toggle="tooltip" data-bs-title="Show Password"><i
                                                     class="mdi mdi-eye-outline"></i>

@@ -12,9 +12,10 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
  */
 
-Route::prefix('technician')->group(function () {
+Route::middleware(['auth', 'role:technician'])->prefix('technician')
+    ->group(function () {
     Route::resource('caters', CaterController::class);
     Route::resource('electricities', ElectricityController::class);
     Route::resource('powers', PowerController::class);
-    Route::resource('standmeters', StandmeterController::class);
+    Route::resource('standmeters', StandmeterController::class)->middleware(['auth', 'role:technician|cater']);
 });

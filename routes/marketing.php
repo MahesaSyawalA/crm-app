@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
  */
 
-Route::prefix('marketing')->group(function () {
+Route::middleware(['auth', 'role:marketing'])->prefix('marketing')
+    ->group(function () {
     Route::resource('leadmanagements', LeadManagementController::class);
     Route::resource('tenants', TenantController::class);
     Route::resource('contracts', ContractController::class);

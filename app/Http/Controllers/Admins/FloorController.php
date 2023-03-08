@@ -16,7 +16,7 @@ class FloorController extends Controller
     {
         $keyword = $request->search;
 
-        $buildings = Building::all();
+        $buildings = Building::get();
         // $floors = Floor::with('building')->withCount('rooms')->where('building_id', 'LIKE', '%' . $keyword . '%')
         //     ->orWhere('code', 'LIKE', '%' . $keyword . '%')
         //     ->orWhere('name', 'LIKE', '%' . $keyword . '%')

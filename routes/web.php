@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,11 +14,15 @@
 |
  */
 
-# Table routes
-require_once __DIR__ . '/table.php';
-
 # Auth routes
 require_once __DIR__ . '/auth.php';
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('auth');
+
+# Table routes
+require_once __DIR__ . '/table.php';
 
 # Admin routes
 require_once __DIR__ . '/admin.php';

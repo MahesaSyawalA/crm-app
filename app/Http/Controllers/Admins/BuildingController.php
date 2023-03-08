@@ -18,7 +18,7 @@ class BuildingController extends Controller
             ->orWhere('name', 'LIKE', '%' . $keyword . '%')
             ->orWhere('address', 'LIKE', '%' . $keyword . '%')
             ->latest()
-            ->paginate(9);
+            ->paginate(10);
 
         return view('admins.places.buildings.index', compact('buildings'));
     }
@@ -90,9 +90,7 @@ class BuildingController extends Controller
 
         $building->update();
 
-        dd($request->old_image);
-
-        // return redirect()->route('buildings.index')->with('success', ' Data gedung berhasil diubah.');
+        return redirect()->route('buildings.index')->with('success', ' Data gedung berhasil diubah.');
     }
 
     public function destroy($id)

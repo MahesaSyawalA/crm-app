@@ -28,32 +28,30 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-8">
-                            <form action="{{ route('floors.index') }}">
-                                <div class="d-flex align-items-center flex-wrap">
-                                    <div class="me-2 d-inline-block mb-2">
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control" name="search" id="search"
-                                                placeholder="Search...">
-                                        </div>
-                                    </div>
-                                    <div class="me-2 mb-2">
-                                        <select type="text" class="form-control select2" name="qbuilding"
-                                            style="width: 192px;">
-                                            <option value="" disabled selected>Pilih Gedung</option>
-                                            @foreach ($buildings as $building)
-                                                <option value="{{ $building->id }}"
-                                                    {{ old('id_building') == $building->id ? 'selected' : null }}>
-                                                    {{ $building->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mb-2">
-                                        <button class="btn btn-info" type="submit">
-                                            <i class="fa fa-magnifying-glass"></i>
-                                        </button>
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="me-2 d-inline-block mb-2">
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" name="qglobal" id="qglobal"
+                                            placeholder="Search...">
                                     </div>
                                 </div>
-                            </form>
+                                <div class="me-2 mb-2">
+                                    <select type="text" class="form-control select2" name="qbuilding" id="qbuilding"
+                                        style="width: 192px;">
+                                        <option value="" disabled selected>Pilih Gedung</option>
+                                        @foreach ($buildings as $building)
+                                            <option value="{{ $building->id }}"
+                                                {{ old('id_building') == $building->id ? 'selected' : null }}>
+                                                {{ $building->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <button class="btn btn-info" type="submit" id="refresh" name="refresh">
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                                </div>
+                            </div>
 
                         </div>
                         <div class="col-sm-4">
@@ -88,4 +86,92 @@
         </div>
     </div>
     <!-- end row -->
+
+    @push('scripts')
+        <script>
+            //datatables
+            $(document).ready(function() {
+                $("#table_floors").DataTable({
+                    lengthChange: false,
+                    searching: false,
+                    ordering: false,
+                    serverSide: true,
+                    processing: true,
+                    language: {
+                        paginate: {
+                            previous: "<",
+                            next: ">",
+                        }
+                    },
+                    oLanguage: {
+                        sProcessing: "Loading<br><i class='bx bx-sm bx-sync bx-spin'></i>"
+                    },
+                    ajax: {
+                        'url': "/admin/floors/table",
+                        'data': function(d) {
+                            d.qglobal = $('#qglobal').val();
+                            d.qbuilding = $('#qbuilding').val();
+                        }
+                    },
+                    columns: [{
+                            data: "DT_RowIndex",
+                            name: "DT_RowIndex",
+                            width: "10px",
+                            orderable: false,
+                            searchable: false,
+                        },
+                        {
+                            data: "building.name",
+                            name: "building.name"
+                        },
+                        {
+                            data: "code",
+                            name: "code"
+                        },
+                        {
+                            data: "name",
+                            name: "name"
+                        },
+                        {
+                            data: "monthly_price",
+                            name: "monthly_price"
+                        },
+                        {
+                            data: "service_charge",
+                            name: "service_charge"
+                        },
+                        {
+                            data: "own_electricity",
+                            name: "own_electricity"
+                        },
+                        {
+                            data: "action",
+                            name: "action",
+                            orderable: false,
+                            searchable: false,
+                        },
+                    ],
+                    columnDefs: [],
+                });
+
+                $('#qglobal').on('input', function() {
+                    reloadTable('#table_floors')
+                });
+
+                $('#qbuilding').change(function() {
+                    reloadTable('#table_floors')
+                });
+
+                $('#refresh').click(function() {
+                    window.location.reload(true)
+                });
+            });
+
+            function reloadTable(id) {
+                var table = $(id).DataTable();
+                table.cleanData;
+                table.ajax.reload();
+            }
+        </script>
+    @endpush
 </x-app-layout>

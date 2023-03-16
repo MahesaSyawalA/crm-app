@@ -24,6 +24,8 @@
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <!-- Styles Css -->
+    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" type="text/css" />
     <!-- Fontawesome -->
     <link rel="stylesheet" href="{{ asset('assets/libs/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/fontawesome/css/brands.min.css') }}">

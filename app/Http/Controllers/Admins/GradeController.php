@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admins;
 
-use App\Http\Controllers\Controller;
+use App\Models\Grade;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class GradeController extends Controller
 {
@@ -12,9 +13,15 @@ class GradeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admins.grades.index');
+        $keyword = $request->search;
+        $grades = Grade::where('code', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('score', 'LIKE', '%' . $keyword . '%')
+                    ->orderBy('code', 'asc')
+                    ->paginate(10);
+
+        return view('admins.grades.index', compact('grades'));
     }
 
     /**
@@ -35,7 +42,14 @@ class GradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'code' => ['required', 'unique:grades'],
+            'score' => ['required'],
+        ]);
+
+        Grade::create($validated);
+
+        return back()->with('success', 'Grade berhasil ditambahkan.');
     }
 
     /**
@@ -67,9 +81,20 @@ class GradeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'code' => ['required'],
+            'score' => ['required'],
+        ]);
+
+        $grade = Grade::find($request->id);
+        $grade->code = $request->code;
+        $grade->score = $request->score;
+
+        $grade->update();
+
+        return back()->with('success', 'Data grade berhasil diubah.');
     }
 
     /**
@@ -80,6 +105,9 @@ class GradeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $grade = Grade::find($id);
+        $grade->delete();
+
+        return back()->with('success', 'Data grade berhasil dihapus.');
     }
 }

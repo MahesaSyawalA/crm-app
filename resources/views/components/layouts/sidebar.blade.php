@@ -14,9 +14,9 @@
                             </a>
                         </li>
 
-                        <li class="menu-title" key="t-menu">Menu</li>
-
                         @role('admin')
+                            <li class="menu-title" key="t-menu">Admin</li>
+
                             <li>
                                 <a href="#" class="has-arrow waves-effect">
                                     <i class="bx bx-buildings"></i>
@@ -37,6 +37,10 @@
                                     <span key="t-users">Kelola User</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
+                                    <li><a href="{{ route('users.index') }}" key="t-users">User</a></li>
+
+                                    <li class="sub-menu-title" key="t-menu">Assign Role</li>
+
                                     <li><a href="{{ route('marketings.index') }}" key="t-marketings">Marketing</a></li>
                                     <li><a href="{{ route('technicians.index') }}" key="t-technicians">Teknik</a></li>
                                     <li><a href="{{ route('finances.index') }}" key="t-finances">Keuangan</a></li>
@@ -60,6 +64,8 @@
                         @endrole
 
                         @role('marketing')
+                            <li class="menu-title" key="t-menu">Marketing</li>
+
                             <li>
                                 <a href="{{ route('leadmanagements.index') }}" class="waves-effect">
                                     <i class="bx bx-user"></i>
@@ -90,6 +96,8 @@
                         @endrole
 
                         @role('hod')
+                            <li class="menu-title" key="t-menu">Kepala Divisi</li>
+
                             <li>
                                 <a href="{{ route('approvals.index') }}" class="waves-effect">
                                     <i class="bx bx-list-check"></i>

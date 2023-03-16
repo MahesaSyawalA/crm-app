@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admins;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TechnicianController extends Controller
 {
@@ -14,7 +15,11 @@ class TechnicianController extends Controller
      */
     public function index()
     {
-        return view('admins.users.technicians.index');
+        $users = User::with('roles')->get();
+        $technicians = User::role('technician')
+                        ->latest()->paginate(10);
+
+        return view('admins.users.technicians.index', compact('users', 'technicians'));
     }
 
     /**
@@ -35,7 +40,15 @@ class TechnicianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::find($request->id);
+        if ($user == true) {
+            $user->assignRole('marketing');
+        }
+        elseif ($user == false) {
+            return back()->with('errors', 'Tidak ada user yang terpilih.');
+        }
+
+        return back()->with('success', 'Berhasil menambahkan role teknik pada user.');
     }
 
     /**
@@ -57,7 +70,9 @@ class TechnicianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $technician = User::find($id);
+        // dd($user);
+        return view('admins.users.technicians.edit', compact('technician'));
     }
 
     /**
@@ -69,7 +84,21 @@ class TechnicianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email:dns'],
+            'phone_number' => ['required', 'min:10'],
+            'status' => ['required'],
+        ]);
+
+        $technician = User::find($id);
+        $technician->name = $request->name;
+        $technician->phone_number = $request->phone_number;
+        $technician->status = $request->status;
+
+        $technician->update();
+
+        return redirect()->route('technicians.index')->with('success', 'Data user teknik berhasil diubah!');
     }
 
     /**
@@ -80,6 +109,9 @@ class TechnicianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $technician = User::find($id);
+        $technician->delete();
+
+        return back()->with('success', ' Data user teknik berhasil dihapus.');
     }
 }

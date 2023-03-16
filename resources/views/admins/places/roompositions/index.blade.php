@@ -17,17 +17,29 @@
     </div>
     <!-- end page title -->
 
+    <x-alert></x-alert>
+
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-8">
-                            <div class="me-2 d-inline-block mb-2">
-                                <div class="position-relative">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                            <form action="{{ route('roompositions.index') }}">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <div class="me-2 d-inline-block mb-2">
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control" name="search" id="search"
+                                                placeholder="Search...">
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <button class="btn btn-info" type="submit">
+                                            <i class="fa fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-sm-4">
                             <div class="text-sm-end">
@@ -90,20 +102,23 @@
                             </tbody>
                         </table>
                     </div>
-                    <ul class="pagination justify-content-end mb-2">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <i class="mdi mdi-chevron-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <i class="mdi mdi-chevron-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+
+                    <div class="row">
+                        <div class="col text-muted">
+                            Showing
+                            {{ $room_positions->firstItem() }}
+                            to
+                            {{ $room_positions->lastItem() }}
+                            of
+                            {{ $room_positions->total() }}
+                            entries
+                        </div>
+                        <div class="col">
+                            <div class="pagination justify-content-end">
+                                {{ $room_positions->withQueryString()->links() }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

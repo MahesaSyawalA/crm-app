@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\User;
 use App\Models\Floor;
+use App\Models\Grade;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
@@ -27,5 +29,19 @@ class AjaxController extends Controller
         $prices = Floor::where('id', $id)->first();
 
         return response()->json($prices);
+    }
+
+    public function getUserDetails($id)
+    {
+        $details = User::where('id', $id)->first();
+
+        return response()->json($details);
+    }
+
+    public function getGrade($id)
+    {
+        $grade = Grade::where('id', $id)->first();
+
+        return response()->json($grade);
     }
 }

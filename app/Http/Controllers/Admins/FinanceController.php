@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admins;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FinanceController extends Controller
 {
@@ -14,7 +15,11 @@ class FinanceController extends Controller
      */
     public function index()
     {
-        return view('admins.users.finances.index');
+        $users = User::with('roles')->get();
+        $finances = User::role('finance')
+                        ->latest()->paginate(10);
+
+        return view('admins.users.finances.index', compact('users', 'finances'));
     }
 
     /**
@@ -35,7 +40,15 @@ class FinanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::find($request->id);
+        if ($user == true) {
+            $user->assignRole('marketing');
+        }
+        elseif ($user == false) {
+            return back()->with('errors', 'Tidak ada user yang terpilih.');
+        }
+
+        return back()->with('success', 'Berhasil menambahkan role keuangan pada user.');
     }
 
     /**
@@ -57,7 +70,9 @@ class FinanceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $finance = User::find($id);
+        // dd($user);
+        return view('admins.users.finances.edit', compact('finance'));
     }
 
     /**
@@ -69,7 +84,21 @@ class FinanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email:dns'],
+            'phone_number' => ['required', 'min:10'],
+            'status' => ['required'],
+        ]);
+
+        $finance = User::find($id);
+        $finance->name = $request->name;
+        $finance->phone_number = $request->phone_number;
+        $finance->status = $request->status;
+
+        $finance->update();
+
+        return redirect()->route('finances.index')->with('success', 'Data user keuangan berhasil diubah!');
     }
 
     /**
@@ -80,6 +109,9 @@ class FinanceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $finance = User::find($id);
+        $finance->delete();
+
+        return back()->with('success', ' Data user keuangan berhasil dihapus.');
     }
 }

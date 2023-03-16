@@ -1,0 +1,10 @@
+.sub-menu-title {
+    padding: 0.75rem 1.5rem 0.75rem 3.5rem;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+    cursor: default;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #7f8387;
+    font-weight: 600;
+}

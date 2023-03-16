@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admins\RoomController;
+use App\Http\Controllers\Admins\UserController;
 use App\Http\Controllers\Admins\FloorController;
 use App\Http\Controllers\Admins\GradeController;
 use App\Http\Controllers\Admins\FinanceController;
@@ -23,6 +24,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')
     Route::resource('floors', FloorController::class);
     Route::resource('rooms', RoomController::class);
     Route::resource('roompositions', RoomPositionController::class);
+    Route::resource('users', UserController::class);
     Route::resource('marketings', MarketingController::class);
     Route::resource('technicians', TechnicianController::class);
     Route::resource('finances', FinanceController::class);

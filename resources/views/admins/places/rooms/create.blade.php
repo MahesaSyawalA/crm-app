@@ -317,7 +317,7 @@
                             console.log(data);
                             if (data) {
 
-                                $("#service_charge").text(data.service_charge);
+                                $('#service_charge').text(data.service_charge);
                                 $('#own_electricity').text(data.own_electricity);
 
                                 $('#wide').on('input', function() {

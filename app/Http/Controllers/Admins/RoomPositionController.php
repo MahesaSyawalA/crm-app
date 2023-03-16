@@ -11,10 +11,14 @@ use App\Http\Controllers\Controller;
 
 class RoomPositionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $keyword = $request->search;
+
         $room_positions = RoomPosition::with('parentRoom.floor.building', 'frontRoom', 'backRoom', 'leftRoom', 'rightRoom')
-            ->paginate(9);
+                                    ->orWhere('id', 'LIKE', '%' . $keyword . '%')
+                                    ->latest()
+                                    ->paginate(9);
 
         return view('admins.places.roompositions.index', compact('room_positions'));
     }

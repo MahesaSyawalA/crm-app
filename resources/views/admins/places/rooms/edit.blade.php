@@ -109,8 +109,14 @@
                                     <label for="status" class="form-label">Pilih Status</label>
                                     <select class="form-select select2 nosearch @error('status') is-invalid @enderror"
                                         name="status" id="status_room">
-                                        <option value="active">Aktif</option>
-                                        <option value="inactive">Tidak Aktif</option>
+                                        <option value="active"
+                                            {{ old('status', $room->status->value) == 'active' ? 'selected' : '' }}>
+                                            Aktif
+                                        </option>
+                                        <option value="inactive"
+                                            {{ old('status', $room->status->value) == 'inactive' ? 'selected' : '' }}>
+                                            Tidak Aktif
+                                        </option>
                                     </select>
 
                                     @error('status')

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admins;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Spatie\CollectionMacros\Macros\Validate;
 
-class MarketingController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,15 +25,13 @@ class MarketingController extends Controller
             $keyword = 'inactive';
         }
 
-        $users = User::with('roles')->get();
-        $marketings = User::where('name', 'LIKE', '%' . $keyword . '%')
-                        ->orWhere('email', 'LIKE', '%' . $keyword . '%')
-                        ->orWhere('phone_number', 'LIKE', '%' . $keyword . '%')
-                        ->orWhere('status', 'LIKE', $keyword)
-                        ->role('marketing')
-                        ->latest()->paginate(10);
+        $users = User::where('name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('phone_number', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('status', 'LIKE', $keyword)
+                    ->latest()->paginate(10);
 
-        return view('admins.users.marketings.index', compact('users', 'marketings'));
+        return view('admins.users.index', compact('users'));
     }
 
     /**
@@ -41,7 +41,7 @@ class MarketingController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -52,15 +52,19 @@ class MarketingController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::find($request->id);
-        if ($user == true) {
-            $user->assignRole('marketing');
-        }
-        elseif ($user == false) {
-            return back()->with('errors', 'Tidak ada user yang terpilih.');
-        }
+        $validated = $request->validate([
+            'name' => ['required'],
+            'email' => ['required', 'email:dns', 'unique:users'],
+            'password' => ['required', 'min:5'],
+            'phone_number' => ['required', 'min:10'],
+            'status' => ['required'],
+        ]);
 
-        return back()->with('success', 'Berhasil menambahkan role marketing pada user.');
+        $validated['password'] = bcrypt($validated['password']);
+
+        User::create($validated);
+
+        return back()->with('success', 'User berhasil dibuat.');
     }
 
     /**
@@ -82,9 +86,9 @@ class MarketingController extends Controller
      */
     public function edit($id)
     {
-        $marketing = User::find($id);
+        $user = User::find($id);
         // dd($user);
-        return view('admins.users.marketings.edit', compact('marketing'));
+        return view('admins.users.edit', compact('user'));
     }
 
     /**
@@ -103,14 +107,14 @@ class MarketingController extends Controller
             'status' => ['required'],
         ]);
 
-        $marketing = User::find($id);
-        $marketing->name = $request->name;
-        $marketing->phone_number = $request->phone_number;
-        $marketing->status = $request->status;
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->phone_number = $request->phone_number;
+        $user->status = $request->status;
 
-        $marketing->update();
+        $user->update();
 
-        return redirect()->route('marketings.index')->with('success', 'Data user marketing berhasil diubah!');
+        return redirect()->route('users.index')->with('success', 'Data Akun berhasil diubah!');
     }
 
     /**
@@ -121,9 +125,9 @@ class MarketingController extends Controller
      */
     public function destroy($id)
     {
-        $marketing = User::find($id);
-        $marketing->delete();
+        $user = User::find($id);
+        $user->delete();
 
-        return back()->with('success', ' Data user marketing berhasil dihapus.');
+        return back()->with('success', 'Data user berhasil dihapus.');
     }
 }

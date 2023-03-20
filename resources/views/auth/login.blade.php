@@ -20,10 +20,37 @@
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <!-- Styles Css -->
+    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="{{ asset('assets/libs/fontawesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/fontawesome/css/brands.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/fontawesome/css/solid.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/fontawesome/css/regular.min.css') }}">
+    <!-- Boxicons -->
+    <link rel="stylesheet" href="{{ asset('assets/libs/boxicons/css/boxicons.min.css') }}">
+
+    <!-- JQuery -->
+    <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
 
 </head>
 
 <body>
+    @include('sweetalert::alert')
+
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="account-pages pt-sm-5 my-5">
         <div class="container">
             <div class="row justify-content-center">

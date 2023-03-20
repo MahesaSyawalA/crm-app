@@ -26,11 +26,16 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <h1>Selamat Datang!</h1>
-                            <h5>Anda adalah <span class="text-primary">
+                            <h5>Anda login dengan role
+                                <span class="text-primary">
                                     @for ($i = 0; $i < count(Auth::user()->roles->pluck('name')); $i++)
                                         {{ Auth::user()->roles->pluck('name')[$i] }}
+                                        @if (!$i)
+                                            ,
+                                        @endif
                                     @endfor
-                                </span>.</h5>
+                                </span>.
+                            </h5>
                         </div>
                     </div>
                 </div>

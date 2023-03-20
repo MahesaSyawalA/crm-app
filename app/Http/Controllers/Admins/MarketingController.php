@@ -122,7 +122,7 @@ class MarketingController extends Controller
     public function destroy($id)
     {
         $marketing = User::find($id);
-        $marketing->delete();
+        $marketing->removeRole('marketing');
 
         return back()->with('success', ' Data user marketing berhasil dihapus.');
     }

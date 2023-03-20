@@ -13,10 +13,22 @@ class TechnicianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $keyword = $request->search;
+        if ($keyword == 'aktif') {
+            $keyword = 'active';
+        }
+        if ($keyword == 'tidak aktif') {
+            $keyword = 'inactive';
+        }
+
         $users = User::with('roles')->get();
-        $technicians = User::role('technician')
+        $technicians = User::where('name', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('phone_number', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('status', 'LIKE', $keyword)
+                        ->role('technician')
                         ->latest()->paginate(10);
 
         return view('admins.users.technicians.index', compact('users', 'technicians'));
@@ -42,7 +54,7 @@ class TechnicianController extends Controller
     {
         $user = User::find($request->id);
         if ($user == true) {
-            $user->assignRole('marketing');
+            $user->assignRole('technician');
         }
         elseif ($user == false) {
             return back()->with('errors', 'Tidak ada user yang terpilih.');
@@ -110,7 +122,7 @@ class TechnicianController extends Controller
     public function destroy($id)
     {
         $technician = User::find($id);
-        $technician->delete();
+        $technician->removeRole('technician');
 
         return back()->with('success', ' Data user teknik berhasil dihapus.');
     }

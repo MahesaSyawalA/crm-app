@@ -142,6 +142,9 @@
                                 <span class="d-none d-xl-inline-block ms-1" key="t-henry">(
                                     @for ($i = 0; $i < count(Auth::user()->roles->pluck('name')); $i++)
                                         {{ Auth::user()->roles->pluck('name')[$i] }}
+                                        @if (!$i)
+                                            ,
+                                        @endif
                                     @endfor
                                     )
                                 </span>

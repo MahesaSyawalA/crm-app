@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\Floor;
 use App\Models\Grade;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
@@ -43,5 +44,12 @@ class AjaxController extends Controller
         $grade = Grade::where('id', $id)->first();
 
         return response()->json($grade);
+    }
+
+    public function getService($id)
+    {
+        $service = Service::where('id', $id)->first();
+
+        return response()->json($service);
     }
 }

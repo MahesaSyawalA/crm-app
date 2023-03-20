@@ -204,36 +204,13 @@
         </div>
     </div>
 
-
-    <!-- Edit Gedung -->
-    {{-- <x-modals.edit-building></x-modals.edit-building> --}}
-    <!-- End Modal -->
-
-    <script>
-        // $(document).ready(function() {
-        //     $(document).on('click', '.editgedungbtn', function() {
-        //         var id_building = $(this).val();
-        //         alert(id_building);
-
-        //         // $.ajax({
-        //         //     type: "GET",
-        //         //     url: "/admin/buildings/" + id_building + "/edit",
-        //         //     success: function(response) {
-        //         //         console.log(response);
-        //         //         $('#id_building').val(response.building.id_building);
-        //         //         $('#code_building').val(response.building.code_building);
-        //         //         $('#name_building').val(response.building.name_building);
-        //         //         $('#address_building').val(response.building.address_building);
-        //         //         $('#picture_building').val(response.building.picture_building);
-        //         //     }
-        //         // });
-        //     });
-        // });
-
-        //Script Preview Image Building
-        function previewImgBuildingAdd() {
-            imgBuildingAdd.src = URL.createObjectURL(event.target.files[0]);
-            imgBuildingAdd.style.display = 'block';
-        }
-    </script>
+    @push('scripts')
+        <script>
+            //Script Preview Image Building
+            function previewImgBuildingAdd() {
+                imgBuildingAdd.src = URL.createObjectURL(event.target.files[0]);
+                imgBuildingAdd.style.display = 'block';
+            }
+        </script>
+    @endpush
 </x-app-layout>

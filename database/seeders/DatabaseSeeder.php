@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BuildingSeeder::class,
             FloorSeeder::class,
-            RoomSeeder::class
+            RoomSeeder::class,
+            IndustrySeeder::class
         ]);
     }
 }

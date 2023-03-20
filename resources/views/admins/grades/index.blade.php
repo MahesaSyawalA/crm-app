@@ -16,6 +16,8 @@
     </div>
     <!-- end page title -->
 
+    <x-alert></x-alert>
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -79,7 +81,7 @@
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-title="Delete">
                                                         <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="return confirm('Yakin ingin menghapus data gedung ini?')">
+                                                            onclick="return confirm('Yakin ingin menghapus data grade ini?')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </li>
@@ -176,7 +178,7 @@
                         <input type="hidden" name="id" id="idEdit">
 
                         <div class="mb-3">
-                            <label for="code" class="form-label">Kode Grade</label>
+                            <label for="codeEdit" class="form-label">Kode Grade</label>
                             <input type="text" class="form-control @error('code') is-invalid @enderror"
                                 name="code" id="codeEdit" placeholder="Masukkan Kode"
                                 value="{{ old('code') }}">
@@ -189,7 +191,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="score" class="form-label">Nilai Grade</label>
+                            <label for="scoreEdit" class="form-label">Nilai Grade</label>
                             <input type="text" class="form-control @error('score') is-invalid @enderror"
                                 name="score" id="scoreEdit" placeholder="Masukkan Nilai"
                                 value="{{ old('score') }}">

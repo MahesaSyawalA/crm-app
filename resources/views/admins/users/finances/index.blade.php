@@ -24,11 +24,21 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-8">
-                            <div class="me-2 d-inline-block mb-2">
-                                <div class="position-relative">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                            <form action="{{ route('finances.index') }}">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <div class="me-2 d-inline-block mb-2">
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control" name="search" id="search"
+                                                placeholder="Search...">
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <button class="btn btn-info" type="submit">
+                                            <i class="fa fa-magnifying-glass"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         <div class="col-sm-4">
                             <div class="text-sm-end">
@@ -81,7 +91,7 @@
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-title="Delete">
                                                         <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="return confirm('Yakin ingin menghapus data gedung ini?')">
+                                                            onclick="return confirm('Yakin ingin menghapus role keuangan dari user ini?')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </li>

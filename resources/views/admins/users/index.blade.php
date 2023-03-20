@@ -91,7 +91,7 @@
                                                     <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                         data-bs-title="Delete">
                                                         <button type="submit" class="btn btn-sm btn-danger"
-                                                            onclick="return confirm('Yakin ingin menghapus data gedung ini?')">
+                                                            onclick="return confirm('Yakin ingin menghapus data user ini?')">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </li>

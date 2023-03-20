@@ -29,7 +29,8 @@ class UserController extends Controller
                     ->orWhere('email', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('phone_number', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('status', 'LIKE', $keyword)
-                    ->latest()->paginate(10);
+                    ->latest()
+                    ->paginate(10);
 
         return view('admins.users.index', compact('users'));
     }

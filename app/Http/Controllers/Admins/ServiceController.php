@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admins;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Validated;
 
 class ServiceController extends Controller
 {
@@ -14,7 +17,11 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('admins.services.index');
+        $users = User::role(['marketing', 'technician'])->get();
+
+        $services = Service::latest()->paginate(10);
+
+        return view('admins.services.index', compact('users', 'services'));
     }
 
     /**
@@ -35,7 +42,17 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required'],
+            'unit' => ['required'],
+            'price' => ['required'],
+            'description' => ['required'],
+            'user_id' => ['required'],
+        ]);
+
+        Service::create($validated);
+
+        return back()->with('success', 'Servis berhasil ditambahkan.');
     }
 
     /**
@@ -67,9 +84,26 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'unit' => ['required'],
+            'price' => ['required'],
+            'description' => ['required'],
+            'user_id' => ['required'],
+        ]);
+
+        $service = Service::find($request->id);
+        $service->name = $request->name;
+        $service->unit = $request->unit;
+        $service->price = $request->price;
+        $service->description = $request->description;
+        $service->user_id = $request->user_id;
+
+        $service->update();
+
+        return back()->with('success', 'Data servis berhasil diubah.');
     }
 
     /**
@@ -80,6 +114,9 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = Service::find($id);
+        $service->delete();
+
+        return back()->with('success', 'Data servis berhasil dihapus.');
     }
 }

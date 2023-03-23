@@ -2,19 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Tenant extends Model
 {
     use HasFactory;
 
     protected $table = 'tenants';
-    protected $fillable = ['company_name', 'company_phone', 'name', 'phone_number', 'address', 'user_id'];
+    protected $fillable = ['company_name', 'company_phone', 'name', 'phone_number', 'address', 'user_id', 'grade_id'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
     }
 
     public function industryTenant()

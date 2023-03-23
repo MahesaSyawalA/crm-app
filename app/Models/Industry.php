@@ -21,4 +21,14 @@ class Industry extends Model
     {
         return $this->belongsToMany(LeadManagement::class, 'industry_lead_management');
     }
+
+    public function industryTenant()
+    {
+        return $this->hasMany(Industry::class);
+    }
+
+    public function tenants()
+    {
+        return $this->belongsToMany(Tenant::class, 'industry_tenant');
+    }
 }

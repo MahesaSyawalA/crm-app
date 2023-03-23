@@ -49,22 +49,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>PT. Sinar Mas Jaya</td>
-                                    <td>08956182311</td>
-                                    <td>Guntur Setiawan</td>
-                                    <td>
-                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="View Detail">
-                                                <a href="#" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                @foreach ($lead_managements as $key => $lead_management)
+                                    <tr>
+                                        <td scope="row">{{ $lead_managements->firstItem() + $key }}</td>
+                                        <td>{{ $lead_management->company_name }}</td>
+                                        <td>{{ $lead_management->company_phone }}</td>
+                                        <td>{{ $lead_management->name }}</td>
+                                        <td>
+                                            <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="View Detail">
+                                                    <a href="{{ route('leadmanagements.show', $lead_management->id) }}"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

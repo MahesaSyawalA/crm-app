@@ -41,7 +41,7 @@
                                         <option value="" disabled selected>Pilih Gedung</option>
                                         @foreach ($buildings as $building)
                                             <option value="{{ $building->id }}"
-                                                {{ old('id_building') == $building->id ? 'selected' : null }}>
+                                                {{ old('building_id') == $building->id ? 'selected' : null }}>
                                                 {{ $building->name }}</option>
                                         @endforeach
                                     </select>

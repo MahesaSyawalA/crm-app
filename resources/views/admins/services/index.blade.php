@@ -224,7 +224,7 @@
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
-                        <input type="text" name="id" id="idEdit">
+                        <input type="hidden" name="id" id="idEdit">
 
                         <div class="mb-3">
                             <label for="nameEdit" class="form-label">Nama Service</label>

@@ -9,9 +9,9 @@ class IndustryLeadManagement extends Model
 {
     use HasFactory;
 
-    protected $table = "industry_lead_management";
+    protected $table = 'industry_lead_management';
 
-    public function LeadManagement()
+    public function leadManagement()
     {
         return $this->belongsTo(LeadManagement::class);
     }

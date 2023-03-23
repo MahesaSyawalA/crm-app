@@ -154,7 +154,9 @@
                                     <span key="t-invoices-fn">Data Invoice</span>
                                 </a>
                             </li>
+                        @endrole
 
+                        @role('tenant')
                             <li class="menu-title" key="t-menu">Tenant</li>
 
                             <li>

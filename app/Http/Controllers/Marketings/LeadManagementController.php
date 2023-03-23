@@ -16,7 +16,8 @@ class LeadManagementController extends Controller
      */
     public function index()
     {
-        return view('marketings.leadmanagements.index');
+        $lead_managements = LeadManagement::latest()->paginate();
+        return view('marketings.leadmanagements.index', compact('lead_managements'));
     }
 
     /**
@@ -85,7 +86,9 @@ class LeadManagementController extends Controller
      */
     public function show($id)
     {
-        //
+        $lead_management = LeadManagement::withCount(['industries'])->find($id);
+
+        return view('marketings.leadmanagements.show', compact('lead_management'));
     }
 
     /**

@@ -84,40 +84,4 @@
         </div>
     </div>
     <!-- end row -->
-
-    <script>
-        $(document).ready(function() {
-            $('#id_building').on('change', function() {
-                var id_building = $(this).val();
-                console.log(id_building);
-                if (id_building) {
-                    $.ajax({
-                        type: "get",
-                        url: "/ajax/buildings/" + id_building + "/floors",
-                        data: {
-                            '_token': '{{ csrf_token() }}'
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            console.log(data);
-                            if (data) {
-                                $('#id_floor').empty();
-                                $('#id_floor').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $.each(data, function(key, floor) {
-                                    $('select[name="qfloor"]').append(
-                                        '<option value="' + floor.id_floor +
-                                        '">' + floor.name_floor + '</option>'
-                                    )
-                                });
-                            }
-                            // $('#id_floor').empty();
-                        }
-                    });
-                }
-                // $('#id_floor').empty();
-            })
-        });
-    </script>
 </x-app-layout>

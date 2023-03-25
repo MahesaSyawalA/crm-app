@@ -111,9 +111,8 @@
                                         <label class="input-group-text">Rp</label>
                                         <input type="number" min="0"
                                             class="form-control @error('daily_price') is-invalid @enderror"
-                                            style="background-color: #eff2f7;" name="daily_price" id="daily_price"
-                                            placeholder="0" value="{{ old('daily_price', $floor->daily_price) }}"
-                                            readonly>
+                                            name="daily_price" id="daily_price" placeholder="Masukkan harga"
+                                            value="{{ old('daily_price', $floor->daily_price) }}">
                                         <label class="input-group-text">m2/Hari</label>
 
                                         @error('daily_price')
@@ -223,7 +222,7 @@
         <!-- end col -->
     </div>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#monthly_price').on('input', function() {
                 var monthlyPrice = $(this).val();
@@ -231,5 +230,5 @@
                 $('#daily_price').val(dailyPrice);
             });
         });
-    </script>
+    </script> --}}
 </x-app-layout>

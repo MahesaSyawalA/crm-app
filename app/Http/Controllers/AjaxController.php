@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Floor;
 use App\Models\Grade;
 use App\Models\LeadManagement;
+use App\Models\RoomPosition;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -26,11 +27,25 @@ class AjaxController extends Controller
         return response()->json($rooms);
     }
 
-    public function getPrices($id)
+    public function getRoomPositions($id)
     {
-        $prices = Floor::where('id', $id)->first();
+        $room_positions = RoomPosition::with('frontRoom', 'backRoom', 'leftRoom', 'rightRoom')->where('room_id', $id)->first();
 
-        return response()->json($prices);
+        return response()->json($room_positions);
+    }
+
+    public function getFloorDetails($id)
+    {
+        $details = Floor::where('id', $id)->first();
+
+        return response()->json($details);
+    }
+
+    public function getRoomDetails($id)
+    {
+        $details = Room::where('id', $id)->first();
+
+        return response()->json($details);
     }
 
     public function getUserDetails($id)

@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('room_positions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_id')->constrained();
-            $table->foreignId('front')->constrained('rooms');
-            $table->foreignId('back')->constrained('rooms');
-            $table->foreignId('left')->constrained('rooms');
-            $table->foreignId('right')->constrained('rooms');
+            $table->foreignId('front')->nullable()->constrained('rooms');
+            $table->foreignId('back')->nullable()->constrained('rooms');
+            $table->foreignId('left')->nullable()->constrained('rooms');
+            $table->foreignId('right')->nullable()->constrained('rooms');
             $table->timestamps();
         });
     }

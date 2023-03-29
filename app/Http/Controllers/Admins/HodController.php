@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admins;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 
-class TechnicianController extends Controller
+class HodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,14 +25,14 @@ class TechnicianController extends Controller
         }
 
         $users = User::with('roles')->get();
-        $technicians = User::where('name', 'LIKE', '%' . $keyword . '%')
+        $hods = User::where('name', 'LIKE', '%' . $keyword . '%')
                         ->orWhere('email', 'LIKE', '%' . $keyword . '%')
                         ->orWhere('phone_number', 'LIKE', '%' . $keyword . '%')
                         ->orWhere('status', 'LIKE', $keyword)
-                        ->role('technician')
+                        ->role('hod')
                         ->latest()->paginate(10);
 
-        return view('admins.users.technicians.index', compact('users', 'technicians'));
+        return view('admins.users.hods.index', compact('users', 'hods'));
     }
 
     /**
@@ -54,13 +55,13 @@ class TechnicianController extends Controller
     {
         $user = User::find($request->id);
         if ($user == true) {
-            $user->assignRole('technician');
+            $user->assignRole('hod');
         }
         elseif ($user == false) {
             return back()->with('errors', 'Tidak ada user yang terpilih.');
         }
 
-        return back()->with('success', 'Berhasil menambahkan role teknik pada user.');
+        return back()->with('success', 'Berhasil menambahkan role kepala divisi pada user.');
     }
 
     /**
@@ -82,9 +83,9 @@ class TechnicianController extends Controller
      */
     public function edit($id)
     {
-        $technician = User::find($id);
+        $hod = User::find($id);
         // dd($user);
-        return view('admins.users.technicians.edit', compact('technician'));
+        return view('admins.users.hods.edit', compact('hod'));
     }
 
     /**
@@ -103,14 +104,14 @@ class TechnicianController extends Controller
             'status' => ['required'],
         ]);
 
-        $technician = User::find($id);
-        $technician->name = $request->name;
-        $technician->phone_number = $request->phone_number;
-        $technician->status = $request->status;
+        $hod = User::find($id);
+        $hod->name = $request->name;
+        $hod->phone_number = $request->phone_number;
+        $hod->status = $request->status;
 
-        $technician->update();
+        $hod->update();
 
-        return redirect()->route('technicians.index')->with('success', 'Data user teknik berhasil diubah!');
+        return redirect()->route('hods.index')->with('success', 'Data user kepala divisi berhasil diubah!');
     }
 
     /**
@@ -121,9 +122,9 @@ class TechnicianController extends Controller
      */
     public function destroy($id)
     {
-        $technician = User::find($id);
-        $technician->removeRole('technician');
+        $hod = User::find($id);
+        $hod->removeRole('hod');
 
-        return back()->with('success', 'Role teknik berhasil dihapus dari user ini.');
+        return back()->with('success', 'Role kepala divisi berhasil dihapus dari user ini.');
     }
 }

@@ -140,12 +140,7 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ Auth::user()->name }}</span>
                                 <span class="d-none d-xl-inline-block ms-1" key="t-henry">(
-                                    @for ($i = 0; $i < count(Auth::user()->roles->pluck('name')); $i++)
-                                        {{ Auth::user()->roles->pluck('name')[$i] }}
-                                        @if (!$i)
-                                            ,
-                                        @endif
-                                    @endfor
+                                    {{ Auth::user()->roles->pluck('name')->implode(', ') }}
                                     )
                                 </span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>

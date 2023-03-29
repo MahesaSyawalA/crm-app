@@ -124,6 +124,6 @@ class MarketingController extends Controller
         $marketing = User::find($id);
         $marketing->removeRole('marketing');
 
-        return back()->with('success', ' Data user marketing berhasil dihapus.');
+        return back()->with('success', 'Role marketing berhasil dihapus dari user ini.');
     }
 }

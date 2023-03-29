@@ -19,7 +19,7 @@ class RoomFactory extends Factory
         return [
             'code' => fake()->unique()->numerify('R####'),
             'name' => fake()->regexify('Ruang [A-Z]'),
-            'status' => collect(['active', 'inactive', 'rented', 'booked', 'sealed'])->random(1)[0],
+            'status' => 'active',
             'wide' => fake()->numerify('###'),
             'overtime_up_4_total' => fake()->numberBetween($min = 100000, $max = 150000),
             'overtime_down_4_total' => fake()->numberBetween($min = 100000, $max = 150000),

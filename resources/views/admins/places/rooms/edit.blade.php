@@ -38,7 +38,8 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="building" class="form-label">Pilih Gedung</label>
-                                    <select class="form-select select2" id="building" name="building">
+                                    <select class="form-select select2 @error('building') is-invalid @enderror"
+                                        id="building" name="building">
                                         <option value="" disabled selected>Pilih Gedung</option>
                                         @foreach ($buildings as $building)
                                             @if ($building->floors_count != 0)
@@ -48,6 +49,12 @@
                                             @endif
                                         @endforeach
                                     </select>
+
+                                    @error('building')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -290,89 +297,91 @@
         <!-- end col -->
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#building').on('change', function() {
-                var building_id = $(this).val();
-                console.log(building_id);
-                if (building_id) {
-                    $.ajax({
-                        type: "get",
-                        url: "/ajax/buildings/" + building_id + "/floors",
-                        data: {
-                            '_token': '{{ csrf_token() }}'
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            console.log(data);
-                            if (data) {
-                                $('#floor').empty();
-                                $('#floor').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $.each(data, function(key, floor) {
-                                    $('select[name="floor_id"]').append(
-                                        '<option value="' + floor.id +
-                                        '">' + floor.name + ' - Rp ' + floor
-                                        .monthly_price + ' / m2/Bulan </option>'
-                                    )
-                                });
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#building').on('change', function() {
+                    var building_id = $(this).val();
+                    console.log(building_id);
+                    if (building_id) {
+                        $.ajax({
+                            type: "get",
+                            url: "/ajax/buildings/" + building_id + "/floors",
+                            data: {
+                                '_token': '{{ csrf_token() }}'
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                console.log(data);
+                                if (data) {
+                                    $('#floor').empty();
+                                    $('#floor').append(
+                                        '<option value="" selected disabled>Pilih Lantai</option>'
+                                    );
+                                    $.each(data, function(key, floor) {
+                                        $('select[name="floor_id"]').append(
+                                            '<option value="' + floor.id +
+                                            '">' + floor.name + ' - Rp ' + floor
+                                            .monthly_price + ' / m2/Bulan </option>'
+                                        )
+                                    });
+                                }
+                                // $('#id_floor').empty();
                             }
-                            // $('#id_floor').empty();
-                        }
-                    });
-                }
-                // $('#id_floor').empty();
-            })
+                        });
+                    }
+                    // $('#id_floor').empty();
+                })
 
-            $('#floor').on('change', function() {
-                var floor_id = $(this).val();
+                $('#floor').on('change', function() {
+                    var floor_id = $(this).val();
 
-                // console.log(floor_id);
-                if (floor_id) {
-                    $.ajax({
-                        type: "get",
-                        url: "/ajax/floors/" + floor_id + "/getprices",
-                        data: {
-                            '_token': '{{ csrf_token() }}'
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            // console.log(data);
-                            if (data) {
+                    // console.log(floor_id);
+                    if (floor_id) {
+                        $.ajax({
+                            type: "get",
+                            url: "/ajax/floors/" + floor_id + "/getprices",
+                            data: {
+                                '_token': '{{ csrf_token() }}'
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                // console.log(data);
+                                if (data) {
 
-                                $("#service_charge").text(data.service_charge);
-                                $('#own_electricity').text(data.own_electricity);
+                                    $("#service_charge").text(data.service_charge);
+                                    $('#own_electricity').text(data.own_electricity);
 
-                                $('#wide').on('input', function() {
-                                    var wide = $(this).val();
-                                    var overtimeUp4Total = data.overtime_up_4 *
-                                        parseInt(wide);
-                                    var overtimeDown4Total = data
-                                        .overtime_down_4 * parseInt(wide);
-                                    var serviceChargeTotal = data.service_charge *
-                                        parseInt(
-                                            wide);
-                                    var ownElectricityTotal = data
-                                        .own_electricity * parseInt(
-                                            wide);
+                                    $('#wide').on('input', function() {
+                                        var wide = $(this).val();
+                                        var overtimeUp4Total = data.overtime_up_4 *
+                                            parseInt(wide);
+                                        var overtimeDown4Total = data
+                                            .overtime_down_4 * parseInt(wide);
+                                        var serviceChargeTotal = data.service_charge *
+                                            parseInt(
+                                                wide);
+                                        var ownElectricityTotal = data
+                                            .own_electricity * parseInt(
+                                                wide);
 
-                                    $('#overtime_up_4_total').val(overtimeUp4Total);
-                                    $('#overtime_down_4_total').val(overtimeDown4Total);
-                                    $('#service_charge_total').val(serviceChargeTotal);
-                                    $('#own_electricity_total').val(
-                                        ownElectricityTotal);
-                                });
+                                        $('#overtime_up_4_total').val(overtimeUp4Total);
+                                        $('#overtime_down_4_total').val(overtimeDown4Total);
+                                        $('#service_charge_total').val(serviceChargeTotal);
+                                        $('#own_electricity_total').val(
+                                            ownElectricityTotal);
+                                    });
+                                }
                             }
-                        }
-                    });
-                }
-            })
-        });
+                        });
+                    }
+                })
+            });
 
-        function previewImgRoomAdd() {
-            imgRoomAdd.src = URL.createObjectURL(event.target.files[0]);
-            imgRoomAdd.style.display = 'block';
-        }
-    </script>
+            function previewImgRoomAdd() {
+                imgRoomAdd.src = URL.createObjectURL(event.target.files[0]);
+                imgRoomAdd.style.display = 'block';
+            }
+        </script>
+    @endpush
 </x-app-layout>

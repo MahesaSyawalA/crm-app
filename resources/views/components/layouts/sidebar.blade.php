@@ -42,6 +42,7 @@
                                     <li class="sub-menu-title" key="t-menu">Assign Role</li>
 
                                     <li><a href="{{ route('marketings.index') }}" key="t-marketings">Marketing</a></li>
+                                    <li><a href="{{ route('hods.index') }}" key="t-hods">Kepala Divisi</a></li>
                                     <li><a href="{{ route('technicians.index') }}" key="t-technicians">Teknik</a></li>
                                     <li><a href="{{ route('finances.index') }}" key="t-finances">Keuangan</a></li>
                                 </ul>

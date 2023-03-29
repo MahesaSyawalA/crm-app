@@ -124,6 +124,6 @@ class FinanceController extends Controller
         $finance = User::find($id);
         $finance->removeRole('finance');
 
-        return back()->with('success', ' Data user keuangan berhasil dihapus.');
+        return back()->with('success', 'Role keuangan berhasil dihapus dari user ini.');
     }
 }

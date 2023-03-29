@@ -47,6 +47,8 @@ class RoomController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'building' => ['required'],
+            'floor_id' => ['required'],
             'code' => ['required', 'unique:rooms'],
             'name' => ['required'],
             'status' => ['required'],
@@ -57,7 +59,6 @@ class RoomController extends Controller
             'own_electricity_total' => ['required'],
             'image' => ['image', 'file', 'max:2048'],
             'description' => ['required'],
-            'floor_id' => ['required'],
         ],
         [
             'floor_id.required' => 'The floor field is required.',
@@ -97,6 +98,8 @@ class RoomController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'building' => ['required'],
+            'floor_id' => ['required'],
             'code' => ['required'],
             'name' => ['required'],
             'status' => ['required'],
@@ -107,7 +110,6 @@ class RoomController extends Controller
             'own_electricity_total' => ['required'],
             'image' => ['image', 'file', 'max:2048'],
             'description' => ['required'],
-            'floor_id' => ['required'],
         ],
         [
             'floor_id.required' => 'The floor field is required.',

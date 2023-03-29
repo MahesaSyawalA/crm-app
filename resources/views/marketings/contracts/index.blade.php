@@ -204,26 +204,33 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gedung A Lantai 01 Ruang 1A</td>
-                                    <td>15 Juni 2023</td>
-                                    <td>15 Desember 2023</td>
-                                    <td>PT. Sinar Mas Jaya - Guntur Setiawan</td>
-                                    <td>
-                                        <span class="badge font-size-12 badge-soft-success">Disetujui</span>
-                                    </td>
-                                    <td>
-                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="View Detail">
-                                                <a href="#" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                @foreach ($contracts as $key => $contract)
+                                    <tr>
+                                        <td scope="row">{{ $contracts->firstItem() + $key }}</td>
+                                        <td>{{ $contract->room->floor->building->name }}
+                                            {{ $contract->room->floor->name }} {{ $contract->room->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($contract->start_date)->translatedFormat('j F Y') }}
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($contract->end_date)->translatedFormat('j F Y') }}
+                                        </td>
+                                        <td>{{ $contract->tenant->company_name }} - {{ $contract->tenant->user->name }}
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge font-size-12 badge-soft-warning">{{ $contract->status }}</span>
+                                        </td>
+                                        <td>
+                                            <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="View Detail">
+                                                    <a href="#" class="btn btn-sm btn-primary">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

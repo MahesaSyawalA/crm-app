@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admins\HodController;
 use App\Http\Controllers\Admins\RoomController;
 use App\Http\Controllers\Admins\UserController;
 use App\Http\Controllers\Admins\FloorController;
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')
     Route::resource('roompositions', RoomPositionController::class);
     Route::resource('users', UserController::class);
     Route::resource('marketings', MarketingController::class);
+    Route::resource('hods', HodController::class);
     Route::resource('technicians', TechnicianController::class);
     Route::resource('finances', FinanceController::class);
     Route::resource('grades', GradeController::class);

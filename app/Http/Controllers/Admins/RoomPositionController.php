@@ -26,14 +26,15 @@ class RoomPositionController extends Controller
     public function create()
     {
         $buildings = Building::withCount('floors')->get();
-        $floors = Floor::withCount('rooms')->get();
 
-        return view('admins.places.roompositions.create', compact('buildings', 'floors'));
+        return view('admins.places.roompositions.create', compact('buildings'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'building' => ['required'],
+            'floor' => ['required'],
             'room_id' => ['required'],
             'front' => ['required'],
             'back' => ['required'],
@@ -67,6 +68,8 @@ class RoomPositionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'building' => ['required'],
+            'floor' => ['required'],
             'room_id' => ['required'],
             'front' => ['required'],
             'back' => ['required'],

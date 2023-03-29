@@ -36,7 +36,8 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="building" class="form-label">Pilih Gedung</label>
-                                    <select class="form-select select2" id="building" name="building">
+                                    <select class="form-select select2 @error('floor_id') is-invalid @enderror"
+                                        id="building" name="building">
                                         <option value="" disabled selected>Pilih Gedung</option>
                                         @foreach ($buildings as $building)
                                             @if ($building->floors_count != 0)
@@ -46,6 +47,12 @@
                                             @endif
                                         @endforeach
                                     </select>
+
+                                    @error('building')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -308,7 +315,7 @@
                 if (floor_id) {
                     $.ajax({
                         type: "get",
-                        url: "/ajax/floors/" + floor_id + "/getprices",
+                        url: "/ajax/floors/" + floor_id + "/getdetails",
                         data: {
                             '_token': '{{ csrf_token() }}'
                         },

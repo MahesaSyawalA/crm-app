@@ -37,10 +37,10 @@
                                     class="btn btn-success waves-effect waves-light mb-2">
                                     <i class="mdi mdi-plus me-1"></i> Tambah Tenant
                                 </a>
-                                <button type="button" class="btn btn-success waves-effect waves-light mb-2"
+                                {{-- <button type="button" class="btn btn-success waves-effect waves-light mb-2"
                                     data-bs-toggle="modal" data-bs-target="#addTenantModal">
                                     <i class="mdi mdi-plus me-1"></i> Tambah dari Lead Management
-                                </button>
+                                </button> --}}
                             </div>
                         </div><!-- end col-->
                     </div>

@@ -41,7 +41,8 @@
 
                         <div class="mb-3">
                             <label for="formrow-firstname-input" class="form-label">Pilih Gedung</label>
-                            <select class="form-select select2" name="building" id="building">
+                            <select class="form-select select2 @error('building') is-invalid @enderror" name="building"
+                                id="building">
                                 <option value="" disabled selected>Pilih Gedung</option>
                                 @foreach ($buildings as $building)
                                     @if ($building->floors_count != 0)
@@ -51,31 +52,51 @@
                                     @endif
                                 @endforeach
                             </select>
+
+                            @error('building')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Lantai</label>
-                                    <select class="form-select select2" name="floor" id="floor">
+                                    <select class="form-select select2 @error('floor') is-invalid @enderror"
+                                        name="floor" id="floor">
                                         <option value="" disabled>Pilih Ulang Gedung Untuk Munculkan Lantai
                                             Lainnya</option>
                                         <option value="{{ $room_position->parentRoom->floor->id }}">
                                             {{ $room_position->parentRoom->floor->name }} -
                                             {{ $room_position->parentRoom->floor->code }}</option>
                                     </select>
+
+                                    @error('floor')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Pilih Ruang</label>
-                                    <select class="form-select select2" name="room_id" id="parent_room">
+                                    <select class="form-select select2 @error('room_id') is-invalid @enderror"
+                                        name="room_id" id="parent_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
                                         <option value="{{ $room_position->room_id }}">
                                             {{ $room_position->parentRoom->name }} -
                                             {{ $room_position->parentRoom->code }}</option>
                                     </select>
+
+                                    @error('room_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -84,23 +105,37 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Depan</label>
-                                    <select class="form-select select2" name="front" id="front_room">
+                                    <select class="form-select select2 @error('front') is-invalid @enderror"
+                                        name="front" id="front_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
                                         <option value="{{ $room_position->front }}">
                                             {{ $room_position->frontRoom->name }}</option>
                                     </select>
+
+                                    @error('front')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="formrow-firstname-input" class="form-label">Belakang</label>
-                                    <select class="form-select select2" name="back" id="back_room">
+                                    <select class="form-select select2 @error('back') is-invalid @enderror"
+                                        name="back" id="back_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
                                         <option value="{{ $room_position->back }}">
                                             {{ $room_position->backRoom->name }}</option>
                                     </select>
+
+                                    @error('back')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -109,23 +144,37 @@
                             <div class="col-md-6">
                                 <div class="mb-5">
                                     <label for="formrow-firstname-input" class="form-label">Kiri</label>
-                                    <select class="form-select select2" name="left" id="left_room">
+                                    <select class="form-select select2 @error('left') is-invalid @enderror"
+                                        name="left" id="left_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
                                         <option value="{{ $room_position->left }}">
                                             {{ $room_position->leftRoom->name }}</option>
                                     </select>
+
+                                    @error('left')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-5">
                                     <label for="formrow-firstname-input" class="form-label">Kanan</label>
-                                    <select class="form-select select2" name="right" id="right_room">
+                                    <select class="form-select select2 @error('right') is-invalid @enderror"
+                                        name="right" id="right_room">
                                         <option value="" disabled>Pilih Ulang Lantai Untuk Munculkan Ruang
                                             Lainnya</option>
                                         <option value="{{ $room_position->right }}">
                                             {{ $room_position->rightRoom->name }}</option>
                                     </select>
+
+                                    @error('right')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -144,106 +193,108 @@
         <!-- end col -->
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#building').on('change', function() {
-                var building_id = $(this).val();
-                // console.log(building_id);
-                if (building_id) {
-                    $.ajax({
-                        type: "get",
-                        url: "/ajax/buildings/" + building_id + "/floors",
-                        data: {
-                            '_token': '{{ csrf_token() }}'
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            // console.log(data);
-                            if (data) {
-                                $('#floor').empty();
-                                $('#floor').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $.each(data, function(key, floor) {
-                                    $('select[name="floor"]').append(
-                                        '<option value="' + floor.id +
-                                        '">' + floor.name + ' - ' +
-                                        floor
-                                        .code + '</option>'
-                                    )
-                                });
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#building').on('change', function() {
+                    var building_id = $(this).val();
+                    // console.log(building_id);
+                    if (building_id) {
+                        $.ajax({
+                            type: "get",
+                            url: "/ajax/buildings/" + building_id + "/floors",
+                            data: {
+                                '_token': '{{ csrf_token() }}'
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                // console.log(data);
+                                if (data) {
+                                    $('#floor').empty();
+                                    $('#floor').append(
+                                        '<option value="" selected disabled>Pilih Lantai</option>'
+                                    );
+                                    $.each(data, function(key, floor) {
+                                        $('select[name="floor"]').append(
+                                            '<option value="' + floor.id +
+                                            '">' + floor.name + ' - ' +
+                                            floor
+                                            .monthly_price + '</option>'
+                                        )
+                                    });
+                                }
+                                // $('#id_floor').empty();
                             }
-                            // $('#id_floor').empty();
-                        }
-                    });
-                }
-                // $('#id_floor').empty();
-            })
+                        });
+                    }
+                    // $('#id_floor').empty();
+                })
 
-            $('#floor').on('change', function() {
-                var floor_id = $(this).val();
-                console.log(floor_id);
-                if (floor_id) {
-                    $.ajax({
-                        type: "get",
-                        url: "/ajax/floors/" + floor_id + "/rooms",
-                        data: {
-                            '_token': '{{ csrf_token() }}'
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            console.log(data);
-                            if (data) {
-                                $('#parent_room').empty();
-                                $('#front_room').empty();
-                                $('#back_room').empty();
-                                $('#left_room').empty();
-                                $('#right_room').empty();
-                                $('#parent_room').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $('#front_room').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $('#back_room').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $('#left_room').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $('#right_room').append(
-                                    '<option value="" selected disabled>Pilih Lantai</option>'
-                                );
-                                $.each(data, function(key, room) {
-                                    $('select[name="room_id"]').append(
-                                        '<option value="' + room.id +
-                                        '">' + room.name + ' - ' +
-                                        room.code + '</option>'
+                $('#floor').on('change', function() {
+                    var floor_id = $(this).val();
+                    console.log(floor_id);
+                    if (floor_id) {
+                        $.ajax({
+                            type: "get",
+                            url: "/ajax/floors/" + floor_id + "/rooms",
+                            data: {
+                                '_token': '{{ csrf_token() }}'
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                console.log(data);
+                                if (data) {
+                                    $('#parent_room').empty();
+                                    $('#front_room').empty();
+                                    $('#back_room').empty();
+                                    $('#left_room').empty();
+                                    $('#right_room').empty();
+                                    $('#parent_room').append(
+                                        '<option value="" selected disabled>Pilih Lantai</option>'
                                     );
-                                    $('select[name="front"]').append(
-                                        '<option value="' + room.id +
-                                        '">' + room.name + '</option>'
+                                    $('#front_room').append(
+                                        '<option value="" selected disabled>Pilih Lantai</option>'
                                     );
-                                    $('select[name="back"]').append(
-                                        '<option value="' + room.id +
-                                        '">' + room.name + '</option>'
+                                    $('#back_room').append(
+                                        '<option value="" selected disabled>Pilih Lantai</option>'
                                     );
-                                    $('select[name="left"]').append(
-                                        '<option value="' + room.id +
-                                        '">' + room.name + '</option>'
+                                    $('#left_room').append(
+                                        '<option value="" selected disabled>Pilih Lantai</option>'
                                     );
-                                    $('select[name="right"]').append(
-                                        '<option value="' + room.id +
-                                        '">' + room.name + '</option>'
+                                    $('#right_room').append(
+                                        '<option value="" selected disabled>Pilih Lantai</option>'
                                     );
-                                });
+                                    $.each(data, function(key, room) {
+                                        $('select[name="room_id"]').append(
+                                            '<option value="' + room.id +
+                                            '">' + room.name + ' - ' +
+                                            room.code + '</option>'
+                                        );
+                                        $('select[name="front"]').append(
+                                            '<option value="' + room.id +
+                                            '">' + room.name + '</option>'
+                                        );
+                                        $('select[name="back"]').append(
+                                            '<option value="' + room.id +
+                                            '">' + room.name + '</option>'
+                                        );
+                                        $('select[name="left"]').append(
+                                            '<option value="' + room.id +
+                                            '">' + room.name + '</option>'
+                                        );
+                                        $('select[name="right"]').append(
+                                            '<option value="' + room.id +
+                                            '">' + room.name + '</option>'
+                                        );
+                                    });
+                                }
+                                // $('#id_floor').empty();
                             }
-                            // $('#id_floor').empty();
-                        }
-                    });
-                }
-                // $('#id_floor').empty();
-            })
-        });
-    </script>
+                        });
+                    }
+                    // $('#id_floor').empty();
+                })
+            });
+        </script>
+    @endpush
 </x-app-layout>

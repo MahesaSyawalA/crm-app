@@ -86,7 +86,9 @@ class TenantController extends Controller
      */
     public function show($id)
     {
-        //
+        $tenant = Tenant::withCount(['industries'])->find($id);
+
+        return view('marketings.tenants.show', compact('tenant'));
     }
 
     /**

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Tenants;
 
-use App\Http\Controllers\Controller;
+use App\Models\Contract;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class InvoiceTenantController extends Controller
 {
@@ -14,7 +15,15 @@ class InvoiceTenantController extends Controller
      */
     public function index()
     {
-        return view('tenants.invoices.index');
+        $contracts = Contract::with(['room.floor.building', 'tenant.user', 'approval', 'billing'])
+                            ->withCount('billing')
+                            ->latest();
+
+        $contracts->whereHas('billing', function ($query) {
+            $query->where('status', 'unpaid');
+        })->get();
+
+        return view('tenants.invoices.index', compact('contracts'));
     }
 
     /**

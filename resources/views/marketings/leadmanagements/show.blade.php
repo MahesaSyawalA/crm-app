@@ -9,7 +9,7 @@
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('leadmanagements.index') }}">Kelola Lead
                                 Management</a></li>
-                        <li class="breadcrumb-item active">Detail Ruang</li>
+                        <li class="breadcrumb-item active">Detail</li>
                     </ol>
                 </div>
 

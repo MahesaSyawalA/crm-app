@@ -200,38 +200,54 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Gedung A Lantai 01 Ruang 1A</td>
-                                    <td>15 Juni 2023</td>
-                                    <td>15 Desember 2023</td>
-                                    <td>PT. Sinar Mas Jaya - Guntur Setiawan</td>
-                                    <td>
-                                        <span class="badge font-size-12 badge-soft-success">Disetujui</span>
-                                    </td>
-                                    <td>
-                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="Setujui">
-                                                <a href="#" class="btn btn-sm btn-success">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="Tolak">
-                                                <a href="#" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-x"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="Lihat Detail">
-                                                <a href="#" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                @foreach ($contracts as $key => $contract)
+                                    <tr>
+                                        <td scope="row">{{ $contracts->firstItem() + $key }}</td>
+                                        <td>{{ $contract->room->floor->building->name }}
+                                            {{ $contract->room->floor->name }} {{ $contract->room->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($contract->start_date)->translatedFormat('j F Y') }}
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($contract->end_date)->translatedFormat('j F Y') }}
+                                        </td>
+                                        <td>{{ $contract->tenant->company_name }} - {{ $contract->tenant->user->name }}
+                                        </td>
+                                        <td>
+                                            @if ($contract->approval->status->value == 'checking')
+                                                <span
+                                                    class="badge font-size-12 badge-soft-warning">{{ $contract->approval->status->value }}
+                                                </span>
+                                            @elseif ($contract->approval->status->value == 'approved')
+                                                <span
+                                                    class="badge font-size-12 badge-soft-primary">{{ $contract->approval->status->value }}
+                                                </span>
+                                            @elseif ($contract->approval->status->value == 'rejected')
+                                                <span
+                                                    class="badge font-size-12 badge-soft-danger">{{ $contract->approval->status->value }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                                <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="Lihat Detail">
+                                                    <a href="{{ route('approvals.show', $contract->id) }}"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </li>
+                                                @if ($contract->approval->status->value == 'approved' && $contract->billing_count == 0)
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-title="Buat Billing">
+                                                        <a href="{{ route('approvals.createbilling', $contract->id) }}"
+                                                            class="btn btn-sm btn-success">
+                                                            <i class="fa fa-plus"></i>
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

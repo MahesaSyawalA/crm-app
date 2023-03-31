@@ -132,41 +132,50 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <span class="badge font-size-12 badge-soft-warning">Belum Lunas</span>
-                                    </td>
-                                    <td>PT Sinar Mas Jaya - Guntur Setiawan</td>
-                                    <td>INV/003/POP/IX/21</td>
-                                    <td>Pembayaran Ke-2 Sewa 1 Tahun - Gedung A Lantai 01 Ruang 1A.</td>
-                                    <td>Rp 34,670,000</td>
-                                    <td>15 Juni 2024</td>
-                                    <td>15 Juli 2024</td>
-                                    <td>
-                                        <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="Konfirmasi Pembayaran">
-                                                <button type="button" class="btn btn-sm btn-info"
-                                                    data-bs-toggle="modal" data-bs-target="#addBuktiBayarModal">
-                                                    <i class="fa fa-upload"></i>
-                                                </button>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="View Detail">
-                                                <a href="#" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </li>
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top"
-                                                data-bs-title="Download PDF">
-                                                <a href="#" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-file-pdf"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                @foreach ($contracts as $key => $contract)
+                                    @if ($contract->billing->status->value == 'unpaid')
+                                        <tr>
+                                            <td scope="row"></td>
+                                            <td>
+                                                <span class="badge font-size-12 badge-soft-warning">Belum Lunas</span>
+                                            </td>
+                                            <td>{{ $contract->tenant->company_name }} -
+                                                {{ $contract->tenant->user->name }}
+                                            </td>
+                                            <td>{{ $contract->billing->code }}</td>
+                                            <td>{{ $contract->billing->name }} {{ $contract->total_period }} -
+                                                {{ $contract->room->floor->building->name }}
+                                                {{ $contract->room->floor->name }} {{ $contract->room->name }}.</td>
+                                            <td>Rp {{ number_format($contract->total_payment, 0, ',') }}</td>
+                                            <td>{{ $contract->billing->release_date }}</td>
+                                            <td>{{ $contract->billing->due_date }}</td>
+                                            <td>
+                                                <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-title="Konfirmasi Pembayaran">
+                                                        <button type="button" class="btn btn-sm btn-info"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#addBuktiBayarModal">
+                                                            <i class="fa fa-upload"></i>
+                                                        </button>
+                                                    </li>
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-title="View Detail">
+                                                        <a href="#" class="btn btn-sm btn-primary">
+                                                            <i class="fa fa-eye"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        data-bs-title="Download PDF">
+                                                        <a href="#" class="btn btn-sm btn-danger">
+                                                            <i class="fa fa-file-pdf"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

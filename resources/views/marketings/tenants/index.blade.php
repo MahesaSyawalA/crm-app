@@ -69,7 +69,8 @@
                                             <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="View Detail">
-                                                    <a href="#" class="btn btn-sm btn-primary">
+                                                    <a href="{{ route('tenants.show', $tenant->id) }}"
+                                                        class="btn btn-sm btn-primary">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
                                                 </li>

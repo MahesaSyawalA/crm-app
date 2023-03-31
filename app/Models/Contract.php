@@ -11,10 +11,11 @@ class Contract extends Model
 
     protected $table = 'contracts';
     protected $fillable = [
-        'booking_status',
+        'is_booking',
         'booking_code',
         'room_wide',
         'time_period',
+        'total_period',
         'term',
         'start_date',
         'end_date',
@@ -22,6 +23,7 @@ class Contract extends Model
         'contract_payment',
         'service_charge',
         'ppn_type',
+        'ppn_option',
         'ppn',
         'contract_deposit',
         'line_deposit',
@@ -53,5 +55,15 @@ class Contract extends Model
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+
+    public function approval()
+    {
+        return $this->hasOne(Approval::class);
+    }
+
+    public function billing()
+    {
+        return $this->hasOne(Billing::class);
     }
 }

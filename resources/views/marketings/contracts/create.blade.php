@@ -29,16 +29,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="booking_status" class="form-label">Status Booking</label>
+                                    <label for="is_booking" class="form-label">Status Booking</label>
                                     <select
-                                        class="form-select select2 nosearch @error('booking_status') is-invalid @enderror"
-                                        name="booking_status" id="booking_status">
+                                        class="form-select select2 nosearch @error('is_booking') is-invalid @enderror"
+                                        name="is_booking" id="is_booking">
                                         <option value="" disabled selected>Pilih Status</option>
                                         <option value="1">Ya</option>
                                         <option value="0">Tidak</option>
                                     </select>
 
-                                    @error('booking_status')
+                                    @error('is_booking')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -154,7 +154,8 @@
                                     <label for="indec_wide" class="form-label">Luas Tambah/Kurang</label>
                                     <div class="input-group">
                                         <input type="number" min="0" class="form-control" name="indec_wide"
-                                            id="indec_wide" placeholder="Masukkan Luas" value="0">
+                                            id="indec_wide" placeholder="Masukkan Luas" value="0"
+                                            style="background-color: #eff2f7;" readonly>
                                         <label class="input-group-text">m2</label>
                                     </div>
                                 </div>
@@ -376,22 +377,27 @@
                             </div>
                         </div>
 
-                        <input type="hidden" name="total_period" id="total_period" placeholder="total period"
-                            name="total_period">
-                        <input type="hidden" name="time_unit" id="time_unit" placeholder="time unit"
-                            name="time_unit">
-                        <input type="hidden" name="line_deposit" id="line_deposit" placeholder="Line deposit">
-                        <input type="hidden" name="stamp" id="stamp" placeholder="Harga Materai">
-                        <input type="hidden" name="ppn" id="ppn" placeholder="Jumlah PPN">
-                        <input type="hidden" name="room_wide" id="room_wide" placeholder="Total luas ruangan">
-                        <input type="hidden" name="service_charge" id="service_charge"
-                            placeholder="Total Service Charge">
-                        <input type="hidden" name="term_payment" id="term_payment" placeholder="Harga per termin">
-                        <input type="hidden" name="contract_payment" id="contract_payment"
-                            placeholder="Harga sewa ruang">
-                        <input type="hidden" name="contract_deposit" id="contract_deposit"
-                            placeholder="Harga deposit sewa">
-                        <input type="hidden" name="total_payment" id="total_payment" placeholder="Total harga">
+                        <div>
+                            <input type="hidden" name="total_date" id="total_date"
+                                placeholder="total periode termin" name="total_date">
+                            <input type="hidden" name="total_period" id="total_period" placeholder="total periode"
+                                name="total_period">
+                            <input type="hidden" name="time_unit" id="time_unit" placeholder="time unit"
+                                name="time_unit">
+                            <input type="hidden" name="line_deposit" id="line_deposit" placeholder="Line deposit">
+                            <input type="hidden" name="stamp" id="stamp" placeholder="Harga Materai">
+                            <input type="hidden" name="ppn" id="ppn" placeholder="Jumlah PPN">
+                            <input type="hidden" name="room_wide" id="room_wide" placeholder="Total luas ruangan">
+                            <input type="hidden" name="service_charge" id="service_charge"
+                                placeholder="Total Service Charge">
+                            <input type="hidden" name="term_payment" id="term_payment"
+                                placeholder="Harga per termin">
+                            <input type="hidden" name="contract_payment" id="contract_payment"
+                                placeholder="Harga sewa ruang">
+                            <input type="hidden" name="contract_deposit" id="contract_deposit"
+                                placeholder="Harga deposit sewa">
+                            <input type="hidden" name="total_payment" id="total_payment" placeholder="Total harga">
+                        </div>
 
                         <div class="mb-5">
                             <label for="description" class="form-label">Keterangan</label>
@@ -578,60 +584,60 @@
                                     $('#time_period').empty();
                                     $('#time_period').append(
                                         '<option value="" selected disabled>Pilih Satuan</option>' +
-                                        '<option value="1 days" data-months="1" data-time_unit="days" data-price="' +
+                                        '<option value="1 Hari" data-months="1" data-number_period="1" data-time_unit="days" data-price="' +
                                         data
                                         .daily_price + '">1 Hari - Rp ' + data
                                         .daily_price +
                                         '</option>' +
-                                        '<option value="1 weeks" data-months="7" data-time_unit="weeks" data-price="' +
+                                        '<option value="1 Minggu" data-months="7" data-number_period="1" data-time_unit="weeks" data-price="' +
                                         data
                                         .daily_price * 7 + '">1 Minggu - Rp ' + (data
                                             .daily_price) * 7 + '</option>' +
-                                        '<option value="1 month" data-months="1" data-time_unit="month" data-price="' +
+                                        '<option value="1 Bulan" data-months="1" data-number_period="1" data-time_unit="month" data-price="' +
                                         data
                                         .monthly_price + '">1 Bulan - Rp ' + data
                                         .monthly_price + '</option>' +
-                                        '<option value="2 month" data-months="2" data-time_unit="month" data-price="' +
+                                        '<option value="2 Bulan" data-months="2" data-number_period="2" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 2 + '">2 Bulan - Rp ' + (data
                                             .monthly_price) * 2 + '</option>' +
-                                        '<option value="3 month" data-months="3" data-time_unit="month" data-price="' +
+                                        '<option value="3 Bulan" data-months="3" data-number_period="3" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 3 + '">3 Bulan - Rp ' + (data
                                             .monthly_price) * 3 + '</option>' +
-                                        '<option value="4 month" data-months="4" data-time_unit="month" data-price="' +
+                                        '<option value="4 Bulan" data-months="4" data-number_period="4" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 4 + '">4 Bulan - Rp ' + (data
                                             .monthly_price) * 4 + '</option>' +
-                                        '<option value="5 month" data-months="5" data-time_unit="month" data-price="' +
+                                        '<option value="5 Bulan" data-months="5" data-number_period="5" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 5 + '">5 Bulan - Rp ' + (data
                                             .monthly_price) * 5 + '</option>' +
-                                        '<option value="6 month" data-months="6" data-time_unit="month" data-price="' +
+                                        '<option value="6 Bulan" data-months="6" data-number_period="6" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 6 + '">6 Bulan - Rp ' + (data
                                             .monthly_price) * 6 + '</option>' +
-                                        '<option value="7 month" data-months="7" data-time_unit="month" data-price="' +
+                                        '<option value="7 Bulan" data-months="7" data-number_period="7" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 7 + '">7 Bulan - Rp ' + (data
                                             .monthly_price) * 7 + '</option>' +
-                                        '<option value="8 month" data-months="8" data-time_unit="month" data-price="' +
+                                        '<option value="8 Bulan" data-months="8" data-number_period="8" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 8 + '">8 Bulan - Rp ' + (data
                                             .monthly_price) * 8 + '</option>' +
-                                        '<option value="9 month" data-months="9" data-time_unit="month" data-price="' +
+                                        '<option value="9 Bulan" data-months="9" data-number_period="9" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 9 + '">9 Bulan - Rp ' + (data
                                             .monthly_price) * 9 + '</option>' +
-                                        '<option value="10   data-months="10" data-time_unit="month" data-price="' +
+                                        '<option value="10 data-months="10" data-number_period="10" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 10 + '">10 Bulan - Rp ' + (data
                                             .monthly_price) * 10 + '</option>' +
-                                        '<option value="11 month" data-months="11" data-time_unit="month" data-price="' +
+                                        '<option value="11 Bulan" data-months="11" data-number_period="11" data-time_unit="month" data-price="' +
                                         (data
                                             .monthly_price) * 11 + '">11 Bulan - Rp ' + (data
                                             .monthly_price) * 11 + '</option>' +
-                                        '<option value="1 year" data-months="12" data-time_unit="year" data-price="' +
+                                        '<option value="1 Tahun" data-months="12" data-number_period="1" data-time_unit="year" data-price="' +
                                         (data
                                             .monthly_price) * 12 + '">1 Tahun - Rp ' + (data
                                             .monthly_price) * 12 + '</option>'
@@ -705,13 +711,13 @@
                                         .front_room.wide + ' m2</option>' +
                                         '<option value="' + data.back +
                                         '">' + data.back_room.name + ' - Belakang - ' + data
-                                        .front_room.wide + ' m2</option>' +
+                                        .back_room.wide + ' m2</option>' +
                                         '<option value="' + data.left +
                                         '">' + data.left_room.name + ' - Kiri - ' + data
-                                        .front_room.wide + ' m2</option>' +
+                                        .left_room.wide + ' m2</option>' +
                                         '<option value="' + data.right +
                                         '">' + data.right_room.name + ' - Kanan - ' + data
-                                        .front_room.wide + ' m2</option>'
+                                        .right_room.wide + ' m2</option>'
                                     );
                                 }
                                 // $('#id_floor').empty();
@@ -757,30 +763,36 @@
                     // var timePeriod = $(this).val()
                     var dataPrice = $(this).find('option:selected').attr("data-price");
                     var dataMonths = $(this).find('option:selected').attr("data-months");
+                    var numberPeriod = $(this).find('option:selected').attr("data-number_period");
                     var timeUnit = $(this).find('option:selected').attr("data-time_unit");
                     var term = $('#term').val()
                     // console.log(dataPrice)
+                    var totalDate = parseInt(dataMonths) * parseInt(term)
+                    var totalPeriod = parseInt(numberPeriod) * parseInt(term)
                     var contractPayment = parseInt(dataPrice) * parseInt(term)
                     $('#term_payment').val(dataPrice)
+                    $('#total_date').val(totalDate)
+                    $('#total_period').val(totalPeriod)
                     $('#contract_payment').val(contractPayment)
                     $('#time_unit').val(timeUnit)
                     $('#term').on('input', function() {
                         var term = $(this).val()
-                        var contractPayment = parseInt(dataPrice) * parseInt(term)
                         var serviceChargeType = $('#service_charge_type').val()
-                        console.log(serviceChargeType)
-                        var totalMonths = parseInt(dataMonths) * parseInt(term)
-                        var serviceCharge = parseInt(serviceChargeType) * parseInt(totalMonths)
-                        $('#total_period').val(totalMonths)
+                        var totalDate = parseInt(dataMonths) * parseInt(term)
+                        var totalPeriod = parseInt(numberPeriod) * parseInt(term)
+                        var contractPayment = parseInt(dataPrice) * parseInt(term)
+                        var serviceCharge = parseInt(serviceChargeType) * parseInt(totalDate)
+                        $('#total_date').val(totalDate)
+                        $('#total_period').val(totalPeriod)
                         $('#contract_payment').val(contractPayment)
                         $('#service_charge').val(serviceCharge)
                     })
                     $('#service_charge_type').on('change', function() {
                         var term = $('#term').val()
                         var serviceChargeType = $('#service_charge_type').val()
-                        console.log(serviceChargeType)
-                        var totalMonths = parseInt(dataMonths) * parseInt(term)
-                        var serviceCharge = parseInt(serviceChargeType) * parseInt(totalMonths)
+                        // console.log(serviceChargeType)
+                        var totalDate = parseInt(dataMonths) * parseInt(term)
+                        var serviceCharge = parseInt(serviceChargeType) * parseInt(totalDate)
                         $('#service_charge').val(serviceCharge)
                     })
                 })
@@ -890,7 +902,7 @@
                 //show atau hide inputan kode booking
                 $(function() {
                     $('#input_booking_code').hide();
-                    $('#booking_status').on('change', function() {
+                    $('#is_booking').on('change', function() {
                         // console.log($(this).val());
                         if ($(this).val() == 1) {
                             $('#input_booking_code').show();

@@ -8,6 +8,7 @@ use App\Models\Service;
 use App\Models\Building;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Approval;
 use App\Models\Contract;
 
 class ContractController extends Controller
@@ -48,7 +49,7 @@ class ContractController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'booking_status' => ['required'],
+            'is_booking' => ['required'],
             'building' => ['required'],
             'floor' => ['required'],
             'room_id' => ['required'],
@@ -74,24 +75,30 @@ class ContractController extends Controller
         ]);
 
 
+
         if ($request->time_unit == 'days') {
-            $end_date = date('Y-m-d', strtotime('+'.$request->total_period.' days', strtotime( $request->start_date )));
+            $end_date = date('Y-m-d', strtotime('+'.$request->total_date.' days', strtotime( $request->start_date )));
+            $total_period = $request->total_period.' Hari';
         } elseif ($request->time_unit == 'weeks') {
-            $end_date = date('Y-m-d', strtotime('+'.$request->total_period.' days', strtotime( $request->start_date )));
+            $end_date = date('Y-m-d', strtotime('+'.$request->total_date.' days', strtotime( $request->start_date )));
+            $total_period = $request->total_period.' Minggu';
         } elseif ($request->time_unit == 'month') {
-            $end_date = date('Y-m-d', strtotime('+'.$request->total_period.' month', strtotime( $request->start_date )));
+            $end_date = date('Y-m-d', strtotime('+'.$request->total_date.' month', strtotime( $request->start_date )));
+            $total_period = $request->total_period.' Bulan';
         } elseif ($request->time_unit == 'year') {
-            $end_date = date('Y-m-d', strtotime('+'.$request->total_period.' year', strtotime( $request->start_date )));
+            $end_date = date('Y-m-d', strtotime('+'.$request->total_date.' year', strtotime( $request->start_date )));
+            $total_period = $request->total_period.' Tahun';
         }
 
         $total_payment = $request->contract_payment + $request->service_charge + $request->additional_service +
                         $request->ppn + $request->contract_deposit + $request->line_deposit + $request->stamp;
 
-        $room = new Contract([
-            'booking_status' => $request->booking_status,
+        $contract = new Contract([
+            'is_booking' => $request->is_booking,
             'booking_code' => $request->booking_code,
             'room_wide' => $request->room_wide,
             'time_period' => $request->time_period,
+            'total_period' => $total_period,
             'term' => $request->term,
             'start_date' => $request->start_date,
             'end_date' => $end_date,
@@ -99,6 +106,7 @@ class ContractController extends Controller
             'contract_payment' => $request->contract_payment,
             'service_charge' => $request->service_charge,
             'ppn_type' => $request->ppn_type,
+            'ppn_option' => $request->ppn_option,
             'ppn' => $request->ppn,
             'contract_deposit' => $request->contract_deposit,
             'line_deposit' => $request->line_deposit,
@@ -111,7 +119,13 @@ class ContractController extends Controller
             'tenant_id' => $request->tenant_id,
             'service_id' => $request->service_id
         ]);
-        $room->save();
+        $contract->save();
+
+        $approval = new Approval([
+            'status' => 'checking',
+            'contract_id' => $contract->id,
+        ]);
+        $approval->save();
 
         return redirect()->route('contracts.index')->with('success', ' Data kontrak sewa berhasil ditambahkan.');
     }
@@ -124,7 +138,8 @@ class ContractController extends Controller
      */
     public function show($id)
     {
-        //
+        $contract = Contract::with(['room.floor.building', 'tenant.user'])->find($id);
+        return view('marketings.contracts.show', compact('contract'));
     }
 
     /**

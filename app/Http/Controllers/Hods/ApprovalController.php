@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Hods;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Contract;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Approval;
 
 class ApprovalController extends Controller
 {
@@ -14,7 +17,9 @@ class ApprovalController extends Controller
      */
     public function index()
     {
-        return view('hods.approvals.index');
+        $contracts = Contract::with(['room.floor.building', 'tenant.user', 'approval'])->withCount('billing')->latest()->paginate(10);
+
+        return view('hods.approvals.index', compact('contracts'));
     }
 
     /**
@@ -35,7 +40,23 @@ class ApprovalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'status' => ['required'],
+            'description' => ['required'],
+            'user_id' => ['required'],
+        ]);
+
+        $approval = Approval::find($request->id);
+        $approval->status = $request->status;
+        $approval->description = $request->description;
+        $approval->user_id = $request->user_id;
+        $approval->update();
+
+        if($request->status == 'approved') {
+            return redirect()->route('approvals.index')->with('success', 'Kontrak Sewa berhasil disetujui.');
+        } elseif ($request->status == 'rejected') {
+            return redirect()->route('approvals.index')->with('danger', 'Kontrak Sewa berhasil ditolak.');
+        }
     }
 
     /**
@@ -46,7 +67,11 @@ class ApprovalController extends Controller
      */
     public function show($id)
     {
-        //
+        $contract = Contract::with(['room.floor.building', 'tenant.user'])->find($id);
+
+        $users = User::role('hod')->get();
+
+        return view('hods.approvals.show', compact('contract', 'users'));
     }
 
     /**
@@ -81,5 +106,12 @@ class ApprovalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createBilling($id)
+    {
+        $contract = Contract::with(['room.floor.building', 'tenant.user'])->find($id);
+
+        return view('hods.billings.create', compact('contract'));
     }
 }

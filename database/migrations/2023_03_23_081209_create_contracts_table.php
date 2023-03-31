@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
-            $table->string('booking_status')->default(0);
+            $table->string('is_booking')->default(0);
             $table->string('booking_code')->nullable();
             $table->integer('room_wide');
             $table->string('time_period');
+            $table->string('total_period');
             $table->integer('term');
             $table->date('start_date');
             $table->date('end_date');
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->integer('contract_payment');
             $table->integer('service_charge');
             $table->string('ppn_type');
+            $table->integer('ppn_option')->default(10);
             $table->integer('ppn');
             $table->integer('contract_deposit');
             $table->integer('line_deposit')->nullable();
@@ -33,7 +35,6 @@ return new class extends Migration
             $table->string('description');
             $table->integer('additional_service')->nullable();
             $table->integer('total_payment');
-            $table->string('status')->default('checking');
             $table->foreignId('room_id')->constrained();
             $table->foreignId('room_position_id')->nullable()->constrained();
             $table->foreignId('tenant_id')->constrained();

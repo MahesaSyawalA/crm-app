@@ -142,6 +142,8 @@
     </div>
     <!-- End Card Info -->
 
+    <x-alert></x-alert>
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -216,14 +218,26 @@
                                         <td>{{ $contract->tenant->company_name }} - {{ $contract->tenant->user->name }}
                                         </td>
                                         <td>
-                                            <span
-                                                class="badge font-size-12 badge-soft-warning">{{ $contract->status }}</span>
+                                            @if ($contract->approval->status->value == 'checking')
+                                                <span
+                                                    class="badge font-size-12 badge-soft-warning">{{ $contract->approval->status->value }}
+                                                </span>
+                                            @elseif ($contract->approval->status->value == 'approved')
+                                                <span
+                                                    class="badge font-size-12 badge-soft-primary">{{ $contract->approval->status->value }}
+                                                </span>
+                                            @elseif ($contract->approval->status->value == 'rejected')
+                                                <span
+                                                    class="badge font-size-12 badge-soft-danger">{{ $contract->approval->status->value }}
+                                                </span>
+                                            @endif
                                         </td>
                                         <td>
                                             <ul class="list-unstyled hstack justify-content-center mb-0 gap-1">
                                                 <li data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="View Detail">
-                                                    <a href="#" class="btn btn-sm btn-primary">
+                                                    <a href="{{ route('contracts.show', $contract->id) }}"
+                                                        class="btn btn-sm btn-primary">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
                                                 </li>

@@ -37,7 +37,7 @@
                         </button>
                     </div>
 
-                    <div class="dropdown d-inline-block">
+                    {{-- <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item noti-icon waves-effect right-bar-toggle"
                             id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
@@ -132,7 +132,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     @auth
                         <div class="dropdown d-inline-block">
